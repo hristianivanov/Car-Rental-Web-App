@@ -34,6 +34,7 @@
                     throw new InvalidOperationException($"No interface is provided for the service with name: {implementationType.Name}");
                 }
 
+                //TODO: see if that logic works and whether it need it ?
                 if (implementationType.Name.StartsWith("IImage"))
                 {
                     services.AddTransient(serviceType, implementationType);

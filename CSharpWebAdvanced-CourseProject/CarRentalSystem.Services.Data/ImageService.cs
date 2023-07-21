@@ -124,8 +124,6 @@ namespace CarRentalSystem.Services.Data
 
 			var memoryStream = new MemoryStream();
 
-
-
 			await image.SaveAsJpegAsync(memoryStream, new JpegEncoder()
 			{
 				Quality = 75
