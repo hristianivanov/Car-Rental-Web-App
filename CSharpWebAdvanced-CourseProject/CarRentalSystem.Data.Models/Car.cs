@@ -49,7 +49,7 @@
         //1 to 5
         // cannot be negative number
         [MaxLength(SafetyMaxValue)]
-		public byte Safety { get; set; }
+		public byte? Safety { get; set; }
 
         [MaxLength(PassengerSeatsMaxValue)]
         public byte PassengerSeats { get; set; }
