@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarRentalSystem.Data.Migrations
 {
-    public partial class testing1 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,22 +49,6 @@ namespace CarRentalSystem.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Colors", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImageData",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OriginalFileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OriginalType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OriginalContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    ThumbnailContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    FullscreenContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImageData", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -298,6 +282,29 @@ namespace CarRentalSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ImageData",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OriginalFileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OriginalType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OriginalContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ThumbnailContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    FullscreenContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    CarId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImageData", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ImageData_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rentals",
                 columns: table => new
                 {
@@ -405,6 +412,11 @@ namespace CarRentalSystem.Data.Migrations
                 name: "IX_CustomersRentals_RentalId",
                 table: "CustomersRentals",
                 column: "RentalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImageData_CarId",
+                table: "ImageData",
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rentals_CarId",

@@ -13,9 +13,9 @@
         {
             this.CarColors = new HashSet<CarColors>();
             this.Rentals = new HashSet<Rental>();
+            this.CarImages = new HashSet<ImageData>();
         }
 
-		//TODO: think of sensitive data in entity models changed them in GUID
 		[Key]
         public int Id { get; set; }
 
@@ -53,10 +53,9 @@
 
         [MaxLength(PassengerSeatsMaxValue)]
         public byte PassengerSeats { get; set; }
-
-        //TODO: think of how you store car photos
-        //public string[] ImageUrls { get; set; }
+        
         public virtual ICollection<Rental> Rentals { get; set; }
         public virtual ICollection<CarColors> CarColors { get; set; }
+        public virtual ICollection<ImageData> CarImages { get; set; }
     }
 }

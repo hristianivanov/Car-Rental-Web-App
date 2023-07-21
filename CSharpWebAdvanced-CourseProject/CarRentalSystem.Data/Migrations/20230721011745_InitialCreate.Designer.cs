@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentalSystem.Data.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    [Migration("20230721005858_testing1")]
-    partial class testing1
+    [Migration("20230721011745_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -276,6 +276,9 @@ namespace CarRentalSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("FullscreenContent")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -297,6 +300,8 @@ namespace CarRentalSystem.Data.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.ToTable("ImageData");
                 });
@@ -554,6 +559,17 @@ namespace CarRentalSystem.Data.Migrations
                     b.Navigation("Rental");
                 });
 
+            modelBuilder.Entity("CarRentalSystem.Data.Models.ImageData", b =>
+                {
+                    b.HasOne("CarRentalSystem.Data.Models.Car", "Car")
+                        .WithMany("CarImages")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("CarRentalSystem.Data.Models.Rental", b =>
                 {
                     b.HasOne("CarRentalSystem.Data.Models.Car", "Car")
@@ -631,6 +647,8 @@ namespace CarRentalSystem.Data.Migrations
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
                     b.Navigation("CarColors");
+
+                    b.Navigation("CarImages");
 
                     b.Navigation("Rentals");
                 });

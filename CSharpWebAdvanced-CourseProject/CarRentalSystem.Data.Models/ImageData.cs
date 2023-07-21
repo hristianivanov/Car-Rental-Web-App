@@ -1,5 +1,7 @@
 ﻿namespace CarRentalSystem.Data.Models
 {
+	using System.ComponentModel.DataAnnotations.Schema;
+
 	public class ImageData
 	{
         public ImageData()
@@ -15,8 +17,8 @@
         public byte[] ThumbnailContent { get; set; }
         public byte[] FullscreenContent { get; set; }
 
-        //public string UserId { get; set; }
-        //public int PostId { get; set; }
-        //public int ArticleId { get; set; }
+        [ForeignKey(nameof(Car))]
+        public int CarId { get; set; }
+        public Car Car { get; set; }
     }
 }
