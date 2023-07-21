@@ -4,9 +4,9 @@ namespace CarRentalSystem.Web
 
     using Data;
     using Data.Models;
-    using Infrastructure.Extensions;
-    using CarRentalSystem.Services.Data.Interfaces;
-	using CarRentalSystem.Services.Data;
+
+    using Services.Data.Interfaces;
+	using Services.Data;
 
 	public class Program
     {
@@ -39,6 +39,7 @@ namespace CarRentalSystem.Web
             builder.Services.AddTransient<IImageService, ImageService>();
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 

@@ -17,35 +17,10 @@ namespace CarRentalSystem.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "6.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CarRentalSystem.Data.Models.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Town")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
@@ -269,9 +244,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -327,8 +299,6 @@ namespace CarRentalSystem.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -653,17 +623,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("CarRentalSystem.Data.Models.Customer", b =>
-                {
-                    b.HasOne("CarRentalSystem.Data.Models.Address", "Address")
-                        .WithMany("Customers")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-                });
-
             modelBuilder.Entity("CarRentalSystem.Data.Models.CustomerRentals", b =>
                 {
                     b.HasOne("CarRentalSystem.Data.Models.Customer", "Customer")
@@ -754,11 +713,6 @@ namespace CarRentalSystem.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CarRentalSystem.Data.Models.Address", b =>
-                {
-                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>

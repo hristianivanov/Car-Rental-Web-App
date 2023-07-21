@@ -12,42 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentalSystem.Data.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    [Migration("20230721125205_SeedDataAndMadeSafetyCanBeNull")]
-    partial class SeedDataAndMadeSafetyCanBeNull
+    [Migration("20230721232207_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "6.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CarRentalSystem.Data.Models.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Town")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
@@ -109,62 +84,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.HasIndex("MakeId");
 
                     b.ToTable("Cars");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Acceleration = 2.8999999999999999,
-                            BodyType = 3,
-                            Consumption = 20.199999999999999,
-                            FuelAmount = (byte)0,
-                            HorsePower = 637,
-                            MakeId = 3,
-                            Mileage = 5000L,
-                            Model = "RS e-tron GT",
-                            PassengerSeats = (byte)5,
-                            Range = 298,
-                            Safety = (byte)5,
-                            TopSpeed = 155,
-                            Transmission = 1,
-                            Year = 2021
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Acceleration = 6.2000000000000002,
-                            BodyType = 4,
-                            Consumption = 6.2000000000000002,
-                            FuelAmount = (byte)0,
-                            HorsePower = 261,
-                            MakeId = 3,
-                            Mileage = 450000L,
-                            Model = "A5 SB basic",
-                            PassengerSeats = (byte)5,
-                            Range = 520,
-                            Safety = (byte)4,
-                            TopSpeed = 126,
-                            Transmission = 1,
-                            Year = 2013
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Acceleration = 5.5,
-                            BodyType = 1,
-                            Consumption = 7.0999999999999996,
-                            FuelAmount = (byte)0,
-                            HorsePower = 340,
-                            MakeId = 4,
-                            Mileage = 53000L,
-                            Model = "X6 40d",
-                            PassengerSeats = (byte)5,
-                            Range = 704,
-                            Safety = (byte)4,
-                            TopSpeed = 147,
-                            Transmission = 1,
-                            Year = 2012
-                        });
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.CarColors", b =>
@@ -203,38 +122,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ImageUrl = "https://cdn.nwi-ms.com/media/bg/A/mc/F83RJ7WT/color/T9T9.png",
-                            Name = "Ibis White"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ImageUrl = "https://cdn.nwi-ms.com/media/bg/A/mc/F83RJ7WT/color/6Y6Y.png",
-                            Name = "Daytona Grey Pearl effect"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ImageUrl = "https://cdn.nwi-ms.com/media/bg/A/mc/F83RJ7WT/color/9W9W.png",
-                            Name = "Ascari Blue Metallic"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ImageUrl = "https://cdn.nwi-ms.com/media/bg/A/mc/F83RJ7WT/color/Y1Y1.png",
-                            Name = "Tango Red Metallic"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ImageUrl = "https://cdn.nwi-ms.com/media/bg/A/mc/F83RJ7WT/color/V0V0.png",
-                            Name = "Tactics Green Metallic"
-                        });
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Contact", b =>
@@ -270,9 +157,6 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -329,8 +213,6 @@ namespace CarRentalSystem.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -414,44 +296,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Makes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Acura",
-                            NewInnovation = "IntelliCruise"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Alfa Romeo",
-                            NewInnovation = "Active Aero Splitter"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Audi",
-                            NewInnovation = "Virtual Cockpit Plus"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "BMW",
-                            NewInnovation = "Gesture Control 2.0"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Bentley",
-                            NewInnovation = "Self-Leveling Air Suspension"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Ferrari",
-                            NewInnovation = "Side Slip Control"
-                        });
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Rental", b =>
@@ -655,17 +499,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("CarRentalSystem.Data.Models.Customer", b =>
-                {
-                    b.HasOne("CarRentalSystem.Data.Models.Address", "Address")
-                        .WithMany("Customers")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-                });
-
             modelBuilder.Entity("CarRentalSystem.Data.Models.CustomerRentals", b =>
                 {
                     b.HasOne("CarRentalSystem.Data.Models.Customer", "Customer")
@@ -756,11 +589,6 @@ namespace CarRentalSystem.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CarRentalSystem.Data.Models.Address", b =>
-                {
-                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>

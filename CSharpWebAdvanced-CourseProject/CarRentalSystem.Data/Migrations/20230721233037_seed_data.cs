@@ -4,20 +4,10 @@
 
 namespace CarRentalSystem.Data.Migrations
 {
-    public partial class SeedDataAndMadeSafetyCanBeNull : Migration
+    public partial class seed_data : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<byte>(
-                name: "Safety",
-                table: "Cars",
-                type: "tinyint",
-                maxLength: 5,
-                nullable: true,
-                oldClrType: typeof(byte),
-                oldType: "tinyint",
-                oldMaxLength: 5);
-
             migrationBuilder.InsertData(
                 table: "Colors",
                 columns: new[] { "Id", "ImageUrl", "Name" },
@@ -130,18 +120,6 @@ namespace CarRentalSystem.Data.Migrations
                 table: "Makes",
                 keyColumn: "Id",
                 keyValue: 4);
-
-            migrationBuilder.AlterColumn<byte>(
-                name: "Safety",
-                table: "Cars",
-                type: "tinyint",
-                maxLength: 5,
-                nullable: false,
-                defaultValue: (byte)0,
-                oldClrType: typeof(byte),
-                oldType: "tinyint",
-                oldMaxLength: 5,
-                oldNullable: true);
         }
     }
 }

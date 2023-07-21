@@ -18,7 +18,6 @@
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<CustomerRentals> CustomersRentals { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<ImageData> ImageData { get; set; }
 		#endregion
 
@@ -37,6 +36,8 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+			base.OnModelCreating(modelBuilder);
+
 			modelBuilder.Entity<CarColors>()
 				.HasKey(cc => new { cc.CarId, cc.ColorId });
 
@@ -44,13 +45,12 @@
 				.HasKey(cr => new { cr.CustomerId, cr.RentalId });
 
 			Assembly configAssembly = Assembly.GetAssembly(typeof(CarRentingDbContext)) ??
-			                          Assembly.GetExecutingAssembly();
+									  Assembly.GetExecutingAssembly();
 
 			modelBuilder.ApplyConfigurationsFromAssembly(configAssembly);
 
-			base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<CarColors>()
+			//modelBuilder.Entity<CarColors>()
 			//	.HasOne(cc => cc.Car)
 			//	.WithMany(c => c.CarColors)
 			//	.HasForeignKey(cc => cc.CarId);
@@ -69,7 +69,7 @@
 			//	.HasOne(cr => cr.Rental)
 			//	.WithMany(r => r.CustomerRentals)
 			//	.HasForeignKey(cr => cr.RentalId);
-        }
+		}
 
     }
 }
