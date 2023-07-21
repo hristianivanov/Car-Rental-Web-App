@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarRentalSystem.Common\CarRentalSystem.Common.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Data.Models\CarRentalSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Data\CarRentalSystem.Data.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.WebViewModels\CarRentalSystem.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

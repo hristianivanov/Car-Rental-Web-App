@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-CarRentalSystem.Web-ec7226e8-1689-47b5-8a18-170fec9d5d3a</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarRentalSystem.Common\CarRentalSystem.Common.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Data.Models\CarRentalSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Data\CarRentalSystem.Data.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Services.Data\CarRentalSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Web.Infrastructure\CarRentalSystem.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.WebViewModels\CarRentalSystem.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
