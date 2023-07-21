@@ -17,6 +17,7 @@
         [Required, MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
+        // Maybe it's temporarily until I decide how to get the photos
         [Required, MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; }
 

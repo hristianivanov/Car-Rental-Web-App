@@ -5,10 +5,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-	using Microsoft.EntityFrameworkCore.Query.Internal;
 	using Models;
 
-    public class CarRentingDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+    public class CarRentingDbContext : IdentityDbContext<Customer, IdentityRole<Guid>, Guid>
     {
 
         public DbSet<Car> Cars { get; set; }
@@ -17,7 +16,6 @@
         public DbSet<Make> Makes { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<CustomerRentals> CustomersRentals { get; set; }
-        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<ImageData> ImageData { get; set; }

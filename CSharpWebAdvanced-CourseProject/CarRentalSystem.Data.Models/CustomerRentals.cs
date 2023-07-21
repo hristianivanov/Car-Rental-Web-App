@@ -6,7 +6,7 @@
     {
         [ForeignKey(nameof(Customer))]
         public Guid CustomerId { get; set; }
-        public virtual ApplicationUser Customer { get; set; } = null!;
+        public virtual Customer Customer { get; set; } = null!;
 
         [ForeignKey(nameof(Rental))]
         public Guid RentalId { get; set; }

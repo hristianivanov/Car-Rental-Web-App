@@ -9,7 +9,7 @@
         public Address()
         {
             this.Id = Guid.NewGuid();
-            this.Customers = new HashSet<ApplicationUser>();
+            this.Customers = new HashSet<Customer>();
         }
 
         [Key]
@@ -23,6 +23,6 @@
         [Required, MaxLength(ZipMaxLength)]
         public string ZIP { get; set; } = null!;
 
-        public virtual ICollection<ApplicationUser> Customers { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

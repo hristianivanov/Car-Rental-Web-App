@@ -20,7 +20,7 @@ namespace CarRentalSystem.Web
             builder.Services.AddDbContext<CarRentingDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+            builder.Services.AddDefaultIdentity<Customer>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount =
                         builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
