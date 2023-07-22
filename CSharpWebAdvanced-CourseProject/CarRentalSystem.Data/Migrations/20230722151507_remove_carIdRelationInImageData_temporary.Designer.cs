@@ -4,6 +4,7 @@ using CarRentalSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentalSystem.Data.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    partial class CarRentingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230722151507_remove_carIdRelationInImageData_temporary")]
+    partial class remove_carIdRelationInImageData_temporary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,6 +243,9 @@ namespace CarRentalSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("FullscreenContent")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -262,6 +267,8 @@ namespace CarRentalSystem.Data.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.ToTable("ImageData");
                 });
@@ -618,6 +625,13 @@ namespace CarRentalSystem.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CarRentalSystem.Data.Models.ImageData", b =>
+                {
+                    b.HasOne("CarRentalSystem.Data.Models.Car", null)
+                        .WithMany("CarImages")
+                        .HasForeignKey("CarId");
+                });
+
             modelBuilder.Entity("CarRentalSystem.Data.Models.Rental", b =>
                 {
                     b.HasOne("CarRentalSystem.Data.Models.Car", "Car")
@@ -702,6 +716,8 @@ namespace CarRentalSystem.Data.Migrations
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
                     b.Navigation("CarColors");
+
+                    b.Navigation("CarImages");
 
                     b.Navigation("Rentals");
                 });

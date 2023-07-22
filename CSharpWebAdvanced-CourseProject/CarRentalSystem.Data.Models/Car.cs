@@ -13,7 +13,7 @@
         {
             this.CarColors = new HashSet<CarColors>();
             this.Rentals = new HashSet<Rental>();
-            this.CarImages = new HashSet<ImageData>();
+           // this.CarImages = new HashSet<ImageData>();
         }
 
 		[Key]
@@ -56,6 +56,6 @@
         
         public virtual ICollection<Rental> Rentals { get; set; }
         public virtual ICollection<CarColors> CarColors { get; set; }
-        public virtual ICollection<ImageData> CarImages { get; set; }
+        //public virtual ICollection<ImageData> CarImages { get; set; }
     }
 }

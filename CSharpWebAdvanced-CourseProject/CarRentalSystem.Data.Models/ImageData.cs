@@ -17,8 +17,8 @@
         public byte[] ThumbnailContent { get; set; }
         public byte[] FullscreenContent { get; set; }
 
-        [ForeignKey(nameof(Car))]
-        public int CarId { get; set; }
-        public Car Car { get; set; }
+        //[ForeignKey(nameof(Car))]
+        //public int CarId { get; set; }
+        //public Car Car { get; set; }
     }
 }
