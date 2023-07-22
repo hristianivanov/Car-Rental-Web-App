@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using CarRentalSystem.Data.Models
-@inject SignInManager<Customer> SignInManager
-@inject UserManager<Customer> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
 	@if (SignInManager.IsSignedIn(User))

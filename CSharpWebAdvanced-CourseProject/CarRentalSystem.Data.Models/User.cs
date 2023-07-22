@@ -6,12 +6,12 @@
 
     using static Common.EntityValidationConstants.Customer;
 
-	public class Customer : IdentityUser<Guid>
+	public class User : IdentityUser<Guid>
     {
-		public Customer()
+		public User()
 		{
 			this.Contacts = new HashSet<Contact>();
-			this.CustomerRentals = new HashSet<CustomerRentals>();
+			this.UserRentals = new HashSet<UserRentals>();
 		}
 
 		[Required, MaxLength(FirstNameMaxLength)]
@@ -21,6 +21,6 @@
 		public string LastName { get; set; } = null!;
 
 		public virtual ICollection<Contact> Contacts { get; set; }
-		public virtual ICollection<CustomerRentals> CustomerRentals { get; set; }
+		public virtual ICollection<UserRentals> UserRentals { get; set; }
 	}
 }

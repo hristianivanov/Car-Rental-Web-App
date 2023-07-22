@@ -8,7 +8,7 @@
         public Rental()
         {
             this.Id = Guid.NewGuid();
-            this.CustomerRentals = new HashSet<CustomerRentals>();
+            this.UserRentals = new HashSet<UserRentals>();
         }
 
         [Key]
@@ -21,6 +21,6 @@
         public int CarId { get; set; }
         public virtual Car Car { get; set; } = null!;
 
-        public virtual ICollection<CustomerRentals> CustomerRentals { get; set; }
+        public virtual ICollection<UserRentals> UserRentals { get; set; }
     }
 }

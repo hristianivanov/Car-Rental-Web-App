@@ -2,11 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class CustomerRentals
+    public class UserRentals
     {
-        [ForeignKey(nameof(Customer))]
+        [ForeignKey(nameof(User))]
         public Guid CustomerId { get; set; }
-        public virtual Customer Customer { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
 
         [ForeignKey(nameof(Rental))]
         public Guid RentalId { get; set; }
