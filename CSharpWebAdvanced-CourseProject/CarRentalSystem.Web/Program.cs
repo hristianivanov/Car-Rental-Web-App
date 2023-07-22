@@ -7,8 +7,9 @@ namespace CarRentalSystem.Web
 
     using Services.Data.Interfaces;
 	using Services.Data;
+    using CarRentalSystem.Web.Infrastructure.ModelBinders;
 
-	public class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -38,7 +39,12 @@ namespace CarRentalSystem.Web
             //builder.Services.AddApplicationServices(typeof(ICarService));
             builder.Services.AddTransient<IImageService, ImageService>();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
             //builder.Services.AddRazorPages();
 
             var app = builder.Build();

@@ -20,8 +20,8 @@
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<ImageData> ImageData { get; set; }
 
-		// For now I will allow cascade deleting! If it's necessary I will prevent the cascade deletion...
-		//how to add admin through db UI dbo.AspNetRoles, dbo.AspNetUserRoles
+		// TODO: For now I will allow cascade deleting! If it's necessary I will prevent the cascade deletion...
+		// TODO: how to add admin through db UI dbo.AspNetRoles, dbo.AspNetUserRoles
 		public CarRentingDbContext(DbContextOptions<CarRentingDbContext> options)
             : base(options)
         {
@@ -42,8 +42,8 @@
 
 			modelBuilder.ApplyConfigurationsFromAssembly(configAssembly);
 
-			//TODO: if u need to restrict sensitive data do it in entity configuration classes
-			// but if the data is sensitive the user can have the option to delete the sensitive data about him
+			// TODO: if u need to restrict sensitive data do it in entity configuration classes
+			// TODO:but if the data is sensitive the user can have the option to delete the sensitive data about him
 
             //modelBuilder.Entity<CarColors>()
 			//	.HasOne(cc => cc.Car)
