@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\img-src\**" />
+    <Content Remove="wwwroot\img-src\**" />
+    <EmbeddedResource Remove="wwwroot\img-src\**" />
+    <None Remove="wwwroot\img-src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.20" />

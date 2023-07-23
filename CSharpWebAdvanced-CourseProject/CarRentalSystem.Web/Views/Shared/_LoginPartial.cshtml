@@ -4,13 +4,13 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<ul class="navbar-nav">
+<ul class="login-nav mb-2 mb-lg-0" style="list-style: none; display: flex; margin-left: 18%; justify-content: end; padding: 0;">
 	@if (SignInManager.IsSignedIn(User))
 	{
 		var signedInUser = await UserManager.GetUserAsync(User);
 
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @signedInUser.FirstName</a>
+			<a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @signedInUser.FirstName</a>
 		</li>
 		<li class="nav-item">
 			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -21,10 +21,10 @@
 	else
 	{
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+			<a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+			<a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
 		</li>
 	}
 </ul>
