@@ -92,7 +92,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasIndex("MakeId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
 
                     b.HasData(
                         new
@@ -235,7 +235,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.ToTable("CarsColors");
+                    b.ToTable("CarsColors", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Color", b =>
@@ -258,7 +258,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
 
                     b.HasData(
                         new
@@ -315,7 +315,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Make", b =>
@@ -337,7 +337,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Makes");
+                    b.ToTable("Makes", (string)null);
 
                     b.HasData(
                         new
@@ -403,7 +403,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Rentals");
+                    b.ToTable("Rentals", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.User", b =>
@@ -494,7 +494,7 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasIndex("RentalId");
 
-                    b.ToTable("UsersRentals");
+                    b.ToTable("UsersRentals", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
