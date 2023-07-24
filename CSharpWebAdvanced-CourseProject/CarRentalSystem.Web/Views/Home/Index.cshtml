@@ -13,3 +13,8 @@
 		</div>
 	</div>
 </header>
+
+<partial name="_NotificationsPartial" />
+@{
+	await Html.RenderPartialAsync("~/Views/Shared/_RentalSection.cshtml");
+}
