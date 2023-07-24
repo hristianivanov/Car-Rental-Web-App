@@ -9,12 +9,17 @@
 		[AllowAnonymous]
 		public async Task<IActionResult> All()
 		{
-			return View();
+			return this.View();
 		}
 
 		public async Task<IActionResult> Add()
 		{
-			return View();
+			return this.View();
+		}
+
+		public async Task<IActionResult> Detail(int carId)
+		{
+			return this.View();
 		}
     }
 }
