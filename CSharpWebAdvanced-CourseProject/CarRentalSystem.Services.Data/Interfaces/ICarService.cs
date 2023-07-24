@@ -1,6 +1,10 @@
 ﻿namespace CarRentalSystem.Services.Data.Interfaces
 {
-    public interface ICarService
-    {
-    }
+	using Web.ViewModels.Home;
+
+	public interface ICarService
+	{
+		Task<IEnumerable<IndexViewModel>> LastSixCarsAsync();
+		Task<IEnumerable<IndexViewModel>> LastFourCarsAsync();
+	}
 }

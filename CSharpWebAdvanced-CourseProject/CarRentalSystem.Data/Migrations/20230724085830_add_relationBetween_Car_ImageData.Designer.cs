@@ -4,6 +4,7 @@ using CarRentalSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentalSystem.Data.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    partial class CarRentingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230724085830_add_relationBetween_Car_ImageData")]
+    partial class add_relationBetween_Car_ImageData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,19 +42,11 @@ namespace CarRentalSystem.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("float");
 
-                    b.Property<int>("EngineType")
-                        .HasColumnType("int");
-
                     b.Property<byte>("FuelAmount")
                         .HasColumnType("tinyint");
 
                     b.Property<int>("HorsePower")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<int>("MakeId")
                         .HasColumnType("int");
@@ -68,9 +62,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.Property<byte>("PassengerSeats")
                         .HasMaxLength(8)
                         .HasColumnType("tinyint");
-
-                    b.Property<decimal>("PricePerDay")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Range")
                         .HasColumnType("int");
@@ -101,15 +92,12 @@ namespace CarRentalSystem.Data.Migrations
                             Acceleration = 2.8999999999999999,
                             BodyType = 3,
                             Consumption = 20.199999999999999,
-                            EngineType = 2,
                             FuelAmount = (byte)0,
                             HorsePower = 637,
-                            ImageUrl = "https://www.carpixel.net/w/fb81ff032f94a62ab3734238828ca57c/audi-rs-e-tron-gt-car-wallpaper-103179.jpg",
                             MakeId = 3,
                             Mileage = 5000L,
                             Model = "RS e-tron GT",
                             PassengerSeats = (byte)5,
-                            PricePerDay = 420m,
                             Range = 298,
                             Safety = (byte)5,
                             TopSpeed = 155,
@@ -122,15 +110,12 @@ namespace CarRentalSystem.Data.Migrations
                             Acceleration = 6.2000000000000002,
                             BodyType = 4,
                             Consumption = 6.2000000000000002,
-                            EngineType = 1,
                             FuelAmount = (byte)0,
                             HorsePower = 261,
-                            ImageUrl = "https://imagizer.imageshack.com/a/img29/5097/gu89.jpg",
                             MakeId = 3,
                             Mileage = 450000L,
                             Model = "A5 SB basic",
                             PassengerSeats = (byte)5,
-                            PricePerDay = 329m,
                             Range = 520,
                             Safety = (byte)4,
                             TopSpeed = 126,
@@ -143,83 +128,17 @@ namespace CarRentalSystem.Data.Migrations
                             Acceleration = 5.5,
                             BodyType = 1,
                             Consumption = 7.0999999999999996,
-                            EngineType = 1,
                             FuelAmount = (byte)0,
                             HorsePower = 340,
-                            ImageUrl = "https://avatars.mds.yandex.net/get-autoru-vos/5234682/06057d0f4b94a888f5c8112546a31a43/1200x900",
                             MakeId = 4,
                             Mileage = 53000L,
                             Model = "X6 40d",
                             PassengerSeats = (byte)5,
-                            PricePerDay = 412m,
                             Range = 704,
                             Safety = (byte)4,
                             TopSpeed = 147,
                             Transmission = 1,
                             Year = 2012
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Acceleration = 3.6000000000000001,
-                            BodyType = 18,
-                            Consumption = 18.300000000000001,
-                            EngineType = 1,
-                            FuelAmount = (byte)0,
-                            HorsePower = 483,
-                            ImageUrl = "https://photos.carspecs.us/d389399428d2ba5d065c5b6f59aaf3771a41ca4b-2000.jpg",
-                            MakeId = 6,
-                            Mileage = 230532L,
-                            Model = "F430",
-                            PassengerSeats = (byte)2,
-                            PricePerDay = 620m,
-                            Range = 323,
-                            Safety = (byte)3,
-                            TopSpeed = 196,
-                            Transmission = 1,
-                            Year = 2004
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Acceleration = 5.4000000000000004,
-                            BodyType = 0,
-                            Consumption = 28.5,
-                            EngineType = 1,
-                            FuelAmount = (byte)0,
-                            HorsePower = 280,
-                            ImageUrl = "https://yandex-images.clstorage.net/e9YZ9F383/e3049dM4PtiR/48AJY79fj0JYkNVSm-meE7lJbsJRL_EQAcWW2JV-OOBHJ2BVk10QiQJdiHxO8fKyuG6pwiz5nm8PCEny6b7Z1NK0zce-6ioWORWV0qu5v8ZteH8H8WogtCQFEogQHpilMcGSV8QLx09Qqt-L3yTiZ70KPQcpHH25vkgrpF9seWMh0RtA-05t8g9z5_Cqisylaqsv5nI4ELLGtvL_QCnPA6CCMNV0ChQekVq9KB4HYBRvKVmkCxx-qMiI2odeP4uhIhMocsleX3EcQMfjS_j-plgLfQZBq5Mg9jcTn2DZDTDC40FUxYp0vNGoXFsM53B1DykZ1wqN7QlKeBl37VwJcFLiCSLr7c5R3vP0ULlKX4R5-Y9HMXhAspdUYI9yW4_hUsARxzQIJq7xCe-4v-SCVX9omqQI_r7I2iraxu_c6XBRkHjB-Uz_833jhODaqW_HSMitx4PbcSF0lFLd8NhM80Gg8MaGihVNAHnP-4xEwCZua5j2ec_8KsrI2qUtjJiBEFDI4qld3IO-slQiyvhuxZkKf8fxyuGRNuSQjxB7jBJiYfCW5OqljSFY7bmP5XDEvnnpJJrsDPsKeTnl3944U3HiaVCrf85SzABEcznbTuf6mH32gXly8BZmkX8wqH7BouHiZaWI9dzBqH_anRXgNp0622QbHExauspot9wMu-PCckjyqexdYu1QJgILKe9E2jh9FzLZQIC0dtKPY4ksIkCSQiVUOyVcYunsSx6mUYXvSRs1Kq8_Gis5WqZcTjhTQeIqAjkuHmI9QkYiashPVmk6PhZT-kFTBMXi3KGpnyGQg3L1VzrE_mJrjygs9jGmjdiYpriuTCr4edjW7o4a0OLQWmBbzi_R_IHWUfqp7hQ7yU6HgTox8Ce1gIyDe76Q00MSJPZalN7CGv5L7KQAlI4q2XaanoxoKnopl6yf-zMwkUhwq-5MU36iF9Cq6P2nmJtfRnH7EAL1t0Lfc",
-                            MakeId = 2,
-                            Mileage = 623142L,
-                            Model = "Giulia",
-                            PassengerSeats = (byte)5,
-                            PricePerDay = 205m,
-                            Range = 464,
-                            Safety = (byte)4,
-                            TopSpeed = 191,
-                            Transmission = 0,
-                            Year = 2018
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Acceleration = 4.5,
-                            BodyType = 0,
-                            Consumption = 22.699999999999999,
-                            EngineType = 1,
-                            FuelAmount = (byte)0,
-                            HorsePower = 500,
-                            ImageUrl = "https://sun9-46.userapi.com/impg/jGF9KYUrkOJ81ExMSYNNE4L7fh4GD5Ryoic6zA/Iy6iwscdEg0.jpg?size=1920x1280&quality=95&sign=637909ae3d1112f8306502533c876ba3&c_uniq_tag=3K2cQHcDOmacj7mo5PNx7wX_XCN3EOQggqEfBc4h6iI&type=album",
-                            MakeId = 4,
-                            Mileage = 575531L,
-                            Model = "e60 M5",
-                            PassengerSeats = (byte)5,
-                            PricePerDay = 130m,
-                            Range = 293,
-                            Safety = (byte)3,
-                            TopSpeed = 190,
-                            Transmission = 1,
-                            Year = 2005
                         });
                 });
 
@@ -318,6 +237,42 @@ namespace CarRentalSystem.Data.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("CarRentalSystem.Data.Models.ImageData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("FullscreenContent")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("OriginalContent")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OriginalType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ThumbnailContent")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("ImageData");
+                });
+
             modelBuilder.Entity("CarRentalSystem.Data.Models.Make", b =>
                 {
                     b.Property<int>("Id")
@@ -386,9 +341,6 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Deposit")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -673,6 +625,17 @@ namespace CarRentalSystem.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CarRentalSystem.Data.Models.ImageData", b =>
+                {
+                    b.HasOne("CarRentalSystem.Data.Models.Car", "Car")
+                        .WithMany("CarImages")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("CarRentalSystem.Data.Models.Rental", b =>
                 {
                     b.HasOne("CarRentalSystem.Data.Models.Car", "Car")
@@ -757,6 +720,8 @@ namespace CarRentalSystem.Data.Migrations
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
                     b.Navigation("CarColors");
+
+                    b.Navigation("CarImages");
 
                     b.Navigation("Rentals");
                 });

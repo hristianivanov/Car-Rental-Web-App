@@ -18,7 +18,6 @@
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<UserRentals> UsersRentals { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<ImageData> ImageData { get; set; }
 
 		// TODO: For now I will allow cascade deleting! If it's necessary I will prevent the cascade deletion...
 		// TODO: how to add admin through db UI dbo.AspNetRoles, dbo.AspNetUserRoles

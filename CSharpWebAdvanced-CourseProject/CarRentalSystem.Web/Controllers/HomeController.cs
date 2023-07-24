@@ -1,21 +1,24 @@
 ﻿namespace CarRentalSystem.Web.Controllers
 {
 	using System.Diagnostics;
-
+	using CarRentalSystem.Services.Data.Interfaces;
 	using Microsoft.AspNetCore.Mvc;
 
 	using ViewModels.Home;
 
 	public class HomeController : Controller
 	{
-		public HomeController()
-		{
+		private readonly ICarService _carService;
 
+		public HomeController(ICarService carService)
+		{
+			_carService = carService;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			var viewModel = await this._carService.LastSixCarsAsync();
+			return View(viewModel);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

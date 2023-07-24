@@ -12,7 +12,10 @@
 
 		public static class Car
 		{
-			public const int ModelMinLength = 2;
+			//temporary
+			public const int ImageUrlMaxLength = 2048;
+
+            public const int ModelMinLength = 2;
 			public const int ModelMaxLength = 50;
 
 			public const int ConsumptionMinValue = 0;

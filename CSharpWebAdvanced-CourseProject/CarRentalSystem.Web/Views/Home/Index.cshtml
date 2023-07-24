@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<IndexViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
 <header class="masthead">
 	<div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
 		<div class="d-flex justify-content-center">
@@ -13,8 +16,7 @@
 		</div>
 	</div>
 </header>
-
-<partial name="_NotificationsPartial" />
 @{
-	await Html.RenderPartialAsync("~/Views/Shared/_RentalSection.cshtml");
+	await Html.RenderPartialAsync("~/Views/Shared/_RentalSection.cshtml", Model);
 }
+<partial name="_NotificationsPartial" />

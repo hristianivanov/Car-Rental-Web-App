@@ -194,10 +194,14 @@ a:hover {
   border: 2px solid var(--accent-color);
   --bs-btn-color: var(--body-text-color);
   --bs-btn-border-color: var(--accent-color);
+    /* ReSharper disable CssNotResolved */
   --bs-btn-hover-color: var(--grey-color);
+    /* ReSharper restore CssNotResolved */
   --bs-btn-hover-bg: var(--accent-color);
   --bs-btn-hover-border-color: var(--accent-color);
+    /* ReSharper disable CssNotResolved */
   --bs-btn-active-color: var(--grey-color);
+    /* ReSharper restore CssNotResolved */
   --bs-btn-active-bg: var(--accent-color);
   --bs-btn-active-border-color: var(--accent-color);
 }
@@ -571,7 +575,9 @@ section#services {
 
 .accordion-button:not(.collapsed) {
   color: var(--body-text-color);
+    /* ReSharper disable CssNotResolved */
   background-color: var(--grey-color);
+    /* ReSharper restore CssNotResolved */
 }
 
 .accordion {

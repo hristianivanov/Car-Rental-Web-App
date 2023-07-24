@@ -1,3 +1,5 @@
+using CarRentalSystem.Web.Infrastructure.Extensions;
+
 namespace CarRentalSystem.Web
 {
     using Microsoft.EntityFrameworkCore;
@@ -36,8 +38,7 @@ namespace CarRentalSystem.Web
                 })
                 .AddEntityFrameworkStores<CarRentingDbContext>();
 
-            //builder.Services.AddApplicationServices(typeof(ICarService));
-            builder.Services.AddTransient<IImageService, ImageService>();
+            builder.Services.AddApplicationServices(typeof(ICarService));
 
             builder.Services
                 .AddControllersWithViews()
