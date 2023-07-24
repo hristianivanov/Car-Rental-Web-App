@@ -37,14 +37,13 @@
 
 			return lastSixCars;
 		}
-
-		public async Task<IEnumerable<IndexViewModel>> LastFourCarsAsync()
+		public async Task<IEnumerable<IndexViewModel>> LastCarsAsync(int count)
 		{
-			IEnumerable<IndexViewModel> lastSixCars = await this._context
+			IEnumerable<IndexViewModel> lastCars = await this._context
 				.Cars
 				.Include(c => c.Make)
 				.OrderByDescending(c => c.Id)
-				.Take(4)
+				.Take(count)
 				.Select(c => new IndexViewModel
 				{
 					Id = c.Id,
@@ -59,7 +58,7 @@
 				})
 				.ToArrayAsync();
 
-			return lastSixCars;
+			return lastCars;
 		}
 	}
 }

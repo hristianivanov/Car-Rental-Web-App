@@ -5,6 +5,6 @@
 	public interface ICarService
 	{
 		Task<IEnumerable<IndexViewModel>> LastSixCarsAsync();
-		Task<IEnumerable<IndexViewModel>> LastFourCarsAsync();
+		Task<IEnumerable<IndexViewModel>> LastCarsAsync(int count);
 	}
 }

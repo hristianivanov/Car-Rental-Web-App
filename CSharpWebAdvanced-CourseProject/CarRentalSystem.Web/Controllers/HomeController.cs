@@ -6,6 +6,8 @@
 
 	using ViewModels.Home;
 
+	using static Common.GeneralApplicationConstants;
+
 	public class HomeController : Controller
 	{
 		private readonly ICarService _carService;
@@ -17,7 +19,8 @@
 
 		public async Task<IActionResult> Index()
 		{
-			var viewModel = await this._carService.LastSixCarsAsync();
+			var viewModel = await this._carService.LastCarsAsync(LastCarsInCarocel);
+
 			return View(viewModel);
 		}
 

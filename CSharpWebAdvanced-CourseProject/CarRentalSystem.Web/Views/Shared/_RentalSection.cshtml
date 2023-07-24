@@ -1,48 +1,48 @@
 ﻿@model IEnumerable<IndexViewModel>
 
 <section id="rental" class="position-relative">
-	<div class="container my-5 py-5">
-		<h2 class=" text-center my-5">cars for <span class="text-primary"> rental </span> </h2>
+    <div class="container my-5 py-5">
+        <h2 class=" text-center my-5">cars for <span class="text-primary"> rental </span> </h2>
 
-		<div class="swiper-button-next rental-swiper-next rental-arrow position-absolute"></div>
-		<div class="swiper-button-prev rental-swiper-prev rental-arrow position-absolute"></div>
+        <div class="swiper-button-next rental-swiper-next rental-arrow position-absolute"></div>
+        <div class="swiper-button-prev rental-swiper-prev rental-arrow position-absolute"></div>
 
-		<div class="swiper rental-swiper mb-5">
-			<div class="swiper-wrapper">
-				@foreach (var car in Model)
-				{
-					<div class="swiper-slide">
-						<div class="card">
-							<img src="@car.ImageUrl" class="card-img-top" alt="...">
-							<div class="card-body p-4">
-								<h4 class="card-title">@car.Make @car.Model</h4>
-								<div class="card-text ">
-									<ul class="d-flex list-unstyled">
-										<li class="rental-list">
-											<p>@car.BodyType</p>
-										</li>
-										<li class="rental-list"> <img src="images/dot.png" class="px-3" alt=""></li>
-										<li class="rental-list"> @car.Transmission</li>
-										<li class="rental-list"> <img src="images/dot.png" class="px-3" alt=""></li>
-										<li class="rental-list"> @car.PassengerSeats Seats</li>
-										<li class="rental-list"> <img src="images/dot.png" class="px-3" alt=""></li>
-										<li class="rental-list"> @car.EngineType </li>
-									</ul>
+        <div class="swiper rental-swiper mb-5">
+	        <div class="swiper-wrapper">
+		        @foreach (var car in Model)
+					{
+						<div class="swiper-slide">
+							<div class="card">
+								<img src="@car.ImageUrl" class="card-img-top" alt="...">
+								<div class="card-body p-4">
+									<h4 class="card-title">@car.Make @car.Model</h4>
+									<div class="card-text ">
+										<ul class="d-flex list-unstyled">
+											<li class="rental-list">
+												<p>@car.BodyType</p>
+											</li>
+											<li class="rental-list"> <img src="images/dot.png" class="px-3" alt=""></li>
+											<li class="rental-list"> @car.Transmission</li>
+											<li class="rental-list"> <img src="images/dot.png" class="px-3" alt=""></li>
+											<li class="rental-list"> @car.PassengerSeats Seats</li>
+											<li class="rental-list"> <img src="images/dot.png" class="px-3" alt=""></li>
+											<li class="rental-list"> @car.EngineType </li>
+										</ul>
+									</div>
+									<hr>
+									<div class="d-flex justify-content-between">
+										<h3 class="pt-2">$@car.PricePerDay <span class="rental-price">/day</span></h3>
+										<button class="btn btn-primary">rent now </button>
+									</div>
+
 								</div>
-								<hr>
-								<div class="d-flex justify-content-between">
-									<h3 class="pt-2">$@car.PricePerDay <span class="rental-price">/day</span></h3>
-									<button class="btn btn-primary">rent now </button>
-								</div>
-
 							</div>
-						</div>
-					</div>
-				}
-			</div>
+						</div>	
+					}
+	        </div>
 
-		</div>
+        </div>
 
-	</div>
+    </div>
 
 </section>
