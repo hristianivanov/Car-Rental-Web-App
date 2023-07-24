@@ -31,7 +31,7 @@
 				TopSpeed = 155,
 				Year = 2021,
 				Consumption = 20.2,
-				ImageUrl = "https://www.carpixel.net/w/fb81ff032f94a62ab3734238828ca57c/audi-rs-e-tron-gt-car-wallpaper-103179.jpg",
+				ImageUrl = "https://www.tuningblog.eu/wp-content/uploads/2022/07/Audi-RS-E-Tron-GT-Vollfolierung-Maxton-Design-Bodykit-Turismo-Wheels-6.jpg",
 				EngineType = EngineType.Electric, 
 				PricePerDay = 420,
 				Range = 298,
