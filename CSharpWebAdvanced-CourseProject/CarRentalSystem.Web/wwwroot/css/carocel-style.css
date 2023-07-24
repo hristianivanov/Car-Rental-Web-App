@@ -1,4 +1,4 @@
-/*
+﻿/*
 Theme Name: GoCar
 Theme URL: 
 Author: TemplatesJungle
@@ -626,4 +626,24 @@ section#action {
 .footer-nav {
   display: flex;
   flex-wrap: wrap;
+}
+
+
+/* Вашите стилове за карусела */
+.swiper-slide {
+    width: 300px; /* Задайте фиксирана ширина на картата */
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Задайте фиксирана височина на картинката */
+}
+
+.card-img-top {
+    border-radius: 10px; /* Задайте стойност за закръгляне на рамката */
 }
