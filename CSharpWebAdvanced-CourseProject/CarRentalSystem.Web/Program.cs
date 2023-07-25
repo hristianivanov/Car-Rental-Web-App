@@ -1,4 +1,3 @@
-using CarRentalSystem.Web.Infrastructure.Extensions;
 
 namespace CarRentalSystem.Web
 {
@@ -8,8 +7,8 @@ namespace CarRentalSystem.Web
     using Data.Models;
 
     using Services.Data.Interfaces;
-	using Services.Data;
-    using CarRentalSystem.Web.Infrastructure.ModelBinders;
+    using Infrastructure.ModelBinders;
+    using Infrastructure.Extensions;
 
     public class Program
     {
@@ -39,7 +38,7 @@ namespace CarRentalSystem.Web
                 .AddEntityFrameworkStores<CarRentingDbContext>();
 
             builder.Services.AddApplicationServices(typeof(ICarService));
-            
+
             builder.Services
                 .AddControllersWithViews()
                 .AddMvcOptions(options =>
