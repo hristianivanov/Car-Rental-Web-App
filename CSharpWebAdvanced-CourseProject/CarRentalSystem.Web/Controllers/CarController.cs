@@ -52,7 +52,7 @@
 		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
             //TODO: check whether the user is admin
-            bool isAdmin = true;
+            bool isAdmin = false;
 
             if (!isAdmin)
             {
@@ -76,8 +76,6 @@
                 formModel.MakeId = make.Id;
             }
 
-
-            //TODO:check whether that gen method work
             if (!IsValidEnumValue(formModel.SelectedBodyType))
             {
                 ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
