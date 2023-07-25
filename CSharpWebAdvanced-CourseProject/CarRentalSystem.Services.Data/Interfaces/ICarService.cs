@@ -7,7 +7,9 @@
 	{
 		Task<IEnumerable<IndexViewModel>> LastSixCarsAsync();
 		Task<IEnumerable<IndexViewModel>> LastCarsAsync(int count);
+		Task<int> CreateAndReturnIdAsync(CarFormModel formModel);
+
 		//Task CreateAsync(CarFormModel formModel);
-  //      Task<int> CreateAndReturnIdAsync(CarFormModel model);
-    }
+		//Task<int> CreateAndReturnIdAsync(CarFormModel model);
+	}
 }

@@ -1,162 +1,111 @@
-﻿@*направих по-малко неща за да може по - лесно да се отркрие грешката*@
-
-@model CarFormModel
-<div class="row">
-	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-		<form method="post">
-			<div class="form-group">
-				<label asp-for="Make"></label>
-				<input asp-for="Make" class="form-control" placeholder="Make...">
-				<span asp-validation-for="Make" class="small text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Model"></label>
-				<input asp-for="Model" class="form-control"
-				       placeholder="Address...">
-				<span asp-validation-for="Model" class="small text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="ImageUrl"></label>
-				<input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
-				<span asp-validation-for="ImageUrl" class="small text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="PricePerDay"></label>
-				<input asp-for="PricePerDay" class="form-control">
-				<span asp-validation-for="PricePerDay" class="small text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="SelectedEngineType"></label>
-				<select asp-for="SelectedEngineType" class="form-control">
-					@foreach (var category in Model.EngineTypes)
-					{
-						<option value="@category">@category.ToString()</option>
-					}
-				</select>
-				<span asp-validation-for="SelectedEngineType" class="small text-danger"></span>
-			</div>
-			<div class="text-center">
-				<input class="btn btn-primary mt-3" type="submit" value="Save" />
-			</div>
-		</form>
-	</div>
-</div>
-
-
-
-
-
-
-
-
-@*@model CarFormModel
+﻿@model CarFormModel
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-8 col-lg-6">
-            <form method="post">
-                <div class="mb-3">
-                    <label asp-for="Make" class="form-label">Make</label>
-                    <input asp-for="Make" class="form-control" placeholder="Make...">
-                    <span asp-validation-for="Make" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Model" class="form-label">Model</label>
-                    <input asp-for="Model" class="form-control" placeholder="Model...">
-                    <span asp-validation-for="Model" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Mileage" class="form-label">Mileage</label>
-                    <input asp-for="Mileage" class="form-control" placeholder="Mileage...">
-                    <span asp-validation-for="Mileage" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Acceleration" class="form-label">Acceleration</label>
-                    <input asp-for="Acceleration" class="form-control" placeholder="Acceleration...">
-                    <span asp-validation-for="Acceleration" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="HorsePower" class="form-label">HorsePower</label>
-                    <input asp-for="HorsePower" class="form-control" placeholder="HorsePower...">
-                    <span asp-validation-for="HorsePower" class="text-danger small"></span>
-                </div>
-	            <div class="mb-3">
-		            <label asp-for="TopSpeed" class="form-label">TopSpeed</label>
-		            <input asp-for="TopSpeed" class="form-control" placeholder="TopSpeed...">
-		            <span asp-validation-for="TopSpeed" class="text-danger small"></span>
-	            </div>
-	            <div class="mb-3">
-                    <label asp-for="PassengerSeats" class="form-label">Passenger Seats...</label>
-                    <input asp-for="PassengerSeats" class="form-control" placeholder="TopSpeed...">
-                    <span asp-validation-for="PassengerSeats" class="text-danger small"></span>
-	            </div>
-                <div class="mb-3">
-                    <label asp-for="Year" class="form-label">Year</label>
-                    <input asp-for="Year" class="form-control" placeholder="Year...">
-                    <span asp-validation-for="Year" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Range" class="form-label">Range</label>
-                    <input asp-for="Range" class="form-control" placeholder="Range...">
-                    <span asp-validation-for="Range" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Safety" class="form-label">Safety</label>
-                    <input asp-for="Safety" class="form-control" placeholder="Safety...">
-                    <span asp-validation-for="Safety" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="ImageUrl" class="form-label">Image URL</label>
-                    <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
-                    <span asp-validation-for="ImageUrl" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="PricePerDay" class="form-label">Daily Price</label>
-                    <input asp-for="PricePerDay" class="form-control">
-                    <span asp-validation-for="PricePerDay" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Consumption" class="form-label">Consumption</label>
-                    <input asp-for="Consumption" class="form-control">
-                    <span asp-validation-for="Consumption" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="SelectedBodyType" class="form-label">Body Type</label>
-                    <select asp-for="SelectedBodyType" class="form-select">
-                        <option value="">Select Body Type</option>
-                        @foreach (var bodyType in Model.BodyTypes)
-                        {
-                            <option value="@bodyType">@bodyType.ToString()</option>
-                        }
-                    </select>
-                    <span asp-validation-for="SelectedBodyType" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="SelectedTransmission" class="form-label">Transmission</label>
-                    <select asp-for="SelectedTransmission" class="form-select">
-                        <option value="">Select Transmission</option>
-                        @foreach (var transmission in Model.Transmissions)
-                        {
-                            <option value="@transmission">@transmission.ToString()</option>
-                        }
-                    </select>
-                    <span asp-validation-for="SelectedTransmission" class="text-danger small"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="SelectedEngineType" class="form-label">Engine Type</label>
-                    <select asp-for="SelectedEngineType" class="form-select">
-                        <option value="">Select Engine Type</option>
-                        @foreach (var engineType in Model.EngineTypes)
-                        {
-                            <option value="@engineType">@engineType.ToString()</option>
-                        }
-                    </select>
-                    <span asp-validation-for="SelectedEngineType" class="text-danger small"></span>
-                </div>
-                <div class="text-center">
-                    <input class="btn btn-primary mt-3" type="submit" value="Save" />
-                </div>
-            </form>
-        </div>
-    </div>
-</div>*@
+	<div class="row justify-content-center">
+		<div class="col-sm-12 col-md-8 col-lg-6">
+			<form asp-controller="Car" asp-action="Add" method="post">
+				<div class="mb-3">
+					<label asp-for="Make" class="form-label">Make</label>
+					<input asp-for="Make" class="form-control" placeholder="Make...">
+					<span asp-validation-for="Make" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Model" class="form-label">Model</label>
+					<input asp-for="Model" class="form-control" placeholder="Model...">
+					<span asp-validation-for="Model" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Mileage" class="form-label">Mileage</label>
+					<input asp-for="Mileage" class="form-control" placeholder="Mileage...">
+					<span asp-validation-for="Mileage" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Acceleration" class="form-label">Acceleration</label>
+					<input asp-for="Acceleration" class="form-control" placeholder="Acceleration...">
+					<span asp-validation-for="Acceleration" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="HorsePower" class="form-label">HorsePower</label>
+					<input asp-for="HorsePower" class="form-control" placeholder="HorsePower...">
+					<span asp-validation-for="HorsePower" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="TopSpeed" class="form-label">TopSpeed</label>
+					<input asp-for="TopSpeed" class="form-control" placeholder="TopSpeed...">
+					<span asp-validation-for="TopSpeed" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="PassengerSeats" class="form-label">Passenger Seats...</label>
+					<input asp-for="PassengerSeats" class="form-control" placeholder="TopSpeed...">
+					<span asp-validation-for="PassengerSeats" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Year" class="form-label">Year</label>
+					<input asp-for="Year" class="form-control" placeholder="Year...">
+					<span asp-validation-for="Year" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Range" class="form-label">Range</label>
+					<input asp-for="Range" class="form-control" placeholder="Range...">
+					<span asp-validation-for="Range" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Safety" class="form-label">Safety</label>
+					<input asp-for="Safety" class="form-control" placeholder="Safety...">
+					<span asp-validation-for="Safety" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="ImageUrl" class="form-label">Image URL</label>
+					<input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+					<span asp-validation-for="ImageUrl" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="PricePerDay" class="form-label">Daily Price</label>
+					<input asp-for="PricePerDay" class="form-control">
+					<span asp-validation-for="PricePerDay" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Consumption" class="form-label">Consumption</label>
+					<input asp-for="Consumption" class="form-control">
+					<span asp-validation-for="Consumption" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="SelectedBodyType" class="form-label">Body Type</label>
+					<select asp-for="SelectedBodyType" class="form-select">
+						<option value="">Select Body Type</option>
+						@foreach (var bodyType in Model.BodyTypes)
+						{
+							<option value="@bodyType">@bodyType.ToString()</option>
+						}
+					</select>
+					<span asp-validation-for="SelectedBodyType" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="SelectedTransmission" class="form-label">Transmission</label>
+					<select asp-for="SelectedTransmission" class="form-select">
+						<option value="">Select Transmission</option>
+						@foreach (var transmission in Model.Transmissions)
+						{
+							<option value="@transmission">@transmission.ToString()</option>
+						}
+					</select>
+					<span asp-validation-for="SelectedTransmission" class="text-danger small"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="SelectedEngineType" class="form-label">Engine Type</label>
+					<select asp-for="SelectedEngineType" class="form-select">
+						<option value="">Select Engine Type</option>
+						@foreach (var engineType in Model.EngineTypes)
+						{
+							<option value="@engineType">@engineType.ToString()</option>
+						}
+					</select>
+					<span asp-validation-for="SelectedEngineType" class="text-danger small"></span>
+				</div>
+				<div class="text-center">
+					<input class="btn btn-primary mt-3" type="submit" value="Save" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

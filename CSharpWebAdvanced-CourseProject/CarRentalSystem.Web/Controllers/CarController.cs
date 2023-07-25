@@ -3,7 +3,8 @@
     using CarRentalSystem.Data.Models.Enums;
     using CarRentalSystem.Services.Data.Interfaces;
     using CarRentalSystem.Web.ViewModels.Car;
-    using Microsoft.AspNetCore.Authorization;
+	using CarRentalSystem.Web.ViewModels.Make;
+	using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using System.Drawing.Imaging;
@@ -47,94 +48,87 @@
             return this.View(formModel);
         }
 
-        //нищо не връща и не може да се дебъгва 
 		[HttpPost]
-		public async Task<IActionResult> Add(CarFormModel model)
+		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
-			return Content(
-				$"Make: {model.Make}, Model: {model.Model}, Url: {model.ImageUrl}, Engine: {model.SelectedEngineType}.");
-		}
+            //TODO: check whether the user is admin
+            bool isAdmin = true;
 
-		////TODO: check whether the user is admin
-		//bool isAdmin = true;
+            if (!isAdmin)
+            {
+                this.TempData[ErrorMessage] = "You need to be an administrator in order to add new car!";
 
-		//if (!isAdmin)
-		//{
-		//    this.TempData[ErrorMessage] = "You need to be an administrator in order to add new car!";
+                //TODO:change the redirect to stay in the page where he was...
+                return this.RedirectToAction("Index", "Home");
+            }
 
-		//    //TODO:change the redirect to stay in the page where he was...
-		//    return this.RedirectToAction("Index", "Home");
-		//}
+            bool makeExists =
+                await this._makeService.MakeExistsByNameAsync(formModel.Make);
 
-		//bool makeExists =
-		//    await this._makeService.MakeExistsByNameAsync(model.Make);
+            if (!makeExists)
+            {
+	            MakeViewModel make = await this._makeService.CreateMakeAndGetAsync(formModel.Make);
+	            formModel.MakeId = make.Id;
+            }
+            else
+            {
+                var make = await this._makeService.GetMakeByNameAsync(formModel.Make);
+                formModel.MakeId = make.Id;
+            }
 
-		//if (!makeExists)
-		//{
-		//    model.MakeId = await this._makeService.GetMakeIdOrCreateMakeAsync(model.Make);
-		//}
-		//else
-		//{
-		//    //Why I can't await this, Do I need to await this method and make it to be awaited or?
-		//    model.MakeId = this._makeService.GetMakeByNameAsync(model.Make).Id;
-		//}
 
-		////TODO:check whether that gen method work
-		//if (IsValidEnumValue(model.SelectedBodyType))
-		//{
-		//    ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
-		//}
-		//if (!Enum.IsDefined(typeof(BodyType), model.SelectedTransmission))
-		//{
-		//    ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
-		//}
-		//if (!Enum.IsDefined(typeof(Transmission), model.SelectedTransmission))
-		//{
-		//    ModelState.AddModelError(nameof(Transmission), "Invalid Transmission Type.");
-		//}
-		//if (!Enum.IsDefined(typeof(EngineType), model.SelectedEngineType))
-		//{
-		//    ModelState.AddModelError(nameof(EngineType), "Invalid Engine Type.");
-		//}
+            //TODO:check whether that gen method work
+            if (!IsValidEnumValue(formModel.SelectedBodyType))
+            {
+                ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
+            }
+            if (!IsValidEnumValue(formModel.SelectedEngineType))
+            {
+	            ModelState.AddModelError(nameof(EngineType), "Invalid Transmission Type.");
+            }
+            if (!IsValidEnumValue(formModel.SelectedTransmission))
+            {
+	            ModelState.AddModelError(nameof(Transmission), "Invalid Transmission Type.");
+            }
 
-		////Check if that is stateless do i need it...
-		//if (!this.ModelState.IsValid)
-		//{
-		//    //model.Transmissions = Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet();
-		//    //model.BodyTypes = Enum.GetValues(typeof(BodyType)).Cast<BodyType>().ToHashSet();
-		//    //model.EngineTypes = Enum.GetValues(typeof(EngineType)).Cast<EngineType>().ToHashSet();
+            //Check if that is stateless do i need it...
+            if (!this.ModelState.IsValid)
+            {
+                //model.Transmissions = Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet();
+                //model.BodyTypes = Enum.GetValues(typeof(BodyType)).Cast<BodyType>().ToHashSet();
+                //model.EngineTypes = Enum.GetValues(typeof(EngineType)).Cast<EngineType>().ToHashSet();
 
-		//    return this.View(model);
-		//}
+                return this.View(formModel);
+            }
 
-		//try
-		//{
-		//    //model.Transmissions = Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet();
-		//    //model.BodyTypes = Enum.GetValues(typeof(BodyType)).Cast<BodyType>().ToHashSet();
-		//    //model.EngineTypes = Enum.GetValues(typeof(EngineType)).Cast<EngineType>().ToHashSet();
+            try
+            {
+                //model.Transmissions = Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet();
+                //model.BodyTypes = Enum.GetValues(typeof(BodyType)).Cast<BodyType>().ToHashSet();
+                //model.EngineTypes = Enum.GetValues(typeof(EngineType)).Cast<EngineType>().ToHashSet();
 
-		//    //TODO: create car method and return carId 
-		//    int carId =
-		//        await this._carService.CreateAndReturnIdAsync(model);
+                //TODO: create car method and return carId 
+                int carId =
+                    await this._carService.CreateAndReturnIdAsync(formModel);
 
-		//    TempData[SuccessMessage] = "Car was added successfully!";
-		//    return RedirectToAction("Detail", "Car", new { id = carId });
-		//}
-		//catch (Exception)
-		//{
-		//    this.ModelState.AddModelError(string.Empty,
-		//        "Unexpected error occurred while trying to add your new car!");
+                TempData[SuccessMessage] = "Car was added successfully!";
+                return RedirectToAction("Detail", "Car", new { id = carId });
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty,
+                    "Unexpected error occurred while trying to add your new car!");
 
-		//    //here again refresh the data TODO:think of saving the dropdown...
+                //here again refresh the data TODO:think of saving the dropdown...
 
-		//    return this.View(model);
-		//}
+                return this.View(formModel);
+            }
 
-		////TODO:you can return to detail on the car
-		//return this.RedirectToAction("All", "Car");
-		//}
+            //TODO:you can return to detail on the car
+            return this.RedirectToAction("All", "Car");
+        }
 
-		public async Task<IActionResult> Detail(int carId)
+        public async Task<IActionResult> Detail(int carId)
         {
             return this.View();
         }

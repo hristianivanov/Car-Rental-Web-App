@@ -69,8 +69,8 @@
         [Required]
         [StringLength(ImageUrlMaxLength)]
         [Display(Name = "Image Link")]
-        [RegularExpression(@"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)",
-            ErrorMessage = "Please enter a valid image URL (jpg or png).")]
+        //[RegularExpression(@"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)",
+        //    ErrorMessage = "Please enter a valid image URL (jpg or png).")]
         public string ImageUrl { get; set; }
 
         public EngineType SelectedEngineType { get; set; }
