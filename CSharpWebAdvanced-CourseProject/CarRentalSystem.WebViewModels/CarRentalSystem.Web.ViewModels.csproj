@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarRentalSystem.Common\CarRentalSystem.Common.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Data.Models\CarRentalSystem.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

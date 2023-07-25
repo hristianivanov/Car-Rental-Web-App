@@ -14,7 +14,7 @@
         [Key]
         public int Id { get; set; }
 
-        [Required, MaxLength(NameMaxLength)]
+        [Required, MaxLength(MakeMaxLength)]
         public string Name { get; set; } = null!;
 
         [MaxLength(NewInnovationMaxLength)]

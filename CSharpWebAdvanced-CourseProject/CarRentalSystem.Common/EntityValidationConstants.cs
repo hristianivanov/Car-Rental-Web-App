@@ -15,7 +15,7 @@
 			//temporary
 			public const int ImageUrlMaxLength = 2048;
 
-            public const int ModelMinLength = 2;
+			public const int ModelMinLength = 2;
 			public const int ModelMaxLength = 50;
 
 			public const int ConsumptionMinValue = 0;
@@ -26,12 +26,18 @@
 
 			public const int SafetyMinValue = 1;
 			public const int SafetyMaxValue = 5;
+
+			public const int MileageMinValue = 0;
+			public const int MileageMaxValue = 1_000_000;
+
+			public const string PricePerDayMinValue = "0";
+			public const string PricePerDayMaxValue = "2000";
 		}
 
 		public static class Make
 		{
-			public const int NameMinLength = 3;
-			public const int NameMaxLength = 20;
+			public const int MakeMinLength = 3;
+			public const int MakeMaxLength = 20;
 
 			public const int NewInnovationMaxLength = 255;
 		}
