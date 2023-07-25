@@ -18,6 +18,7 @@
 		[Required]
 		[StringLength(MakeMaxLength, MinimumLength = MakeMinLength)]
 		public string Make { get; set; } = null!;
+		public int MakeId { get; set; }
 		[Required]
 		[StringLength(ModelMaxLength, MinimumLength = ModelMinLength)]
 		public string Model { get; set; } = null!;
@@ -50,14 +51,16 @@
 		[Range(SafetyMinValue, SafetyMaxValue)]
 		public byte Safety { get; set; }
 
+		[Range(PassengerSeatsMinValue, PassengerSeatsMaxValue)]
+		public byte PassengerSeats { get; set; }
 		[Required]
 		[StringLength(ImageUrlMaxLength)]
 		[Display(Name = "Image Link")]
 		public string ImageUrl { get; set; }
 
-		public int EngineTypeId { get; set; }
-		public int TransmissionId { get; set; }
-		public int BodyTypeId { get; set; }
+		public EngineType SelectedEngineType { get; set; }
+		public Transmission SelectedTransmission { get; set; }
+		public BodyType SelectedBodyType { get; set; }
 
 		public IEnumerable<EngineType> EngineTypes { get; set; }
 		public IEnumerable<Transmission> Transmissions { get; set; }

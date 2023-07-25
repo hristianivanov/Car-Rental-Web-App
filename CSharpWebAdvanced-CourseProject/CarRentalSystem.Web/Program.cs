@@ -39,6 +39,10 @@ namespace CarRentalSystem.Web
                 .AddEntityFrameworkStores<CarRentingDbContext>();
 
             builder.Services.AddApplicationServices(typeof(ICarService));
+            //builder.Services.AddScoped<ICarService,CarService>();
+            //builder.Services.AddScoped<IMakeService,MakeService>();
+
+
 
             builder.Services
                 .AddControllersWithViews()

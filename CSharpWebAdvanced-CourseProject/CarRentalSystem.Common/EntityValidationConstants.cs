@@ -30,6 +30,7 @@
 			public const int MileageMinValue = 0;
 			public const int MileageMaxValue = 1_000_000;
 
+
 			public const string PricePerDayMinValue = "0";
 			public const string PricePerDayMaxValue = "2000";
 		}

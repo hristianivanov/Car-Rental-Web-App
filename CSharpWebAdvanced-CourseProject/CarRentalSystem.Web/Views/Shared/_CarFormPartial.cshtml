@@ -29,11 +29,16 @@
                     <input asp-for="HorsePower" class="form-control" placeholder="HorsePower...">
                     <span asp-validation-for="HorsePower" class="text-danger small"></span>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="TopSpeed" class="form-label">TopSpeed</label>
-                    <input asp-for="TopSpeed" class="form-control" placeholder="TopSpeed...">
-                    <span asp-validation-for="TopSpeed" class="text-danger small"></span>
-                </div>
+	            <div class="mb-3">
+		            <label asp-for="TopSpeed" class="form-label">TopSpeed</label>
+		            <input asp-for="TopSpeed" class="form-control" placeholder="TopSpeed...">
+		            <span asp-validation-for="TopSpeed" class="text-danger small"></span>
+	            </div>
+	            <div class="mb-3">
+                    <label asp-for="PassengerSeats" class="form-label">Passenger Seats...</label>
+                    <input asp-for="PassengerSeats" class="form-control" placeholder="TopSpeed...">
+                    <span asp-validation-for="PassengerSeats" class="text-danger small"></span>
+	            </div>
                 <div class="mb-3">
                     <label asp-for="Year" class="form-label">Year</label>
                     <input asp-for="Year" class="form-control" placeholder="Year...">
@@ -65,37 +70,37 @@
                     <span asp-validation-for="Consumption" class="text-danger small"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="BodyTypeId" class="form-label">Body Type</label>
-                    <select asp-for="BodyTypeId" class="form-select">
+                    <label asp-for="SelectedBodyType" class="form-label">Body Type</label>
+                    <select asp-for="SelectedBodyType" class="form-select">
                         <option value="">Select Body Type</option>
                         @foreach (var bodyType in Model.BodyTypes)
                         {
                             <option value="@bodyType">@bodyType.ToString()</option>
                         }
                     </select>
-                    <span asp-validation-for="BodyTypeId" class="text-danger small"></span>
+                    <span asp-validation-for="SelectedBodyType" class="text-danger small"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="TransmissionId" class="form-label">Transmission</label>
-                    <select asp-for="TransmissionId" class="form-select">
+                    <label asp-for="SelectedTransmission" class="form-label">Transmission</label>
+                    <select asp-for="SelectedTransmission" class="form-select">
                         <option value="">Select Transmission</option>
                         @foreach (var transmission in Model.Transmissions)
                         {
                             <option value="@transmission">@transmission.ToString()</option>
                         }
                     </select>
-                    <span asp-validation-for="TransmissionId" class="text-danger small"></span>
+                    <span asp-validation-for="SelectedTransmission" class="text-danger small"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="EngineTypeId" class="form-label">Engine Type</label>
-                    <select asp-for="EngineTypeId" class="form-select">
+                    <label asp-for="SelectedEngineType" class="form-label">Engine Type</label>
+                    <select asp-for="SelectedEngineType" class="form-select">
                         <option value="">Select Engine Type</option>
                         @foreach (var engineType in Model.EngineTypes)
                         {
                             <option value="@engineType">@engineType.ToString()</option>
                         }
                     </select>
-                    <span asp-validation-for="EngineTypeId" class="text-danger small"></span>
+                    <span asp-validation-for="SelectedEngineType" class="text-danger small"></span>
                 </div>
                 <div class="text-center">
                     <input class="btn btn-primary mt-3" type="submit" value="Save" />

@@ -1,4 +1,7 @@
-﻿namespace CarRentalSystem.Web.Infrastructure.Extensions
+﻿using CarRentalSystem.Services.Data;
+using CarRentalSystem.Services.Data.Interfaces;
+
+namespace CarRentalSystem.Web.Infrastructure.Extensions
 {
     using System.Reflection;
 
@@ -34,10 +37,8 @@
                     throw new InvalidOperationException($"No interface is provided for the service with name: {implementationType.Name}");
                 }
 
-                services.AddScoped(serviceType,implementationType);
+                services.AddScoped(interfaceType, implementationType);
             }
-            //TODO: add start service
-            //services.AddScoped<ICarService, CarService>();
 
         }
     }

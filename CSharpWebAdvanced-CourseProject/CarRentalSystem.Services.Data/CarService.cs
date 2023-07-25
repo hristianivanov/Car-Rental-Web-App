@@ -1,9 +1,14 @@
-﻿namespace CarRentalSystem.Services.Data
+﻿using CarRentalSystem.Data.Models.Enums;
+using CarRentalSystem.Web.ViewModels.Car;
+
+namespace CarRentalSystem.Services.Data
 {
-	using Interfaces;
-	using CarRentalSystem.Data;
-	using Web.ViewModels.Home;
 	using Microsoft.EntityFrameworkCore;
+
+	using CarRentalSystem.Data;
+	using Interfaces;
+	using Web.ViewModels.Home;
+	using CarRentalSystem.Data.Models;
 
 	public class CarService : ICarService
 	{
@@ -59,6 +64,32 @@
 				.ToArrayAsync();
 
 			return lastCars;
+		}
+
+		public async Task CreateAsync(CarFormModel formModel)
+		{
+			Car car = new Car
+			{
+				MakeId = formModel.MakeId,
+				Model = formModel.Model,
+				BodyType = formModel.SelectedBodyType,
+				Transmission = formModel.SelectedTransmission,
+				Mileage = formModel.Mileage,
+				Acceleration = formModel.Acceleration,
+				HorsePower = formModel.HorsePower,
+				TopSpeed = formModel.TopSpeed,
+				Year = formModel.Year,
+				EngineType = formModel.SelectedEngineType,
+				Consumption = formModel.Consumption,
+				Range = formModel.Range,
+				Safety = formModel.Safety,
+				PassengerSeats = formModel.PassengerSeats,
+				PricePerDay = formModel.PricePerDay,
+				ImageUrl = formModel.ImageUrl,
+			};
+
+			await this._context.Cars.AddAsync(car);
+			await this._context.SaveChangesAsync();
 		}
 	}
 }
