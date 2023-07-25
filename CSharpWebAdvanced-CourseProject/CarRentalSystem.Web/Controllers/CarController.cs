@@ -52,7 +52,7 @@
 		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
             //TODO: check whether the user is admin
-            bool isAdmin = false;
+            bool isAdmin = true;
 
             if (!isAdmin)
             {
@@ -76,6 +76,7 @@
                 formModel.MakeId = make.Id;
             }
 
+            //TODO: I'm not sure whether that may happen or not
             if (!IsValidEnumValue(formModel.SelectedBodyType))
             {
                 ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
@@ -89,35 +90,26 @@
 	            ModelState.AddModelError(nameof(Transmission), "Invalid Transmission Type.");
             }
 
-            //Check if that is stateless do i need it...
-            if (!this.ModelState.IsValid)
-            {
-                //model.Transmissions = Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet();
-                //model.BodyTypes = Enum.GetValues(typeof(BodyType)).Cast<BodyType>().ToHashSet();
-                //model.EngineTypes = Enum.GetValues(typeof(EngineType)).Cast<EngineType>().ToHashSet();
+            ModelState.AddModelError(nameof(Transmission), "Invalid Transmission Type.");
 
-                return this.View(formModel);
+			if (!this.ModelState.IsValid)
+            {
+	            return this.View(formModel);
             }
 
             try
             {
-                //model.Transmissions = Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet();
-                //model.BodyTypes = Enum.GetValues(typeof(BodyType)).Cast<BodyType>().ToHashSet();
-                //model.EngineTypes = Enum.GetValues(typeof(EngineType)).Cast<EngineType>().ToHashSet();
-
-                //TODO: create car method and return carId 
-                int carId =
+	            int carId =
                     await this._carService.CreateAndReturnIdAsync(formModel);
 
                 TempData[SuccessMessage] = "Car was added successfully!";
+
                 return RedirectToAction("Detail", "Car", new { id = carId });
             }
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty,
                     "Unexpected error occurred while trying to add your new car!");
-
-                //here again refresh the data TODO:think of saving the dropdown...
 
                 return this.View(formModel);
             }
