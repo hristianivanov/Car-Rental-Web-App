@@ -30,6 +30,8 @@
 			public const int MileageMinValue = 0;
 			public const int MileageMaxValue = 1_000_000;
 
+			private const int YearMinValue = 1970;
+			private static readonly int YearMaxValue = DateTime.UtcNow.Year;
 
 			public const string PricePerDayMinValue = "0";
 			public const string PricePerDayMaxValue = "2000";

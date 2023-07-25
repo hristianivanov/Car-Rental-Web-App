@@ -47,7 +47,7 @@
             ErrorMessage = "Top speed must be a positive number.")]
         public ushort TopSpeed { get; set; }
 
-        [Range(0, ushort.MaxValue,
+        [Range(YearMinValue, YearMaxValue,
             ErrorMessage = "Year must be a positive number.")]
         public ushort Year { get; set; }
 

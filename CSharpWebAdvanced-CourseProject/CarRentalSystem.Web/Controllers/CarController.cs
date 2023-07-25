@@ -26,9 +26,9 @@
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            return this.View();
-        }
 
+	        return this.View();
+        }
         [HttpGet]
         public async Task<IActionResult> Add()
         {
