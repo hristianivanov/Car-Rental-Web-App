@@ -47,8 +47,7 @@
 
             return this.View(formModel);
         }
-
-		[HttpPost]
+        [HttpPost]
 		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
             //TODO: check whether the user is admin
@@ -76,7 +75,7 @@
                 formModel.MakeId = make.Id;
             }
 
-            //TODO: I'm not sure whether that may happen or not
+            //TODO: I'm not sure whether that may happen or not ?!?!?
             if (!IsValidEnumValue(formModel.SelectedBodyType))
             {
                 ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
@@ -90,9 +89,7 @@
 	            ModelState.AddModelError(nameof(Transmission), "Invalid Transmission Type.");
             }
 
-            ModelState.AddModelError(nameof(Transmission), "Invalid Transmission Type.");
-
-			if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
 	            return this.View(formModel);
             }
@@ -113,12 +110,8 @@
 
                 return this.View(formModel);
             }
-
-            //TODO:you can return to detail on the car
-            return this.RedirectToAction("All", "Car");
-        }
-
-        public async Task<IActionResult> Detail(int carId)
+		}
+		public async Task<IActionResult> Detail(int carId)
         {
             return this.View();
         }
