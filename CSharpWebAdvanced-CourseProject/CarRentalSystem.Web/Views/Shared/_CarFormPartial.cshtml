@@ -1,4 +1,53 @@
 ﻿@model CarFormModel
+<div class="row">
+	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+		<form method="post">
+			<div class="form-group">
+				<label asp-for="Make"></label>
+				<input asp-for="Make" class="form-control" placeholder="Make...">
+				<span asp-validation-for="Make" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Model"></label>
+				<input asp-for="Model" class="form-control"
+				       placeholder="Address...">
+				<span asp-validation-for="Model" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ImageUrl"></label>
+				<input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+				<span asp-validation-for="ImageUrl" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="PricePerDay"></label>
+				<input asp-for="PricePerDay" class="form-control">
+				<span asp-validation-for="PricePerDay" class="small text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="SelectedEngineType"></label>
+				<select asp-for="SelectedEngineType" class="form-control">
+					@foreach (var category in Model.EngineTypes)
+					{
+						<option value="@category">@category.ToString()</option>
+					}
+				</select>
+				<span asp-validation-for="SelectedEngineType" class="small text-danger"></span>
+			</div>
+			<div class="text-center">
+				<input class="btn btn-primary mt-3" type="submit" value="Save" />
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+@*@model CarFormModel
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -108,4 +157,4 @@
             </form>
         </div>
     </div>
-</div>
+</div>*@

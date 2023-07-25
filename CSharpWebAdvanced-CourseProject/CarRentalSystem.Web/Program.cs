@@ -1,4 +1,3 @@
-
 namespace CarRentalSystem.Web
 {
     using Microsoft.EntityFrameworkCore;
