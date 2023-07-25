@@ -47,28 +47,10 @@
             return this.View(formModel);
         }
 
+        //нищо не връща и не може да се дебъгва 
 		[HttpPost]
-		[ValidateAntiForgeryToken] // Ensure that the Antiforgery token is validated
 		public async Task<IActionResult> Add(CarFormModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				// Вземете грешките на валидацията от модела
-				var errors = ModelState.Values.SelectMany(v => v.Errors);
-
-				// За целите на отстраняване на проблема, просто изпишете грешките в конзолата
-				foreach (var error in errors)
-				{
-					System.Diagnostics.Debug.WriteLine(error.ErrorMessage);
-				}
-
-				// Ако има грешки валидация, прерисуваме формуляра с грешките
-				return View(model);
-			}
-
-			// За целите на отстраняване на проблема, изпишете данните от модела
-			System.Diagnostics.Debug.WriteLine($"Make: {model.Make}, Model: {model.Model}, Url: {model.ImageUrl}, Engine: {model.SelectedEngineType}");
-
 			return Content(
 				$"Make: {model.Make}, Model: {model.Model}, Url: {model.ImageUrl}, Engine: {model.SelectedEngineType}.");
 		}
