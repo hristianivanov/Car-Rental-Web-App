@@ -30,8 +30,9 @@
 			public const int MileageMinValue = 0;
 			public const int MileageMaxValue = 1_000_000;
 
-			private const int YearMinValue = 1970;
-			private static readonly int YearMaxValue = DateTime.UtcNow.Year;
+			public const int YearMinValue = 1970;
+			// Idk how ?!?!? it does not allow me to use DateTime.UtcNow.Year in RangeAttribute
+			public const int YearMaxValue = 2023;
 
 			public const string PricePerDayMinValue = "0";
 			public const string PricePerDayMaxValue = "2000";
