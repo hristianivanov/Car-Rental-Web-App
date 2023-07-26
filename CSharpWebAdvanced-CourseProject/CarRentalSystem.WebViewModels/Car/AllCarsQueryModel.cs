@@ -23,6 +23,7 @@
 		public CarSorting CarSorting { get; set; }
 		public int CurrentPage { get; set; }
 		public int TotalCarsCount { get; set; }
+		[Display(Name = "Show Cars On Page")]
 		public int CarsPerPage { get; set; }
 		public IEnumerable<string> Makes { get; set; }
         public IEnumerable<CarAllViewModel> Cars { get; set; }

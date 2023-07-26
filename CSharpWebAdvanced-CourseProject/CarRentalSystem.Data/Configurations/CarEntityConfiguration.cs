@@ -11,6 +11,10 @@
 	{
 		public void Configure(EntityTypeBuilder<Car> builder)
 		{
+			builder
+				.Property(c => c.IsActive)
+				.HasDefaultValue(true);
+
 			builder.HasData(this.GenerateCars());
 		}
 

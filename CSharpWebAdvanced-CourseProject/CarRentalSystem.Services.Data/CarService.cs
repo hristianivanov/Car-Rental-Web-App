@@ -25,6 +25,7 @@ namespace CarRentalSystem.Services.Data
         {
             IEnumerable<IndexViewModel> lastSixCars = await this._context
                 .Cars
+                .Where(c => c.IsActive)
                 .Include(c => c.Make)
                 .OrderByDescending(c => c.Id)
                 .Take(6)
@@ -48,6 +49,7 @@ namespace CarRentalSystem.Services.Data
         {
             IEnumerable<IndexViewModel> lastCars = await this._context
                 .Cars
+                .Where(c => c.IsActive)
                 .Include(c => c.Make)
                 .OrderByDescending(c => c.Id)
                 .Take(count)
@@ -159,6 +161,7 @@ namespace CarRentalSystem.Services.Data
 	        };
 
             IEnumerable<CarAllViewModel> alllCars = await carsQuery
+	            .Where(c => c.IsActive)
 	            .Skip((queryModel.CurrentPage - 1) * queryModel.CarsPerPage)
                 .Take(queryModel.CarsPerPage)
 	            .Select(c => new CarAllViewModel

@@ -50,8 +50,8 @@
 		// cannot be negative number
 		[MaxLength(SafetyMaxValue)]
 		public byte? Safety { get; set; }
-
-		[MaxLength(PassengerSeatsMaxValue)]
+        public bool IsActive { get; set; }
+        [MaxLength(PassengerSeatsMaxValue)]
 		public byte PassengerSeats { get; set; }
 		//per day
 		public decimal PricePerDay { get; set; }
