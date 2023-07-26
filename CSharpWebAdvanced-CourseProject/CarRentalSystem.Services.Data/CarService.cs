@@ -1,5 +1,7 @@
 ﻿using CarRentalSystem.Data.Models.Enums;
+using CarRentalSystem.Services.Data.Models.Car;
 using CarRentalSystem.Web.ViewModels.Car;
+using CarRentalSystem.Web.ViewModels.Car.Enums;
 
 namespace CarRentalSystem.Services.Data
 {
@@ -118,6 +120,70 @@ namespace CarRentalSystem.Services.Data
             await this._context.SaveChangesAsync();
 
             return car.Id;
+        }
+
+        public async Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel)
+        {
+	        IQueryable<Car> carsQuery = this._context
+		        .Cars
+		        .AsQueryable();
+
+	        if (string.IsNullOrWhiteSpace(queryModel.Make))
+	        {
+		        carsQuery = carsQuery
+			        .Where(c => c.Make.Name == queryModel.Make);
+	        }
+
+	        if (!string.IsNullOrWhiteSpace(queryModel.SearString))
+	        {
+		        string wildCard = $"%{queryModel.SearString.ToLower()}%";
+
+		        carsQuery = carsQuery
+			        .Where(c => EF.Functions.Like(c.Model, wildCard));
+	        }
+
+	        carsQuery = queryModel.CarSorting switch
+	        {
+                CarSorting.Newest => carsQuery
+	                .OrderByDescending(c => c.Id),
+                CarSorting.Oldest => carsQuery
+	                .OrderBy(c => c.Id),
+                CarSorting.PriceAscending => carsQuery
+	                .OrderBy(c => c.PricePerDay),
+                CarSorting.PriceDescending => carsQuery
+	                .OrderByDescending(c => c.PricePerDay),
+                //TODO:
+                //def ordering not rented first , then by the newest one
+                //_ => carsQuery
+	               // .OrderBy(c => c.)
+	        };
+
+            IEnumerable<CarAllViewModel> alllCars = await carsQuery
+	            .Skip((queryModel.CurrentPage - 1) * queryModel.CarsPerPage)
+                .Take(queryModel.CarsPerPage)
+	            .Select(c => new CarAllViewModel
+	            {
+		            Id = c.Id,
+		            Make = c.Make.Name,
+		            Model = c.Model,
+		            Transmission = c.Transmission.ToString(),
+		            BodyType = c.BodyType.ToString(),
+		            EngineType = c.EngineType.ToString(),
+		            ImageUrl = c.ImageUrl,
+		            PricePerDay = c.PricePerDay,
+		            PassengerSeats = c.PassengerSeats,
+                    //TODO
+		            //IsRented = c.Rentals.Any(r => r.CarId.)
+	            })
+	            .ToArrayAsync();
+
+            int totalCars = carsQuery.Count();
+
+            return new AllCarsFilteredAndPagedServiceModel()
+            {
+                TotalCarsCount = totalCars,
+                Cars = alllCars
+            };
         }
     }
 }

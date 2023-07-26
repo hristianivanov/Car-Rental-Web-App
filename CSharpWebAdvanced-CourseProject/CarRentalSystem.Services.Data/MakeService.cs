@@ -76,6 +76,16 @@
 			};
 		}
 
+		public async Task<IEnumerable<string>> AllMakeNamesAsync()
+		{
+			IEnumerable<string> allNames = await this._context
+				.Makes
+				.Select(m => m.Name)
+				.ToArrayAsync();
+
+			return allNames;
+		}
+
 		public async Task<int> GetMakeIdOrCreateMakeAsync(string make)
 		{
 			Make? model = await this._context

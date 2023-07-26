@@ -2,7 +2,8 @@
 {
     using CarRentalSystem.Data.Models.Enums;
     using CarRentalSystem.Services.Data.Interfaces;
-    using CarRentalSystem.Web.ViewModels.Car;
+	using CarRentalSystem.Services.Data.Models.Car;
+	using CarRentalSystem.Web.ViewModels.Car;
 	using CarRentalSystem.Web.ViewModels.Make;
 	using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -23,11 +24,18 @@
             _makeService = makeService;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllCarsQueryModel queryModel)
         {
+            AllCarsFilteredAndPagedServiceModel serviceModel = 
+                await this._carService.AllAsync(queryModel);
 
-	        return this.View();
+            queryModel.Cars = serviceModel.Cars;
+            queryModel.TotalCarsCount = serviceModel.TotalCarsCount;
+            queryModel.Makes = await this._makeService.AllMakeNamesAsync();
+
+	        return this.View(queryModel);
         }
         [HttpGet]
         public async Task<IActionResult> Add()
@@ -115,6 +123,24 @@
         {
             return this.View();
         }
+
+		public async Task<IActionResult> Rent()
+		{
+            return this.Ok();
+		}
+		public async Task<IActionResult> Edit()
+		{
+			return this.Ok();
+		}
+		public async Task<IActionResult> Delete(int carId)
+		{
+            return this.Ok();
+		}
+
+		public async Task<IActionResult> Leave()
+		{
+            return this.Ok();
+		}
 
 
         private bool IsValidEnumValue<TEnum>(TEnum value)

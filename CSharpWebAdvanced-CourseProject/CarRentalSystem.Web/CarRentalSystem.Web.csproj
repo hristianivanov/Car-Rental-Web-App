@@ -30,6 +30,7 @@
     <ProjectReference Include="..\CarRentalSystem.Common\CarRentalSystem.Common.csproj" />
     <ProjectReference Include="..\CarRentalSystem.Data.Models\CarRentalSystem.Data.Models.csproj" />
     <ProjectReference Include="..\CarRentalSystem.Data\CarRentalSystem.Data.csproj" />
+    <ProjectReference Include="..\CarRentalSystem.Services.Data.Models\CarRentalSystem.Services.Data.Models.csproj" />
     <ProjectReference Include="..\CarRentalSystem.Services.Data\CarRentalSystem.Services.Data.csproj" />
     <ProjectReference Include="..\CarRentalSystem.Web.Infrastructure\CarRentalSystem.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\CarRentalSystem.WebViewModels\CarRentalSystem.Web.ViewModels.csproj" />
