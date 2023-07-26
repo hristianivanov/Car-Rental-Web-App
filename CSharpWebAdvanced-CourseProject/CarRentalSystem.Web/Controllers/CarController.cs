@@ -3,6 +3,7 @@
     using CarRentalSystem.Data.Models.Enums;
     using CarRentalSystem.Services.Data.Interfaces;
 	using CarRentalSystem.Services.Data.Models.Car;
+	using CarRentalSystem.Web.Infrastructure.Extensions;
 	using CarRentalSystem.Web.ViewModels.Car;
 	using CarRentalSystem.Web.ViewModels.Make;
 	using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllCarsQueryModel queryModel)
         {
+            //TODO: save the filter settings in next page
 	        AllCarsFilteredAndPagedServiceModel serviceModel = 
                 await this._carService.AllAsync(queryModel);
 
@@ -122,6 +124,19 @@
 		public async Task<IActionResult> Detail(int carId)
         {
             return this.View();
+        }
+
+        //idk about the name of the action can be another
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<CarAllViewModel> myCars = new List<CarAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            myCars.AddRange(await this._carService.AllByUserIdAsync(userId));
+
+            return this.View(myCars);
         }
 
 		public async Task<IActionResult> Rent()

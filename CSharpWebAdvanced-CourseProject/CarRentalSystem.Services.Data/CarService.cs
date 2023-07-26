@@ -187,5 +187,33 @@ namespace CarRentalSystem.Services.Data
 				Cars = alllCars
 			};
 		}
+
+		public async Task<IEnumerable<CarAllViewModel>> AllByUserIdAsync(string userId)
+		{
+			var userRentalIds = await _context
+				.UsersRentals
+				.Where(ur => ur.CustomerId == Guid.Parse(userId))
+				.Select(ur => ur.RentalId)
+				.ToListAsync();
+
+			IEnumerable<CarAllViewModel> allUserCars = await _context.Cars
+				.Where(c => c.Rentals.Any(r => userRentalIds.Contains(r.Id)))
+				.Select(c => new CarAllViewModel
+				{
+					Id = c.Id,
+					Make = c.Make.Name,
+					Model = c.Model,
+					Transmission = c.Transmission.ToString(),
+					BodyType = c.BodyType.ToString(),
+					EngineType = c.EngineType.ToString(),
+					ImageUrl = c.ImageUrl,
+					PricePerDay = c.PricePerDay,
+					PassengerSeats = c.PassengerSeats,
+					IsRented = c.IsActive
+				})
+				.ToArrayAsync();
+
+			return allUserCars;
+		}
 	}
 }
