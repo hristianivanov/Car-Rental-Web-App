@@ -28,12 +28,12 @@
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllCarsQueryModel queryModel)
         {
-            AllCarsFilteredAndPagedServiceModel serviceModel = 
+	        AllCarsFilteredAndPagedServiceModel serviceModel = 
                 await this._carService.AllAsync(queryModel);
 
             queryModel.Cars = serviceModel.Cars;
             queryModel.TotalCarsCount = serviceModel.TotalCarsCount;
-            queryModel.Makes = await this._makeService.AllMakeNamesAsync();
+            queryModel.Makes = await this._makeService.AllAvailableMakeNamesAsync();
 
 	        return this.View(queryModel);
         }

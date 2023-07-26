@@ -76,10 +76,11 @@
 			};
 		}
 
-		public async Task<IEnumerable<string>> AllMakeNamesAsync()
+		public async Task<IEnumerable<string>> AllAvailableMakeNamesAsync()
 		{
 			IEnumerable<string> allNames = await this._context
 				.Makes
+				.Where(m => m.Cars.Any())
 				.Select(m => m.Name)
 				.ToArrayAsync();
 

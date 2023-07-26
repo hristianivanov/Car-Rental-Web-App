@@ -10,6 +10,6 @@
 		Task<bool> MakeExistsByNameAsync(string make);
 		Task<MakeViewModel?> GetMakeByNameAsync(string name);
 		Task<MakeViewModel> CreateMakeAndGetAsync(string name);
-		Task<IEnumerable<string>> AllMakeNamesAsync();
+		Task<IEnumerable<string>> AllAvailableMakeNamesAsync();
 	}
 }
