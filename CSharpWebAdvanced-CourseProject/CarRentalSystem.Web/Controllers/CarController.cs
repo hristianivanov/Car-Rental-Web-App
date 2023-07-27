@@ -121,9 +121,21 @@
                 return this.View(formModel);
             }
 		}
-		public async Task<IActionResult> Detail(int carId)
+
+        [HttpGet]
+        [AllowAnonymous]
+		public async Task<IActionResult> Detail(int id)
         {
-            return this.View();
+            CarDetailsViewModel? viewModel = await this._carService.GetDetailsByIdAsync(id);
+
+            if (viewModel == null)
+            {
+	            this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+	            return this.RedirectToAction("All", "Car");
+            }
+
+            return this.View(viewModel);
         }
 
         //idk about the name of the action can be another
