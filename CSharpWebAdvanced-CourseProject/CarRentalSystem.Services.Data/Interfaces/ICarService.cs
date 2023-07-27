@@ -12,7 +12,9 @@
 		Task<int> CreateAndReturnIdAsync(CarFormModel formModel);
 		Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
 		Task<IEnumerable<CarAllViewModel>> AllByUserIdAsync(string userId);
-		Task<CarDetailsViewModel?> GetDetailsByIdAsync(int carId);
+		Task<CarDetailsViewModel> GetDetailsByIdAsync(int carId);
+		Task<bool> ExistByIdAsync(int carId);
+		Task<CarFormModel> GetCarForEditByIdAsync(int carId);
 
 		//Task CreateAsync(CarFormModel formModel);
 		//Task<int> CreateAndReturnIdAsync(CarFormModel model);

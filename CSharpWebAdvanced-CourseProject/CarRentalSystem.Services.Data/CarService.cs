@@ -220,22 +220,17 @@ namespace CarRentalSystem.Services.Data
 			return allUserCars;
 		}
 
-		public async Task<CarDetailsViewModel?> GetDetailsByIdAsync(int carId)
+		public async Task<CarDetailsViewModel> GetDetailsByIdAsync(int carId)
 		{
 			//TODO: check if that works how I want
-			Car? car = await this._context
+			Car car = await this._context
 				.Cars
 				.Include(c => c.Make)
 				.Include(c => c.Rentals)
 				.ThenInclude(r => r.UserRentals)
 				.ThenInclude(ur => ur.User)
 				.Where(c => c.IsActive)
-				.FirstOrDefaultAsync(c => c.Id == carId);
-
-			if (car == null)
-			{
-				return null;
-			}
+				.FirstAsync(c => c.Id == carId);
 
 			bool isRented = car.Rentals.Any();
 
@@ -256,6 +251,45 @@ namespace CarRentalSystem.Services.Data
 					Email = car.Rentals.First().UserRentals.First().User.Email,
 					PhoneNumber = car.Rentals.First().UserRentals.First().User.PhoneNumber
 				} : null
+			};
+		}
+
+		public async Task<bool> ExistByIdAsync(int carId)
+		{
+			bool result = await this._context
+				.Cars
+				.Where(c => c.IsActive)
+				.AnyAsync(c => c.Id == carId);
+
+			return result;
+		}
+
+		public async Task<CarFormModel> GetCarForEditByIdAsync(int carId)
+		{
+			Car car = await this._context
+				.Cars
+				.Include(c => c.Make)
+				.Where(c => c.IsActive)
+				.FirstAsync(c => c.Id == carId);
+
+			return new CarFormModel
+			{
+				MakeId = car.MakeId,
+				Model = car.Model,
+				PricePerDay = car.PricePerDay,
+				Mileage = car.Mileage!.Value,
+				Acceleration = car.Acceleration,
+				HorsePower = car.HorsePower,
+				TopSpeed = car.TopSpeed,
+				Year = car.Year,
+				Consumption = car.Consumption,
+				Range = car.Range,
+				Safety = car.Safety!.Value,
+				PassengerSeats = car.PassengerSeats,
+				ImageUrl = car.ImageUrl,
+				SelectedEngineType = car.EngineType,
+				SelectedTransmission = car.Transmission,
+				SelectedBodyType = car.BodyType,
 			};
 		}
 	}
