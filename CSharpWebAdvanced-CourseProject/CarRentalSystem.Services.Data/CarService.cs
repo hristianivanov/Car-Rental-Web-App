@@ -293,7 +293,7 @@ namespace CarRentalSystem.Services.Data
 			};
 		}
 
-		public async Task EditCarByIdAndFormModel(int carId, CarFormModel formModel)
+		public async Task EditCarByIdAndFormModelAsync(int carId, CarFormModel formModel)
 		{
 			Car car = await this._context
 				.Cars
@@ -317,6 +317,34 @@ namespace CarRentalSystem.Services.Data
 			car.EngineType = formModel.SelectedEngineType;
 			car.Transmission = formModel.SelectedTransmission;
 			car.BodyType = formModel.SelectedBodyType;
+
+			await this._context.SaveChangesAsync();
+		}
+
+		public async Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(int carId)
+		{
+			Car car = await this._context
+				.Cars
+				.Include(c => c.Make)
+				.Where(c => c.IsActive)
+				.FirstAsync(c => c.Id == carId);
+
+			return new CarPreDeleteDetailsViewModel
+			{
+				Make = car.Make.Name,
+				Model = car.Model,
+				ImageUrl = car.ImageUrl
+			};
+		}
+
+		public async Task DeleteCarByIdAsync(int carId)
+		{
+			Car carToDelete = await this._context
+				.Cars
+				.Where(c => c.IsActive)
+				.FirstAsync(c => c.Id == carId);
+
+			carToDelete.IsActive = false;
 
 			await this._context.SaveChangesAsync();
 		}

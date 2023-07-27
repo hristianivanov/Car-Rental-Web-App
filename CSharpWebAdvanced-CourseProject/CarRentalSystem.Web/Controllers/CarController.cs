@@ -245,7 +245,7 @@
 
 			try
 			{
-				await this._carService.EditCarByIdAndFormModel(id, carModel);
+				await this._carService.EditCarByIdAndFormModelAsync(id, carModel);
 			}
 			catch (Exception)
 			{
@@ -256,9 +256,77 @@
 
 			return this.RedirectToAction("Detail", "Car", new { id });
 		}
-		public async Task<IActionResult> Delete(int carId)
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
 		{
-			return this.Ok();
+			bool carExists = await this._carService
+				.ExistByIdAsync(id);
+
+			if (!carExists)
+			{
+				this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isAdmin = true;
+
+			if (!isAdmin)
+			{
+				this.TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
+
+				//remake where you to redirect
+				return this.RedirectToAction("All", "Car");
+			}
+
+			try
+			{
+				CarPreDeleteDetailsViewModel viewModel = 
+					await this._carService.GetCarForDeleteByIdAsync(id);
+
+				return this.View(viewModel);
+			}
+			catch (Exception)
+			{
+				return GeneralError();
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(int id, CarPreDeleteDetailsViewModel carModel)
+		{
+			bool carExists = await this._carService
+				.ExistByIdAsync(id);
+
+			if (!carExists)
+			{
+				this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isAdmin = true;
+
+			if (!isAdmin)
+			{
+				this.TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
+
+				//remake where you to redirect
+				return this.RedirectToAction("All", "Car");
+			}
+
+			try
+			{
+				await this._carService.DeleteCarByIdAsync(id);
+
+				this.TempData[WarningMessage] = "The car successfully deleted!";
+				//remake where you want to redirect
+				return this.RedirectToAction("All", "Car");
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
 		}
 		public async Task<IActionResult> Rent()
 		{
