@@ -196,8 +196,11 @@ namespace CarRentalSystem.Services.Data
 				.Select(ur => ur.RentalId)
 				.ToListAsync();
 
+			//TODO: show only the rented cars for user
+
 			IEnumerable<CarAllViewModel> allUserCars = await _context.Cars
-				.Where(c => c.Rentals.Any(r => userRentalIds.Contains(r.Id)))
+				.Where(c => c.IsActive &&
+				            c.Rentals.Any(r => userRentalIds.Contains(r.Id)))
 				.Select(c => new CarAllViewModel
 				{
 					Id = c.Id,
@@ -209,7 +212,7 @@ namespace CarRentalSystem.Services.Data
 					ImageUrl = c.ImageUrl,
 					PricePerDay = c.PricePerDay,
 					PassengerSeats = c.PassengerSeats,
-					IsRented = c.IsActive
+					IsRented = !c.IsActive
 				})
 				.ToArrayAsync();
 
