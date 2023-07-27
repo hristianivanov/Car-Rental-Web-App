@@ -212,7 +212,7 @@ namespace CarRentalSystem.Services.Data
 					ImageUrl = c.ImageUrl,
 					PricePerDay = c.PricePerDay,
 					PassengerSeats = c.PassengerSeats,
-					IsRented = !c.IsActive
+					IsRented = c.IsActive
 				})
 				.ToArrayAsync();
 
