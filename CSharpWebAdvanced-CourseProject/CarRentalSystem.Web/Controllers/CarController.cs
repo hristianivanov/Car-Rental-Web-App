@@ -53,9 +53,16 @@
 				return this.RedirectToAction("Index", "Home");
 			}
 
-			CarFormModel formModel = new CarFormModel();
+			try
+			{
+				CarFormModel formModel = new CarFormModel();
 
-			return this.View(formModel);
+				return this.View(formModel);
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
 		}
 		[HttpPost]
 		public async Task<IActionResult> Add(CarFormModel formModel)
@@ -110,7 +117,6 @@
 					await this._carService.CreateAndReturnIdAsync(formModel);
 
 				TempData[SuccessMessage] = "Car was added successfully!";
-
 				return RedirectToAction("Detail", "Car", new { id = carId });
 			}
 			catch (Exception)
@@ -136,10 +142,19 @@
 				return this.RedirectToAction("All", "Car");
 			}
 
-			CarDetailsViewModel viewModel = await this._carService
-				.GetDetailsByIdAsync(id);
+			try
+			{
 
-			return this.View(viewModel);
+				CarDetailsViewModel viewModel = await this._carService
+					.GetDetailsByIdAsync(id);
+
+				return this.View(viewModel);
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
+
 		}
 
 		//idk about the name of the action can be another
@@ -150,30 +165,116 @@
 
 			string userId = this.User.GetId()!;
 
-			myCars.AddRange(await this._carService.AllByUserIdAsync(userId));
+			try
+			{
+				myCars.AddRange(await this._carService.AllByUserIdAsync(userId));
 
-			return this.View(myCars);
+				return this.View(myCars);
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
+
 		}
 
-		public async Task<IActionResult> Rent()
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
 		{
-			return this.Ok();
+			bool carExists = await this._carService
+				.ExistByIdAsync(id);
+
+			if (!carExists)
+			{
+				this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isAdmin = true;
+
+			if (!isAdmin)
+			{
+				this.TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
+
+				//remake where you to redirect
+				return this.RedirectToAction("All", "Car");
+			}
+
+			try
+			{
+				CarFormModel formModel = await this._carService
+					.GetCarForEditByIdAsync(id);
+				return this.View(formModel);
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
 		}
-		public async Task<IActionResult> Edit()
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(int id, CarFormModel carModel)
 		{
-			return this.Ok();
+			if (!this.ModelState.IsValid)
+			{
+
+				return this.View(carModel);
+			}
+			bool carExists = await this._carService
+				.ExistByIdAsync(id);
+
+			if (!carExists)
+			{
+				this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isAdmin = true;
+
+			if (!isAdmin)
+			{
+				this.TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
+
+				//remake where you to redirect
+				return this.RedirectToAction("All", "Car");
+			}
+
+
+			try
+			{
+				await this._carService.EditCarByIdAndFormModel(id, carModel);
+			}
+			catch (Exception)
+			{
+				this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to edit the car!");
+
+				return this.View(carModel);
+			}
+
+			return this.RedirectToAction("Detail", "Car", new { id });
 		}
 		public async Task<IActionResult> Delete(int carId)
 		{
 			return this.Ok();
 		}
-
+		public async Task<IActionResult> Rent()
+		{
+			return this.Ok();
+		}
 		public async Task<IActionResult> Leave()
 		{
 			return this.Ok();
 		}
 
+		private IActionResult GeneralError()
+		{
+			this.TempData[ErrorMessage] = "Unexpected error occurred!";
 
+			return this.RedirectToAction("Index", "Home");
+		}
 		private bool IsValidEnumValue<TEnum>(TEnum value)
 		{
 			return Enum.IsDefined(typeof(TEnum), value);

@@ -176,7 +176,7 @@ namespace CarRentalSystem.Services.Data
 					ImageUrl = c.ImageUrl,
 					PricePerDay = c.PricePerDay,
 					PassengerSeats = c.PassengerSeats,
-					IsRented = !c.IsActive 
+					IsRented = !c.IsActive
 				})
 				.ToArrayAsync();
 
@@ -201,7 +201,7 @@ namespace CarRentalSystem.Services.Data
 
 			IEnumerable<CarAllViewModel> allUserCars = await _context.Cars
 				.Where(c => c.IsActive &&
-				            c.Rentals.Any(r => userRentalIds.Contains(r.Id)))
+							c.Rentals.Any(r => userRentalIds.Contains(r.Id)))
 				.Select(c => new CarAllViewModel
 				{
 					Id = c.Id,
@@ -274,7 +274,7 @@ namespace CarRentalSystem.Services.Data
 
 			return new CarFormModel
 			{
-				MakeId = car.MakeId,
+				Make = car.Make.Name,
 				Model = car.Model,
 				PricePerDay = car.PricePerDay,
 				Mileage = car.Mileage!.Value,
@@ -291,6 +291,34 @@ namespace CarRentalSystem.Services.Data
 				SelectedTransmission = car.Transmission,
 				SelectedBodyType = car.BodyType,
 			};
+		}
+
+		public async Task EditCarByIdAndFormModel(int carId, CarFormModel formModel)
+		{
+			Car car = await this._context
+				.Cars
+				.Include(c => c.Make)
+				.Where(c => c.IsActive)
+				.FirstAsync(c => c.Id == carId);
+
+			car.Make.Name = formModel.Make;
+			car.Model = formModel.Model;
+			car.PricePerDay = formModel.PricePerDay;
+			car.Mileage = formModel.Mileage;
+			car.Acceleration = formModel.Acceleration;
+			car.HorsePower = formModel.HorsePower;
+			car.TopSpeed = formModel.TopSpeed;
+			car.Year = formModel.Year;
+			car.Consumption = formModel.Consumption;
+			car.Range = formModel.Range;
+			car.Safety = formModel.Safety;
+			car.PassengerSeats = formModel.PassengerSeats;
+			car.ImageUrl = formModel.ImageUrl;
+			car.EngineType = formModel.SelectedEngineType;
+			car.Transmission = formModel.SelectedTransmission;
+			car.BodyType = formModel.SelectedBodyType;
+
+			await this._context.SaveChangesAsync();
 		}
 	}
 }

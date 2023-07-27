@@ -17,8 +17,8 @@
 
         [Required]
         [StringLength(MakeMaxLength, MinimumLength = MakeMinLength)]
-        [RegularExpression(@"^[a-zA-Z]+$",
-            ErrorMessage = "The Make field should contain only letters.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$",
+			ErrorMessage = "The Make field should contain only letters.")]
         public string Make { get; set; } = null!;
         public int MakeId { get; set; }
         [Required]

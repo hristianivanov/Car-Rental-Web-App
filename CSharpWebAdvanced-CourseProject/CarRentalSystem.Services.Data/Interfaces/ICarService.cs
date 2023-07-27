@@ -15,6 +15,7 @@
 		Task<CarDetailsViewModel> GetDetailsByIdAsync(int carId);
 		Task<bool> ExistByIdAsync(int carId);
 		Task<CarFormModel> GetCarForEditByIdAsync(int carId);
+		Task EditCarByIdAndFormModel(int carId, CarFormModel formModel);
 
 		//Task CreateAsync(CarFormModel formModel);
 		//Task<int> CreateAndReturnIdAsync(CarFormModel model);
