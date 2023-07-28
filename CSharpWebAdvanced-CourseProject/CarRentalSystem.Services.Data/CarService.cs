@@ -348,5 +348,47 @@ namespace CarRentalSystem.Services.Data
 
 			await this._context.SaveChangesAsync();
 		}
+
+		public async Task<bool> IsRentedByIdAsync(int carId)
+		{
+			Car car = await this._context
+				.Cars
+				.FirstAsync (c => c.Id == carId);
+
+			//TODO: remake
+			return car.IsActive;
+		}
+
+		public async Task RentCarAsync(int carId, string userId)
+		{
+			Car car = await this._context
+				.Cars
+				.FirstAsync(c => c.Id == carId);
+
+			//TODO:
+			//car.RenterId = Guid.Parse(userId);
+			//await this._context.SaveChangesAsync();
+		}
+
+		public async Task<bool> IsRenterByUserWithIdAsync(int carId, string userId)
+		{
+			Car car = await this._context
+				.Cars
+				.FirstAsync(c => c.Id == carId);
+			//TODO: is Rented remake
+			return car.IsActive
+				   /*  && car.RenterId.ToString() == userId*/;
+		}
+
+		public async Task LeaveCarAsync(int carId)
+		{
+			Car car = await this._context
+				.Cars
+				.FirstAsync(c => c.Id == carId);
+
+			//TODO:
+			//car.RenterId = null;
+			//await this._context.SaveChangesAsync();
+		}
 	}
 }

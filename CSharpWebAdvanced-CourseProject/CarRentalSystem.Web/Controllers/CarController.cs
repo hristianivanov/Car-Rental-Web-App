@@ -328,13 +328,84 @@
 				return this.GeneralError();
 			}
 		}
-		public async Task<IActionResult> Rent()
+		[HttpPost]
+		public async Task<IActionResult> Rent(int id)
 		{
-			return this.Ok();
+			bool carExist = await this._carService.ExistByIdAsync(id);
+
+			if (!carExist)
+			{
+				this.TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isCarRented = await this._carService.IsRentedByIdAsync(id);
+			if (isCarRented)
+			{
+				this.TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isAdmin = true;
+			//TODO: my admin will he can rent a car?!?!? if not he will be checked
+
+			try
+			{
+				await this._carService.RentCarAsync(id, this.User.GetId()!);
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
+
+			//TODO: somewhere i want
+			return this.RedirectToAction("Mine", "Car");
+
 		}
-		public async Task<IActionResult> Leave()
+		public async Task<IActionResult> Leave(int id)
 		{
-			return this.Ok();
+			bool carExist = await this._carService.ExistByIdAsync(id);
+
+			if (!carExist)
+			{
+				this.TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
+
+				return this.RedirectToAction("All", "Car");
+			}
+
+			bool isCarRented = await this._carService.IsRentedByIdAsync(id);
+			if (!isCarRented)
+			{
+				this.TempData[ErrorMessage] = "Selected car is not rented! Please select one of your cars if you wish to leave them.";
+
+				return this.RedirectToAction("Mine", "Car");
+			}
+
+			bool isAdmin = true;
+			//TODO: my admin will he can rent a car?!?!? if not he will be checked
+
+			bool isCurrUserRenterOfTheCar = await this._carService.IsRenterByUserWithIdAsync(id, this.User.GetId()!);
+
+			if (!isCurrUserRenterOfTheCar)
+			{
+				this.TempData[ErrorMessage] =
+					"You must be the renter of the car in order to leave it! Please try again with one of your rented cars if you wish to leave it.";
+
+				return this.RedirectToAction("Mine", "Car");
+			}
+
+			try
+			{
+				await this._carService.LeaveCarAsync(id);
+			}
+			catch (Exception)
+			{
+				return this.GeneralError();
+			}
+
+			return this.RedirectToAction("Mine","Car");
 		}
 
 		private IActionResult GeneralError()

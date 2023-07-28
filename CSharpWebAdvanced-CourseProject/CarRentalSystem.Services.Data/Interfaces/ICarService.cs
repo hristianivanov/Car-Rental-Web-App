@@ -18,6 +18,10 @@
 		Task EditCarByIdAndFormModelAsync(int carId, CarFormModel formModel);
 		Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(int carId);
 		Task DeleteCarByIdAsync(int carId);
+		Task<bool> IsRentedByIdAsync(int carId);
+		Task RentCarAsync(int carId, string userId);
+		Task<bool> IsRenterByUserWithIdAsync(int carId, string userId);
+		Task LeaveCarAsync(int carId);
 		//Task CreateAsync(CarFormModel formModel);
 		//Task<int> CreateAndReturnIdAsync(CarFormModel model);
 	}
