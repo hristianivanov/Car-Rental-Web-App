@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace CarRentalSystem.Web
 {
     using Microsoft.EntityFrameworkCore;
@@ -8,8 +10,10 @@ namespace CarRentalSystem.Web
     using Services.Data.Interfaces;
     using Infrastructure.ModelBinders;
     using Infrastructure.Extensions;
+	using Microsoft.AspNetCore.Mvc;
+    using static Common.GeneralApplicationConstants;
 
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
@@ -34,6 +38,7 @@ namespace CarRentalSystem.Web
                     options.Password.RequiredLength =
                         builder.Configuration.GetValue<int>("Identity:Password:RequiredLength"); ;
                 })
+	            .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CarRentingDbContext>();
 
             builder.Services.AddApplicationServices(typeof(ICarService));
@@ -43,6 +48,7 @@ namespace CarRentalSystem.Web
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
             //builder.Services.AddRazorPages();
 
@@ -55,7 +61,9 @@ namespace CarRentalSystem.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+
                 app.UseHsts();
             }
 
@@ -66,6 +74,8 @@ namespace CarRentalSystem.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             //if you had custom routing
             //app.MapControllerRoute(

@@ -10,6 +10,7 @@
     {
 		public User()
 		{
+			this.Id = Guid.NewGuid();
 			this.Contacts = new HashSet<Contact>();
 			this.UserRentals = new HashSet<UserRentals>();
 		}

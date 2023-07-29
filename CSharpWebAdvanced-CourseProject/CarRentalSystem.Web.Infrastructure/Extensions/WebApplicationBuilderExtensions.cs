@@ -1,45 +1,78 @@
-﻿using CarRentalSystem.Services.Data;
-using CarRentalSystem.Services.Data.Interfaces;
-
-namespace CarRentalSystem.Web.Infrastructure.Extensions
+﻿namespace CarRentalSystem.Web.Infrastructure.Extensions
 {
-    using System.Reflection;
+	using System.Reflection;
 
-    using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.Extensions.DependencyInjection;
 
-    public static class WebApplicationBuilderExtensions
-    {
-        /// <summary>
-        /// This method registers all services with their interfaces and implementations of given assembly.
-        /// The assembly is taken from the type of any service implementation provided.
-        /// </summary>
-        /// <param name="serviceType"></param>
-        /// <exception cref="InvalidOperationException"></exception>
-        public static void AddApplicationServices(this IServiceCollection services, Type serviceType)
-        {
-            Assembly? serviceAssembly = Assembly.GetAssembly(serviceType);
-            if (serviceAssembly == null)
-            {
-                throw new InvalidOperationException("Invalid service type provided!");
-            }
+	using Data.Models;
 
-            Type[] serviceTypes = serviceAssembly
-                .GetTypes()
-                .Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
-                .ToArray();
+	using static Common.GeneralApplicationConstants;
 
-            foreach (Type implementationType in serviceTypes)
-            {
-                Type? interfaceType = implementationType.GetInterface($"I{implementationType.Name}");
+	public static class WebApplicationBuilderExtensions
+	{
+		/// <summary>
+		/// This method registers all services with their interfaces and implementations of given assembly.
+		/// The assembly is taken from the type of any service implementation provided.
+		/// </summary>
+		/// <param name="serviceType"></param>
+		/// <exception cref="InvalidOperationException"></exception>
+		public static void AddApplicationServices(this IServiceCollection services, Type serviceType)
+		{
+			Assembly? serviceAssembly = Assembly.GetAssembly(serviceType);
+			if (serviceAssembly == null)
+			{
+				throw new InvalidOperationException("Invalid service type provided!");
+			}
 
-                if (interfaceType == null)
-                {
-                    throw new InvalidOperationException($"No interface is provided for the service with name: {implementationType.Name}");
-                }
+			Type[] serviceTypes = serviceAssembly
+				.GetTypes()
+				.Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
+				.ToArray();
 
-                services.AddScoped(interfaceType, implementationType);
-            }
+			foreach (Type implementationType in serviceTypes)
+			{
+				Type? interfaceType = implementationType.GetInterface($"I{implementationType.Name}");
 
-        }
-    }
+				if (interfaceType == null)
+				{
+					throw new InvalidOperationException($"No interface is provided for the service with name: {implementationType.Name}");
+				}
+
+				services.AddScoped(interfaceType, implementationType);
+			}
+
+		}
+
+		public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)
+		{
+			using var scopedServices = app.ApplicationServices.CreateScope();
+
+			IServiceProvider serviceProvider = scopedServices.ServiceProvider;
+
+			var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+			Task.Run(async () =>
+			{
+				if (await roleManager.RoleExistsAsync(AdminRoleName))
+				{
+					return;
+				}
+
+				var role = new IdentityRole<Guid>(AdminRoleName);
+
+				await roleManager.CreateAsync(role);
+
+				var adminUser = await userManager.FindByEmailAsync(email);
+
+				await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+			})
+			.GetAwaiter()
+			.GetResult();
+
+			return app;
+		}
+	}
 }

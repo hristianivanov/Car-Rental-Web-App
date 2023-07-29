@@ -6,5 +6,9 @@
 		public const int LastCarsInCarocel = 6;
 		public const int DefaultPage = 1;
 		public const int EntitiesPerPage = 3;
+
+		//TODO:
+		public const string AdminRoleName = "Administrator";
+		public const string DevelopmentAdminEmail = "";
 	}
 }
