@@ -2,6 +2,7 @@
 {
 	public enum CarSorting
 	{
+		None,
 		Newest,
 		Oldest,
 		PriceAscending,

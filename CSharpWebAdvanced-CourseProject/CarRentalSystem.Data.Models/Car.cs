@@ -56,6 +56,9 @@
 		//per day
 		public decimal PricePerDay { get; set; }
 
+		public Guid? RenterId { get; set; }
+		public virtual User? Renter { get; set; }
+
 		//temporary
 		[Required]
 		[MaxLength(ImageUrlMaxLength)]

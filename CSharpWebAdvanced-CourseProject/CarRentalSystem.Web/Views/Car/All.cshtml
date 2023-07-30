@@ -24,9 +24,10 @@
 			<div class="form-group" style="">
 				<label asp-for="Transmission"></label>
 				<select asp-for="Transmission" class="form-control">
-					@foreach (var category in Enum.GetValues(typeof(Transmission)).Cast<Transmission>().ToHashSet())
+					<option value="">None</option>
+					@foreach (var transmission in Model.Transmissions)
 					{
-						<option value="@category">@category</option>
+						<option value="@transmission">@transmission</option>
 					}
 				</select>
 			</div>
@@ -39,11 +40,12 @@
 			<div class="form-group">
 				<label asp-for="CarSorting"></label>
 				<select asp-for="CarSorting" class="form-control">
-					<option value="0">Newest</option>
-					<option value="1">Oldest</option>
-					<option value="2">Price (Ascending)</option>
-					<option value="3">Price (Descending))</option>
-					<option value="4">Not rented first</option>
+					<option value="0">None</option>
+					<option value="1">Newest</option>
+					<option value="2">Oldest</option>
+					<option value="3">Price (Ascending)</option>
+					<option value="4">Price (Descending))</option>
+					<option value="5">Not rented first</option>
 				</select>
 			</div>
 		</div>
@@ -91,9 +93,11 @@
 	.btn.btn-primary.disabled.ms-2 {
 		display: none;
 	}
+
 	.btn.btn-primary.disabled.me-2 {
 		display: none;
 	}
+
 	.card-img-top {
 		object-fit: cover;
 		height: 312px;
