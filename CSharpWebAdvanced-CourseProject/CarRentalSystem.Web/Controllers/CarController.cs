@@ -37,9 +37,10 @@
 			queryModel.TotalCarsCount = serviceModel.TotalCarsCount;
 			queryModel.Makes = await this._makeService.AllAvailableMakeNamesAsync();
 
-			return this.View(queryModel);
+            return this.View(queryModel);
 		}
-		[HttpGet]
+
+        [HttpGet]
 		public async Task<IActionResult> Add()
 		{
 			//TODO: check whether the user is admin

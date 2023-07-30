@@ -1,7 +1,7 @@
 ﻿namespace CarRentalSystem.Web.ViewModels.Car
 {
 	using System.ComponentModel.DataAnnotations;
-
+	using CarRentalSystem.Data.Models.Enums;
 	using Enums;
 
 	using static Common.GeneralApplicationConstants;
@@ -25,7 +25,8 @@
 		public int TotalCarsCount { get; set; }
 		[Display(Name = "Show Cars On Page")]
 		public int CarsPerPage { get; set; }
+		public Transmission Transmission { get; set; }
 		public IEnumerable<string> Makes { get; set; }
-        public IEnumerable<CarAllViewModel> Cars { get; set; }
+		public IEnumerable<CarAllViewModel> Cars { get; set; }
     }
 }

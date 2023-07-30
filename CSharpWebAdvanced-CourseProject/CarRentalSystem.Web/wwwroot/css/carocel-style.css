@@ -212,7 +212,75 @@ a:hover {
   --bs-btn-close-focus-shadow: none;
 }
 
-
+.btn.disabled {
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    line-height: 24px;
+    text-decoration: rgb(255, 255, 255);
+    text-align: center;
+    text-indent: 0px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: normal;
+    word-spacing: 0px; /* Color & Background */
+    background-attachment: scroll;
+    background-color: rgb(34, 34, 34);
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    color: rgb(255, 255, 255); /* Box */
+    height: 56px;
+    width: 63.9px;
+    border: 1px solid rgb(34, 34, 34);
+    border-top: 1px solid rgb(34, 34, 34);
+    border-right: 1px solid rgb(34, 34, 34);
+    border-bottom: 1px solid rgb(34, 34, 34);
+    border-left: 1px solid rgb(34, 34, 34);
+    margin: 0px;
+    padding: 15.008px 20px;
+    max-height: none;
+    min-height: auto;
+    max-width: none;
+    min-width: auto; /* Positioning */
+    position: static;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    float: none;
+    display: block;
+    clear: none;
+    z-index: auto; /* List */
+    list-style-image: none;
+    list-style-type: disc;
+    list-style-position: outside; /* Table */
+    border-collapse: separate;
+    border-spacing: 0px 0px;
+    caption-side: top;
+    empty-cells: show;
+    table-layout: auto; /* Miscellaneous */
+    overflow: visible;
+    cursor: pointer;
+    visibility: visible; /* Effects */
+    transform: none;
+    transition: all 0.3s ease-in 0s;
+    outline: rgb(255, 255, 255) dashed 0px;
+    outline-offset: 0px;
+    box-sizing: border-box;
+    resize: none;
+    text-shadow: none;
+    text-overflow: clip;
+    word-wrap: normal;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 3px 0px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
 
 
 /*---- navigation section style start ----*/
