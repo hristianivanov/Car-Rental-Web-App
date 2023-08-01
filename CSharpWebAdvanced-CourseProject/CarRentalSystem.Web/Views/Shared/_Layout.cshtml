@@ -1,4 +1,6 @@
 ﻿@using static CarRentalSystem.Common.GeneralApplicationConstants;
+@using CarRentalSystem.Web.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +19,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 	<link href="css/carocel-style.css" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="~/css/carocel-style.css">@*
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
+	<link rel="stylesheet" type="text/css" href="~/css/carocel-style.css">
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
 			integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
@@ -47,9 +48,12 @@
 						<li class="nav-item">
 							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="Add">Add car</a>
-						</li>
+						@if (User.IsAdmin())
+						{
+							<li class="nav-item">
+								<a class="nav-link" asp-area="" asp-controller="Car" asp-action="Add">Add car</a>
+							</li>
+						}
 						<li class="nav-item">
 							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="All">All cars</a>
 						</li>
@@ -101,7 +105,6 @@
 
 			</div>
 			<div class="ml-auto">
-				<!-- Use "ml-auto" class to push the content to the right -->
 				<span style="display: block; font-weight: bold; padding-left: 2rem">
 					Car Rental System @ReleaseYear
 					@if (DateTime.UtcNow.Year != ReleaseYear)
