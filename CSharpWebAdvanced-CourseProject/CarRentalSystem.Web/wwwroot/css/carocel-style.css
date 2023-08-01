@@ -709,9 +709,9 @@ section#action {
 
 .card-img-top {
     object-fit: cover;
-    height: 200px; /* Задайте фиксирана височина на картинката */
+    height: 254px;
 }
 
 .card-img-top {
-    border-radius: 10px; /* Задайте стойност за закръгляне на рамката */
+    border-radius: 10px;
 }

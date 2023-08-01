@@ -39,19 +39,9 @@
 		}
 
         [HttpGet]
+		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Add()
 		{
-			//TODO: check whether the user is admin
-			bool isAdmin = true;
-
-			if (!isAdmin)
-			{
-				TempData[ErrorMessage] = "You need to be an administrator in order to add new car!";
-
-				//TODO:change the redirect to stay in the page where he was...
-				return RedirectToAction("Index", "Home");
-			}
-
 			try
 			{
 				CarFormModel formModel = new CarFormModel();
@@ -63,20 +53,11 @@
 				return GeneralError();
 			}
 		}
+
 		[HttpPost]
+		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
-			//TODO: check whether the user is admin
-			bool isAdmin = true;
-
-			if (!isAdmin)
-			{
-				TempData[ErrorMessage] = "You need to be an administrator in order to add new car!";
-
-				//TODO:change the redirect to stay in the page where he was...
-				return RedirectToAction("Index", "Home");
-			}
-
 			bool makeExists =
 				await _makeService.MakeExistsByNameAsync(formModel.Make);
 
@@ -88,17 +69,16 @@
 			else
 			{
 				var make = await _makeService.GetMakeByNameAsync(formModel.Make);
-				formModel.MakeId = make.Id;
+				formModel.MakeId = make!.Id;
 			}
 
-			//TODO: I'm not sure whether that may happen or not ?!?!?
 			if (!IsValidEnumValue(formModel.SelectedBodyType))
 			{
-				ModelState.AddModelError(nameof(BodyType), "Invalid Transmission Type.");
+				ModelState.AddModelError(nameof(BodyType), "Invalid Body Type.");
 			}
 			if (!IsValidEnumValue(formModel.SelectedEngineType))
 			{
-				ModelState.AddModelError(nameof(EngineType), "Invalid Transmission Type.");
+				ModelState.AddModelError(nameof(EngineType), "Invalid Engine Type.");
 			}
 			if (!IsValidEnumValue(formModel.SelectedTransmission))
 			{
@@ -174,11 +154,11 @@
 			{
 				return GeneralError();
 			}
-
 		}
 
 
 		[HttpGet]
+		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			bool carExists = await _carService
@@ -191,9 +171,7 @@
 				return RedirectToAction("All", "Car");
 			}
 
-			bool isAdmin = true;
-
-			if (!isAdmin)
+			if (!User.IsAdmin())
 			{
 				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
 
@@ -255,7 +233,9 @@
 
 			return RedirectToAction("Detail", "Car", new { id });
 		}
+
 		[HttpGet]
+		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			bool carExists = await _carService
@@ -268,9 +248,7 @@
 				return RedirectToAction("All", "Car");
 			}
 
-			bool isAdmin = true;
-
-			if (!isAdmin)
+			if (!User.IsAdmin())
 			{
 				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
 
@@ -292,6 +270,7 @@
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Delete(int id, CarPreDeleteDetailsViewModel carModel)
 		{
 			bool carExists = await _carService
@@ -304,9 +283,7 @@
 				return RedirectToAction("All", "Car");
 			}
 
-			bool isAdmin = true;
-
-			if (!isAdmin)
+			if (!User.IsAdmin())
 			{
 				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
 
@@ -327,6 +304,7 @@
 				return GeneralError();
 			}
 		}
+
 		[HttpPost]
 		public async Task<IActionResult> Rent(int id)
 		{
@@ -346,9 +324,6 @@
 
 				return RedirectToAction("All", "Car");
 			}
-
-			bool isAdmin = true;
-			//TODO: my admin will he can rent a car?!?!? if not he will be checked
 
 			try
 			{
@@ -382,9 +357,6 @@
 				return RedirectToAction("Mine", "Car");
 			}
 
-			bool isAdmin = true;
-			//TODO: my admin will he can rent a car?!?!? if not he will be checked
-
 			bool isCurrUserRenterOfTheCar = await _carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
 
 			if (!isCurrUserRenterOfTheCar)
@@ -417,6 +389,8 @@
 		{
 			return Enum.IsDefined(typeof(TEnum), value);
 		}
+		#region isimagevalid method
+
 		//public bool IsImageValid(string imageUrl)
 		//{
 		//    try
@@ -449,5 +423,7 @@
 		//        return false;
 		//    }
 		//}
+
+		#endregion
 	}
 }
