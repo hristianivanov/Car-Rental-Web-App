@@ -54,30 +54,34 @@
 		/// <returns></returns>
 		public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)
 		{
-			using var scopedServices = app.ApplicationServices.CreateScope();
+			using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
 
 			IServiceProvider serviceProvider = scopedServices.ServiceProvider;
 
-			var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+			UserManager<User> userManager =
+				serviceProvider.GetRequiredService<UserManager<User>>();
+			RoleManager<IdentityRole<Guid>> roleManager =
+				serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
 			Task.Run(async () =>
-			{
-				if (await roleManager.RoleExistsAsync(AdminRoleName))
 				{
-					return;
-				}
+					if (await roleManager.RoleExistsAsync(AdminRoleName))
+					{
+						return;
+					}
 
-				var role = new IdentityRole<Guid>(AdminRoleName);
+					IdentityRole<Guid> role =
+						new IdentityRole<Guid>(AdminRoleName);
 
-				await roleManager.CreateAsync(role);
+					await roleManager.CreateAsync(role);
 
-				var adminUser = await userManager.FindByEmailAsync(email);
+					User adminUser =
+						await userManager.FindByEmailAsync(email);
 
-				await userManager.AddToRoleAsync(adminUser, AdminRoleName);
-			})
-			.GetAwaiter()
-			.GetResult();
+					await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+				})
+				.GetAwaiter()
+				.GetResult();
 
 			return app;
 		}

@@ -9,6 +9,6 @@
 
 		//TODO:
 		public const string AdminRoleName = "Administrator";
-		public const string DevelopmentAdminEmail = "";
+		public const string DevelopmentAdminEmail = "admin@gmail.com";
 	}
 }

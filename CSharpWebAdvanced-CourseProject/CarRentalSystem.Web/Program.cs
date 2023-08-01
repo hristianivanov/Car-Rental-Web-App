@@ -77,7 +77,7 @@ namespace CarRentalSystem.Web
 
 			if (app.Environment.IsDevelopment())
 			{
-				app.SeedAdministrator(DevelopmentAdminEmail);
+				//app.SeedAdministrator(DevelopmentAdminEmail);
 			}
 
 			//if you had custom routing
