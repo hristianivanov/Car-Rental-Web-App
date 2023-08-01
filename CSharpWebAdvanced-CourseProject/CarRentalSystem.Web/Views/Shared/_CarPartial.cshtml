@@ -1,4 +1,6 @@
-﻿@model CarAllViewModel
+﻿@using CarRentalSystem.Web.Infrastructure.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarAllViewModel
 
 <div class="col-md-4">
 	<div class="card mb-3">
@@ -16,15 +18,16 @@
 
 			@if (this.User.Identity?.IsAuthenticated ?? false)
 			{
-				<a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-				<a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
-				   class="btn btn-danger">Delete</a>
+				@if (User.IsAdmin())
+				{
+					<a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+					<a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+				}
 				<p></p>
-
 				@if (!Model.IsRented)
 				{
 					<form class="input-group-sm" asp-controller="Car" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-						<input class="btn btn-primary" type="submit" value="Rent" />
+						<input class="btn btn-primary" style="padding: 7px 280px" type="submit" value="Rent" />
 					</form>
 				}
 				else
