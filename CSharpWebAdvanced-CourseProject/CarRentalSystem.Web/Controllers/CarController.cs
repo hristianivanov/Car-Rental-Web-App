@@ -123,7 +123,6 @@
 
 			try
 			{
-
 				CarDetailsViewModel viewModel = await _carService
 					.GetDetailsByIdAsync(id);
 
@@ -133,29 +132,7 @@
 			{
 				return GeneralError();
 			}
-
 		}
-
-		//idk about the name of the action can be another
-		[HttpGet]
-		public async Task<IActionResult> Mine()
-		{
-			List<CarAllViewModel> myCars = new List<CarAllViewModel>();
-
-			string userId = User.GetId()!;
-
-			try
-			{
-				myCars.AddRange(await _carService.AllByUserIdAsync(userId));
-
-				return View(myCars);
-			}
-			catch (Exception)
-			{
-				return GeneralError();
-			}
-		}
-
 
 		[HttpGet]
 		[Authorize(Roles = "Master Administrator")]
@@ -378,6 +355,26 @@
 
 			return RedirectToAction("Mine","Car");
 		}
+		//idk about the name of the action can be another
+		[HttpGet]
+		public async Task<IActionResult> Mine()
+		{
+			List<CarAllViewModel> myCars = new List<CarAllViewModel>();
+
+			string userId = User.GetId()!;
+
+			try
+			{
+				myCars.AddRange(await _carService.AllByUserIdAsync(userId));
+
+				return View(myCars);
+			}
+			catch (Exception)
+			{
+				return GeneralError();
+			}
+		}
+
 
 		private IActionResult GeneralError()
 		{

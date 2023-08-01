@@ -243,7 +243,6 @@ namespace CarRentalSystem.Services.Data
 
         public async Task<CarDetailsViewModel> GetDetailsByIdAsync(int carId)
         {
-            //TODO: check if that works how I want
             Car car = await this._context
                 .Cars
                 .Include(c => c.Make)
@@ -253,25 +252,16 @@ namespace CarRentalSystem.Services.Data
                 .Where(c => c.IsActive)
                 .FirstAsync(c => c.Id == carId);
 
-            bool isRented = car.Rentals.Any();
-
             return new CarDetailsViewModel
             {
                 Id = car.Id,
                 Make = car.Make.Name,
                 Model = car.Model,
                 Transmission = car.Transmission.ToString(),
-                BodyType = car.BodyType.ToString(),
-                EngineType = car.EngineType.ToString(),
                 ImageUrl = car.ImageUrl,
                 PricePerDay = car.PricePerDay,
                 PassengerSeats = car.PassengerSeats,
-                IsRented = isRented,
-                User = isRented ? new UserInfoOnCarViewModel()
-                {
-                    Email = car.Rentals.First().UserRentals.First().User.Email,
-                    PhoneNumber = car.Rentals.First().UserRentals.First().User.PhoneNumber
-                } : null
+                IsRented = car.RenterId.HasValue,
             };
         }
 

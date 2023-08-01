@@ -1,9 +1,19 @@
-﻿using CarRentalSystem.Web.ViewModels.User;
-
-namespace CarRentalSystem.Web.ViewModels.Car
+﻿namespace CarRentalSystem.Web.ViewModels.Car
 {
-	public class CarDetailsViewModel : CarAllViewModel
+	using System.ComponentModel.DataAnnotations;
+	
+	public class CarDetailsViewModel
 	{
-		public UserInfoOnCarViewModel User { get; set; } = null!;
+		public int Id { get; set; }
+		public string Make { get; set; } = null!;
+		public string Model { get; set; } = null!;
+		public string Transmission { get; set; } = null!;
+		[Display(Name = "Image Link")]
+		public string ImageUrl { get; set; } = null!;
+		[Display(Name = "Daily Price")]
+		public decimal PricePerDay { get; set; }
+		public int PassengerSeats { get; set; }
+		[Display(Name = "Is Rented")]
+		public bool IsRented { get; set; }
 	}
 }
