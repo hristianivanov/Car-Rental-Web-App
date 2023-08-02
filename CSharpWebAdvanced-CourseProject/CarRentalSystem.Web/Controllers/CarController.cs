@@ -306,8 +306,9 @@
 					return RedirectToAction("Mine", "Car");
 				}
 
-				bool isCurrUserRenterOfTheCar = await _carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
 				bool isAdmin = User.IsAdmin();
+				bool isCurrUserRenterOfTheCar = await _carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
+
 				if (!isCurrUserRenterOfTheCar && !isAdmin)
 				{
 					TempData[ErrorMessage] =
@@ -347,13 +348,13 @@
 			}
 		}
 
-
 		private IActionResult GeneralError()
 		{
 			TempData[ErrorMessage] = "Unexpected error occurred!";
 
 			return RedirectToAction("Index", "Home");
 		}
+
 		private bool IsValidEnumValue<TEnum>(TEnum value)
 		{
 			return Enum.IsDefined(typeof(TEnum), value);
