@@ -80,7 +80,8 @@
 		{
 			IEnumerable<string> allNames = await this._context
 				.Makes
-				.Where(m => m.Cars.Any())
+				.Include(m => m.Cars)
+				.Where(m => m.Cars.Any() && m.Cars.Any(c => c.IsActive))
 				.Select(m => m.Name)
 				.ToArrayAsync();
 
