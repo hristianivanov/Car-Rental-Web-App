@@ -9,7 +9,7 @@
 	using Infrastructure.Extensions;
 	using ViewModels.Car;
 	using ViewModels.Make;
-    
+
 	using static Common.NotificationMessagesConstants;
 
 	[Authorize]
@@ -28,17 +28,17 @@
 		[AllowAnonymous]
 		public async Task<IActionResult> All([FromQuery] AllCarsQueryModel queryModel)
 		{
-            AllCarsFilteredAndPagedServiceModel serviceModel =
+			AllCarsFilteredAndPagedServiceModel serviceModel =
 				await _carService.AllAsync(queryModel);
 
 			queryModel.Cars = serviceModel.Cars;
 			queryModel.TotalCarsCount = serviceModel.TotalCarsCount;
 			queryModel.Makes = await _makeService.AllAvailableMakeNamesAsync();
-			
-            return View(queryModel);
+
+			return View(queryModel);
 		}
 
-        [HttpGet]
+		[HttpGet]
 		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Add()
 		{
@@ -138,28 +138,21 @@
 		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Edit(int id)
 		{
-			bool carExists = await _carService
-				.ExistByIdAsync(id);
-
-			if (!carExists)
-			{
-				TempData[ErrorMessage] = "Car with the provided id does not exist!";
-
-				return RedirectToAction("All", "Car");
-			}
-
-			if (!User.IsAdmin())
-			{
-				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
-
-				//remake where you to redirect
-				return RedirectToAction("All", "Car");
-			}
-
 			try
 			{
+				bool carExists = await _carService
+					.ExistByIdAsync(id);
+
+				if (!carExists)
+				{
+					TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+					return RedirectToAction("All", "Car");
+				}
+
 				CarFormModel formModel = await _carService
 					.GetCarForEditByIdAsync(id);
+
 				return View(formModel);
 			}
 			catch (Exception)
@@ -169,36 +162,26 @@
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Edit(int id, CarFormModel carModel)
 		{
 			if (!ModelState.IsValid)
 			{
-
 				return View(carModel);
 			}
-			bool carExists = await _carService
-				.ExistByIdAsync(id);
-
-			if (!carExists)
-			{
-				TempData[ErrorMessage] = "Car with the provided id does not exist!";
-
-				return RedirectToAction("All", "Car");
-			}
-
-			bool isAdmin = true;
-
-			if (!isAdmin)
-			{
-				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
-
-				//remake where you to redirect
-				return RedirectToAction("All", "Car");
-			}
-
 
 			try
 			{
+				bool carExists = await _carService
+					.ExistByIdAsync(id);
+
+				if (!carExists)
+				{
+					TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+					return RedirectToAction("All", "Car");
+				}
+
 				await _carService.EditCarByIdAndFormModelAsync(id, carModel);
 			}
 			catch (Exception)
@@ -215,27 +198,19 @@
 		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Delete(int id)
 		{
-			bool carExists = await _carService
-				.ExistByIdAsync(id);
-
-			if (!carExists)
-			{
-				TempData[ErrorMessage] = "Car with the provided id does not exist!";
-
-				return RedirectToAction("All", "Car");
-			}
-
-			if (!User.IsAdmin())
-			{
-				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
-
-				//remake where you to redirect
-				return RedirectToAction("All", "Car");
-			}
-
 			try
 			{
-				CarPreDeleteDetailsViewModel viewModel = 
+				bool carExists = await _carService
+					.ExistByIdAsync(id);
+
+				if (!carExists)
+				{
+					TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+					return RedirectToAction("All", "Car");
+				}
+
+				CarPreDeleteDetailsViewModel viewModel =
 					await _carService.GetCarForDeleteByIdAsync(id);
 
 				return View(viewModel);
@@ -250,30 +225,22 @@
 		[Authorize(Roles = "Master Administrator")]
 		public async Task<IActionResult> Delete(int id, CarPreDeleteDetailsViewModel carModel)
 		{
-			bool carExists = await _carService
-				.ExistByIdAsync(id);
-
-			if (!carExists)
-			{
-				TempData[ErrorMessage] = "Car with the provided id does not exist!";
-
-				return RedirectToAction("All", "Car");
-			}
-
-			if (!User.IsAdmin())
-			{
-				TempData[ErrorMessage] = "You must be administrator in order to edit car info!";
-
-				//remake where you to redirect
-				return RedirectToAction("All", "Car");
-			}
-
 			try
 			{
+				bool carExists = await _carService
+					.ExistByIdAsync(id);
+
+				if (!carExists)
+				{
+					TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+					return RedirectToAction("All", "Car");
+				}
+
 				await _carService.DeleteCarByIdAsync(id);
 
 				TempData[WarningMessage] = "The car successfully deleted!";
-				//remake where you want to redirect
+
 				return RedirectToAction("All", "Car");
 			}
 			catch (Exception)
@@ -285,77 +252,82 @@
 		[HttpPost]
 		public async Task<IActionResult> Rent(int id)
 		{
-			bool carExist = await _carService.ExistByIdAsync(id);
-
-			if (!carExist)
-			{
-				TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
-
-				return RedirectToAction("All", "Car");
-			}
-
-			bool isCarRented = await _carService.IsRentedByIdAsync(id);
-			if (isCarRented)
-			{
-				TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
-
-				return RedirectToAction("All", "Car");
-			}
-
 			try
 			{
+				bool carExist = await _carService.ExistByIdAsync(id);
+
+				if (!carExist)
+				{
+					TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
+
+					return RedirectToAction("All", "Car");
+				}
+
+				bool isCarRented = await _carService.IsRentedByIdAsync(id);
+
+				if (isCarRented)
+				{
+					TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
+
+					return RedirectToAction("All", "Car");
+				}
+
 				await _carService.RentCarAsync(id, User.GetId()!);
+
+				TempData[SuccessMessage] = "You rent successfully your selected car!";
 			}
 			catch (Exception)
 			{
 				return GeneralError();
 			}
 
-			//TODO: somewhere i want
 			return RedirectToAction("Mine", "Car");
-
 		}
+
+		[HttpPost]
 		public async Task<IActionResult> Leave(int id)
 		{
-			bool carExist = await _carService.ExistByIdAsync(id);
-
-			if (!carExist)
-			{
-				TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
-
-				return RedirectToAction("All", "Car");
-			}
-
-			bool isCarRented = await _carService.IsRentedByIdAsync(id);
-			if (!isCarRented)
-			{
-				TempData[ErrorMessage] = "Selected car is not rented! Please select one of your cars if you wish to leave them.";
-
-				return RedirectToAction("Mine", "Car");
-			}
-
-			bool isCurrUserRenterOfTheCar = await _carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
-
-			if (!isCurrUserRenterOfTheCar)
-			{
-				TempData[ErrorMessage] =
-					"You must be the renter of the car in order to leave it! Please try again with one of your rented cars if you wish to leave it.";
-
-				return RedirectToAction("Mine", "Car");
-			}
-
 			try
 			{
+				bool carExist = await _carService.ExistByIdAsync(id);
+
+				if (!carExist)
+				{
+					TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
+
+					return RedirectToAction("All", "Car");
+				}
+
+				bool isCarRented = await _carService.IsRentedByIdAsync(id);
+				if (!isCarRented)
+				{
+					TempData[ErrorMessage] = "Selected car is not rented! Please select one of your cars if you wish to leave them.";
+
+					return RedirectToAction("Mine", "Car");
+				}
+
+				bool isCurrUserRenterOfTheCar = await _carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
+				bool isAdmin = User.IsAdmin();
+				if (!isCurrUserRenterOfTheCar && !isAdmin)
+				{
+					TempData[ErrorMessage] =
+						"You must be the renter of the car in order to leave it! Please try again with one of your rented cars if you wish to leave it.";
+
+					return RedirectToAction("Mine", "Car");
+				}
+
 				await _carService.LeaveCarAsync(id);
+
+				TempData[InformationMessage] = "You left your car successfully!";
 			}
 			catch (Exception)
 			{
 				return GeneralError();
 			}
 
-			return RedirectToAction("Mine","Car");
+			return RedirectToAction("Mine", "Car");
 		}
-		//idk about the name of the action can be another
+
 		[HttpGet]
 		public async Task<IActionResult> Mine()
 		{
@@ -386,6 +358,7 @@
 		{
 			return Enum.IsDefined(typeof(TEnum), value);
 		}
+
 		#region isimagevalid method
 
 		//public bool IsImageValid(string imageUrl)

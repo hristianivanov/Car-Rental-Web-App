@@ -1,8 +1,13 @@
 ﻿@using CarRentalSystem.Web.Infrastructure.Extensions
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using CarRentalSystem.Services.Data.Interfaces
+@inject ICarService CarService
 @model CarDetailsViewModel
 @{
-	ViewBag.Title = "Car Details";
+
+	bool isAdmin = User.IsAdmin();
+	bool isCarRentedByUser = await CarService.IsRenterByUserWithIdAsync(Model.Id, User.GetId()!);
+	ViewData["Title"] = "Car Details";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -21,22 +26,22 @@
 				<p>Passenger Seats: <b>@Model.PassengerSeats</b></p>
 				<p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
 
-				<div class="d-flex flex-row@(User.IsAdmin() ? string.Empty : "-user")">
+				<div class="d-flex flex-row@(isAdmin ? string.Empty : "-user")">
 					@if (this.User.Identity?.IsAuthenticated ?? false)
 					{
 						@if (!Model.IsRented)
 						{
 							<form class="ml-2" asp-controller="Car" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-								<input class="btn btn-primary btn-sm-custom@(User.IsAdmin() ? string.Empty : "-user")" type="submit" value="Rent" />
+								<input class="btn btn-primary btn-sm-custom@(isAdmin ? string.Empty : "-user")" type="submit" value="Rent" />
 							</form>
 						}
-						else
+						else if (isCarRentedByUser || isAdmin)
 						{
 							<form class="ml-2" asp-controller="Car" asp-action="Leave" asp-route-id="@Model.Id" method="post">
 								<input class="btn btn-primary btn-sm-custom" type="submit" value="Leave" />
 							</form>
 						}
-						if (this.User.IsAdmin())
+						if (isAdmin)
 						{
 							<a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm-custom ml-2">Edit</a>
 							<a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm-custom ml-2">Delete</a>
