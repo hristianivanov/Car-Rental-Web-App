@@ -36,4 +36,8 @@
     <ProjectReference Include="..\CarRentalSystem.WebViewModels\CarRentalSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\Account\" />
+  </ItemGroup>
+
 </Project>
