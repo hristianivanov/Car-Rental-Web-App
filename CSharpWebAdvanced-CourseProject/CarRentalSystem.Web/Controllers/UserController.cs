@@ -42,15 +42,15 @@ namespace CarRentalSystem.Web.Controllers
             {
                 return this.View();
             }
-
-            User user = new User()
+            
+			User user = new User()
             {
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
             };
-
-            await this.userManager.SetEmailAsync(user, model.Email);
+            
+			await this.userManager.SetEmailAsync(user, model.Email);
             await this.userManager.SetUserNameAsync(user, model.Email);
 
             var result =
