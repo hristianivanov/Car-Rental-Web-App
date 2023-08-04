@@ -1,8 +1,5 @@
-﻿@using CarRentalSystem.Web.Infrastructure.Extensions
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using CarRentalSystem.Services.Data.Interfaces
+﻿@model CarAllViewModel
 @inject ICarService CarService
-@model CarAllViewModel
 
 @{
 	bool isAdmin = User.IsAdmin();

@@ -1,4 +1,6 @@
-﻿namespace CarRentalSystem.Web.Controllers
+﻿using System.Security.Claims;
+
+namespace CarRentalSystem.Web.Controllers
 {
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
@@ -48,7 +50,7 @@
                 LastName = model.LastName,
             };
 
-
+            await this.userManager.AddClaimAsync(user, new Claim("FirsName", model.FirstName));
             await this.userManager.SetEmailAsync(user, model.Email);
             await this.userManager.SetUserNameAsync(user, model.Email);
 
