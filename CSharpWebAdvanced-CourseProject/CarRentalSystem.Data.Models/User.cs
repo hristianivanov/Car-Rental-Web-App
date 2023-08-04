@@ -13,6 +13,7 @@
 			this.Id = Guid.NewGuid();
 			this.Contacts = new HashSet<Contact>();
 			this.UserRentals = new HashSet<UserRentals>();
+			this.SecurityStamp = Guid.NewGuid().ToString();
 		}
 
 		[Required, MaxLength(FirstNameMaxLength)]

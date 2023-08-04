@@ -50,7 +50,6 @@ namespace CarRentalSystem.Web.Controllers
                 LastName = model.LastName,
             };
 
-            await this.userManager.AddClaimAsync(user, new Claim("FirsName", model.FirstName));
             await this.userManager.SetEmailAsync(user, model.Email);
             await this.userManager.SetUserNameAsync(user, model.Email);
 
