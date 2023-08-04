@@ -15,13 +15,13 @@
 	[Authorize]
 	public class CarController : Controller
 	{
-		private readonly ICarService _carService;
-		private readonly IMakeService _makeService;
+		private readonly ICarService carService;
+		private readonly IMakeService makeService;
 
 		public CarController(ICarService carService, IMakeService makeService)
 		{
-			_carService = carService;
-			_makeService = makeService;
+			this.carService = carService;
+			this.makeService = makeService;
 		}
 
 		[HttpGet]
@@ -29,11 +29,11 @@
 		public async Task<IActionResult> All([FromQuery] AllCarsQueryModel queryModel)
 		{
 			AllCarsFilteredAndPagedServiceModel serviceModel =
-				await _carService.AllAsync(queryModel);
+				await carService.AllAsync(queryModel);
 
 			queryModel.Cars = serviceModel.Cars;
 			queryModel.TotalCarsCount = serviceModel.TotalCarsCount;
-			queryModel.Makes = await _makeService.AllAvailableMakeNamesAsync();
+			queryModel.Makes = await makeService.AllAvailableMakeNamesAsync();
 
 			return View(queryModel);
 		}
@@ -59,16 +59,16 @@
 		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
 			bool makeExists =
-				await _makeService.MakeExistsByNameAsync(formModel.Make);
+				await makeService.MakeExistsByNameAsync(formModel.Make);
 
 			if (!makeExists)
 			{
-				MakeViewModel make = await _makeService.CreateMakeAndGetAsync(formModel.Make);
+				MakeViewModel make = await makeService.CreateMakeAndGetAsync(formModel.Make);
 				formModel.MakeId = make.Id;
 			}
 			else
 			{
-				var make = await _makeService.GetMakeByNameAsync(formModel.Make);
+				var make = await makeService.GetMakeByNameAsync(formModel.Make);
 				formModel.MakeId = make!.Id;
 			}
 
@@ -93,7 +93,7 @@
 			try
 			{
 				int carId =
-					await _carService.CreateAndReturnIdAsync(formModel);
+					await carService.CreateAndReturnIdAsync(formModel);
 
 				TempData[SuccessMessage] = "Car was added successfully!";
 				return RedirectToAction("Detail", "Car", new { id = carId });
@@ -111,7 +111,7 @@
 		[AllowAnonymous]
 		public async Task<IActionResult> Detail(int id)
 		{
-			bool carExists = await _carService
+			bool carExists = await carService
 				.ExistByIdAsync(id);
 
 			if (!carExists)
@@ -123,7 +123,7 @@
 
 			try
 			{
-				CarDetailsViewModel viewModel = await _carService
+				CarDetailsViewModel viewModel = await carService
 					.GetDetailsByIdAsync(id);
 
 				return View(viewModel);
@@ -140,7 +140,7 @@
 		{
 			try
 			{
-				bool carExists = await _carService
+				bool carExists = await carService
 					.ExistByIdAsync(id);
 
 				if (!carExists)
@@ -150,7 +150,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				CarFormModel formModel = await _carService
+				CarFormModel formModel = await carService
 					.GetCarForEditByIdAsync(id);
 
 				return View(formModel);
@@ -172,7 +172,7 @@
 
 			try
 			{
-				bool carExists = await _carService
+				bool carExists = await carService
 					.ExistByIdAsync(id);
 
 				if (!carExists)
@@ -182,7 +182,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				await _carService.EditCarByIdAndFormModelAsync(id, carModel);
+				await carService.EditCarByIdAndFormModelAsync(id, carModel);
 			}
 			catch (Exception)
 			{
@@ -200,7 +200,7 @@
 		{
 			try
 			{
-				bool carExists = await _carService
+				bool carExists = await carService
 					.ExistByIdAsync(id);
 
 				if (!carExists)
@@ -211,7 +211,7 @@
 				}
 
 				CarPreDeleteDetailsViewModel viewModel =
-					await _carService.GetCarForDeleteByIdAsync(id);
+					await carService.GetCarForDeleteByIdAsync(id);
 
 				return View(viewModel);
 			}
@@ -227,7 +227,7 @@
 		{
 			try
 			{
-				bool carExists = await _carService
+				bool carExists = await carService
 					.ExistByIdAsync(id);
 
 				if (!carExists)
@@ -237,7 +237,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				await _carService.DeleteCarByIdAsync(id);
+				await carService.DeleteCarByIdAsync(id);
 
 				TempData[WarningMessage] = "The car successfully deleted!";
 
@@ -254,7 +254,7 @@
 		{
 			try
 			{
-				bool carExist = await _carService.ExistByIdAsync(id);
+				bool carExist = await carService.ExistByIdAsync(id);
 
 				if (!carExist)
 				{
@@ -263,7 +263,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				bool isCarRented = await _carService.IsRentedByIdAsync(id);
+				bool isCarRented = await carService.IsRentedByIdAsync(id);
 
 				if (isCarRented)
 				{
@@ -272,7 +272,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				await _carService.RentCarAsync(id, User.GetId()!);
+				await carService.RentCarAsync(id, User.GetId()!);
 
 				TempData[SuccessMessage] = "You rent successfully your selected car!";
 			}
@@ -289,7 +289,7 @@
 		{
 			try
 			{
-				bool carExist = await _carService.ExistByIdAsync(id);
+				bool carExist = await carService.ExistByIdAsync(id);
 
 				if (!carExist)
 				{
@@ -298,7 +298,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				bool isCarRented = await _carService.IsRentedByIdAsync(id);
+				bool isCarRented = await carService.IsRentedByIdAsync(id);
 				if (!isCarRented)
 				{
 					TempData[ErrorMessage] = "Selected car is not rented! Please select one of your cars if you wish to leave them.";
@@ -307,7 +307,7 @@
 				}
 
 				bool isAdmin = User.IsAdmin();
-				bool isCurrUserRenterOfTheCar = await _carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
+				bool isCurrUserRenterOfTheCar = await carService.IsRenterByUserWithIdAsync(id, User.GetId()!);
 
 				if (!isCurrUserRenterOfTheCar && !isAdmin)
 				{
@@ -317,7 +317,7 @@
 					return RedirectToAction("Mine", "Car");
 				}
 
-				await _carService.LeaveCarAsync(id);
+				await carService.LeaveCarAsync(id);
 
 				TempData[InformationMessage] = "You left your car successfully!";
 			}
@@ -338,7 +338,7 @@
 
 			try
 			{
-				myCars.AddRange(await _carService.AllByUserIdAsync(userId));
+				myCars.AddRange(await carService.AllByUserIdAsync(userId));
 
 				return View(myCars);
 			}

@@ -9,11 +9,11 @@
 
 	public class MakeService : IMakeService
 	{
-		private readonly CarRentingDbContext _context;
+		private readonly CarRentingDbContext context;
 
 		public MakeService(CarRentingDbContext context)
 		{
-			_context = context;
+			this.context = context;
 		}
 
 		public async Task CreateMakeAsync(string name)
@@ -23,8 +23,8 @@
 				Name = name,
 			};
 
-			await this._context.Makes.AddAsync(model);
-			await this._context.SaveChangesAsync();
+			await this.context.Makes.AddAsync(model);
+			await this.context.SaveChangesAsync();
 		}
 		public async Task CreateMakeAsync(MakeFormModel formModel)
 		{
@@ -34,12 +34,12 @@
 				NewInnovation = formModel.NewInnovation,
 			};
 
-			await this._context.Makes.AddAsync(model);
-			await this._context.SaveChangesAsync();
+			await this.context.Makes.AddAsync(model);
+			await this.context.SaveChangesAsync();
 		}
 		public async Task<bool> MakeExistsByNameAsync(string make)
 		{
-			bool exists = await this._context
+			bool exists = await this.context
 				.Makes
 				.AnyAsync(m => m.Name.ToLower() == make.ToLower());
 
@@ -47,7 +47,7 @@
 		}
 		public async Task<MakeViewModel?> GetMakeByNameAsync(string name)
 		{
-			MakeViewModel? model = await this._context
+			MakeViewModel? model = await this.context
 				.Makes
 				.Select(m => new MakeViewModel()
 				{
@@ -66,8 +66,8 @@
 				Name = name,
 			};
 
-			await this._context.Makes.AddAsync(make);
-			await this._context.SaveChangesAsync();
+			await this.context.Makes.AddAsync(make);
+			await this.context.SaveChangesAsync();
 
 			return new MakeViewModel()
 			{
@@ -78,7 +78,7 @@
 
 		public async Task<IEnumerable<string>> AllAvailableMakeNamesAsync()
 		{
-			IEnumerable<string> allNames = await this._context
+			IEnumerable<string> allNames = await this.context
 				.Makes
 				.Include(m => m.Cars)
 				.Where(m => m.Cars.Any() && m.Cars.Any(c => c.IsActive))
@@ -90,7 +90,7 @@
 
 		public async Task<int> GetMakeIdOrCreateMakeAsync(string make)
 		{
-			Make? model = await this._context
+			Make? model = await this.context
 				.Makes
 				.FirstOrDefaultAsync(m => m.Name.ToLower() == make.ToLower());
 
@@ -101,8 +101,8 @@
 					Name = make
 				};
 
-				await this._context.Makes.AddAsync(model);
-				await this._context.SaveChangesAsync();
+				await this.context.Makes.AddAsync(model);
+				await this.context.SaveChangesAsync();
 			}
 
 			return model.Id;

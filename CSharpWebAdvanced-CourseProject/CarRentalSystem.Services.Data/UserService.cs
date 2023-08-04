@@ -1,27 +1,27 @@
-﻿using CarRentalSystem.Data.Models;
-
-namespace CarRentalSystem.Services.Data
+﻿namespace CarRentalSystem.Services.Data
 {
-	using CarRentalSystem.Data;
-	using Interfaces;
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-	public class UserService : IUserService
-	{
-		private readonly CarRentingDbContext _context;
+    using Interfaces;
+    using CarRentalSystem.Data;
+    using CarRentalSystem.Data.Models;
 
-		public UserService(CarRentingDbContext context)
-		{
-			_context = context;
-		}
+    public class UserService : IUserService
+    {
+        private readonly CarRentingDbContext context;
 
-		public async Task<bool> UserHasRentsAsync(string userId)
-		{
-			User user = await this._context
-				.Users
-				.FirstAsync(u => u.Id.ToString() == userId);
+        public UserService(CarRentingDbContext context)
+        {
+            this.context = context;
+        }
 
-			return user.UserRentals.Any(); 
-		}
-	}
+        public async Task<bool> UserHasRentsAsync(string userId)
+        {
+            User user = await this.context
+                .Users
+                .FirstAsync(u => u.Id.ToString() == userId);
+
+            return user.UserRentals.Any();
+        }
+    }
 }

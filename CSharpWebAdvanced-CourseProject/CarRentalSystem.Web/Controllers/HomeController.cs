@@ -1,25 +1,22 @@
 ﻿namespace CarRentalSystem.Web.Controllers
 {
-	using System.Diagnostics;
-	using CarRentalSystem.Services.Data.Interfaces;
 	using Microsoft.AspNetCore.Mvc;
 
-	using ViewModels.Home;
-
-	using static Common.GeneralApplicationConstants;
+    using CarRentalSystem.Services.Data.Interfaces;
+    using static Common.GeneralApplicationConstants;
 
 	public class HomeController : Controller
 	{
-		private readonly ICarService _carService;
+		private readonly ICarService carService;
 
 		public HomeController(ICarService carService)
 		{
-			_carService = carService;
+			this.carService = carService;
 		}
 
 		public async Task<IActionResult> Index()
 		{
-			var viewModel = await this._carService.LastCarsAsync(LastCarsInCarocel);
+			var viewModel = await this.carService.LastCarsAsync(LastCarsInCarocel);
 
 			return View(viewModel);
 		}
