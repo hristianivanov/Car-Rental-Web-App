@@ -30,7 +30,7 @@
                 .Take(6)
                 .Select(c => new IndexViewModel
                 {
-                    Id = c.Id,
+                    Id = c.Id.ToString(),
                     Make = c.Make.Name,
                     Model = c.Model,
                     Transmission = c.Transmission.ToString(),
@@ -55,7 +55,7 @@
                 .Take(count)
                 .Select(c => new IndexViewModel
                 {
-                    Id = c.Id,
+                    Id = c.Id.ToString(),
                     Make = c.Make.Name,
                     Model = c.Model,
                     Transmission = c.Transmission.ToString(),
@@ -96,7 +96,7 @@
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<int> CreateAndReturnIdAsync(CarFormModel model)
+        public async Task<string> CreateAndReturnIdAsync(CarFormModel model)
         {
             Car car = new Car
             {
@@ -121,7 +121,7 @@
             await this.context.Cars.AddAsync(car);
             await this.context.SaveChangesAsync();
 
-            return car.Id;
+            return car.Id.ToString();
         }
 
         public async Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel)
@@ -177,7 +177,7 @@
                 .Take(queryModel.CarsPerPage)
                 .Select(c => new CarAllViewModel
                 {
-                    Id = c.Id,
+                    Id = c.Id.ToString(),
                     Make = c.Make.Name,
                     Model = c.Model,
                     Transmission = c.Transmission.ToString(),
@@ -208,7 +208,7 @@
                             c.RenterId.ToString() == userId)
                 .Select(c => new CarAllViewModel()
                 {
-                    Id = c.Id,
+                    Id = c.Id.ToString(),
                     Make = c.Make.Name,
                     Model = c.Model,
                     Transmission = c.Transmission.ToString(),
@@ -224,17 +224,17 @@
             return allUserCars;
         }
 
-        public async Task<bool> IsCarRented(int carId)
+        public async Task<bool> IsCarRented(string carId)
         {
             bool isRented = await this.context
                 .Rentals
-                .AnyAsync(r => r.CarId == carId &&
+                .AnyAsync(r => r.CarId.ToString() == carId &&
                                r.EndDate > DateTime.UtcNow);
 
             return isRented;
         }
 
-        public async Task<CarDetailsViewModel> GetDetailsByIdAsync(int carId)
+        public async Task<CarDetailsViewModel> GetDetailsByIdAsync(string carId)
         {
             Car car = await this.context
                 .Cars
@@ -243,11 +243,11 @@
                 .ThenInclude(r => r.UserRentals)
                 .ThenInclude(ur => ur.User)
                 .Where(c => c.IsActive)
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return new CarDetailsViewModel
             {
-                Id = car.Id,
+                Id = car.Id.ToString(),
                 Make = car.Make.Name,
                 Model = car.Model,
                 Transmission = car.Transmission.ToString(),
@@ -258,23 +258,23 @@
             };
         }
 
-        public async Task<bool> ExistByIdAsync(int carId)
+        public async Task<bool> ExistByIdAsync(string carId)
         {
             bool result = await this.context
                 .Cars
                 .Where(c => c.IsActive)
-                .AnyAsync(c => c.Id == carId);
+                .AnyAsync(c => c.Id.ToString() == carId);
 
             return result;
         }
 
-        public async Task<CarFormModel> GetCarForEditByIdAsync(int carId)
+        public async Task<CarFormModel> GetCarForEditByIdAsync(string carId)
         {
             Car car = await this.context
                 .Cars
                 .Include(c => c.Make)
                 .Where(c => c.IsActive)
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return new CarFormModel
             {
@@ -297,13 +297,13 @@
             };
         }
 
-        public async Task EditCarByIdAndFormModelAsync(int carId, CarFormModel formModel)
+        public async Task EditCarByIdAndFormModelAsync(string carId, CarFormModel formModel)
         {
             Car car = await this.context
                 .Cars
                 .Include(c => c.Make)
                 .Where(c => c.IsActive)
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             car.Make.Name = formModel.Make;
             car.Model = formModel.Model;
@@ -325,13 +325,13 @@
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(int carId)
+        public async Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId)
         {
             Car car = await this.context
                 .Cars
                 .Include(c => c.Make)
                 .Where(c => c.IsActive)
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return new CarPreDeleteDetailsViewModel
             {
@@ -341,52 +341,52 @@
             };
         }
 
-        public async Task DeleteCarByIdAsync(int carId)
+        public async Task DeleteCarByIdAsync(string carId)
         {
             Car carToDelete = await this.context
                 .Cars
                 .Where(c => c.IsActive)
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             carToDelete.IsActive = false;
 
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<bool> IsRentedByIdAsync(int carId)
+        public async Task<bool> IsRentedByIdAsync(string carId)
         {
             Car car = await this.context
                 .Cars
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return car.RenterId.HasValue;
         }
 
-        public async Task RentCarAsync(int carId, string userId)
+        public async Task RentCarAsync(string carId, string userId)
         {
             Car car = await this.context
                 .Cars
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             car.RenterId = Guid.Parse(userId);
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<bool> IsRenterByUserWithIdAsync(int carId, string userId)
+        public async Task<bool> IsRenterByUserWithIdAsync(string carId, string userId)
         {
             Car car = await this.context
                 .Cars
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return car.IsActive
                 && car.RenterId.ToString() == userId;
         }
 
-        public async Task LeaveCarAsync(int carId)
+        public async Task LeaveCarAsync(string carId)
         {
             Car car = await this.context
                 .Cars
-                .FirstAsync(c => c.Id == carId);
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             car.RenterId = null;
             await this.context.SaveChangesAsync();

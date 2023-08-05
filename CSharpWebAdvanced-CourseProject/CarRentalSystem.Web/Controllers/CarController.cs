@@ -92,7 +92,7 @@
 
 			try
 			{
-				int carId =
+				string carId =
 					await carService.CreateAndReturnIdAsync(formModel);
 
 				TempData[SuccessMessage] = "Car was added successfully!";
@@ -109,7 +109,7 @@
 
 		[HttpGet]
 		[AllowAnonymous]
-		public async Task<IActionResult> Detail(int id)
+		public async Task<IActionResult> Detail(string id)
 		{
 			bool carExists = await carService
 				.ExistByIdAsync(id);
@@ -136,7 +136,7 @@
 
 		[HttpGet]
 		[Authorize(Roles = "Master Administrator")]
-		public async Task<IActionResult> Edit(int id)
+		public async Task<IActionResult> Edit(string id)
 		{
 			try
 			{
@@ -163,7 +163,7 @@
 
 		[HttpPost]
 		[Authorize(Roles = "Master Administrator")]
-		public async Task<IActionResult> Edit(int id, CarFormModel carModel)
+		public async Task<IActionResult> Edit(string id, CarFormModel carModel)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -196,7 +196,7 @@
 
 		[HttpGet]
 		[Authorize(Roles = "Master Administrator")]
-		public async Task<IActionResult> Delete(int id)
+		public async Task<IActionResult> Delete(string id)
 		{
 			try
 			{
@@ -223,7 +223,7 @@
 
 		[HttpPost]
 		[Authorize(Roles = "Master Administrator")]
-		public async Task<IActionResult> Delete(int id, CarPreDeleteDetailsViewModel carModel)
+		public async Task<IActionResult> Delete(string id, CarPreDeleteDetailsViewModel carModel)
 		{
 			try
 			{
@@ -250,7 +250,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Rent(int id)
+		public async Task<IActionResult> Rent(string id)
 		{
 			try
 			{
@@ -285,7 +285,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Leave(int id)
+		public async Task<IActionResult> Leave(string id)
 		{
 			try
 			{

@@ -18,7 +18,7 @@
         public decimal Price { get; set; }
         public decimal Deposit { get; set; }
         [ForeignKey(nameof(Car))]
-        public int CarId { get; set; }
+        public Guid CarId { get; set; }
         public virtual Car Car { get; set; } = null!;
 
         public virtual ICollection<UserRentals> UserRentals { get; set; }

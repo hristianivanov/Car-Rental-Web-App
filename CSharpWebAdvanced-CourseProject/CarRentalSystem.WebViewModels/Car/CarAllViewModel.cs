@@ -4,7 +4,7 @@
 
 	public class CarAllViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Make { get; set; } = null!;
         public string Model { get; set; } = null!;
         public string Transmission { get; set; } = null!;

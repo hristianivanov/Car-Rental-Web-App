@@ -24,7 +24,7 @@
 
 			cars.Add(new Car()
 			{
-				Id = 1,
+				Id =  Guid.Parse("a6e93473-1479-442f-a73a-96a5f4f94b2f"),
 				MakeId = 3,
 				Model = "RS e-tron GT",
 				BodyType = BodyType.Coupe,
@@ -35,7 +35,7 @@
 				TopSpeed = 155,
 				Year = 2021,
 				Consumption = 20.2,
-				ImageUrl = "https://www.carpixel.net/w/fb81ff032f94a62ab3734238828ca57c/audi-rs-e-tron-gt-car-wallpaper-103179.jpg",
+				ImageUrl = "https://www.cnet.com/a/img/resize/607531bf946fb55b78d58ddf654b802133f3aeb3/hub/2021/11/10/e0e04238-ff8d-4e5a-9cd7-1dca34ec7843/2022-audi-rs-e-tron-gt-ogi-1.jpg?auto=webp&fit=crop&height=675&width=1200",
 				EngineType = EngineType.Electric, 
 				PricePerDay = 420,
 				Range = 298,
@@ -44,7 +44,7 @@
 			});
 			cars.Add(new Car()
 			{
-				Id = 2,
+				Id = Guid.Parse("e0076ee2-7eaa-4b5b-82cd-0e415b4df2dd"),
 				MakeId = 3,
 				Model = "A5 SB basic",
 				BodyType = BodyType.Hatchback,
@@ -64,7 +64,7 @@
 			});
 			cars.Add(new Car()
 			{
-				Id = 3,
+				Id = Guid.Parse("0176c691-6be3-49bf-9399-42d8e9ebde86"),
 				MakeId = 4,
 				Model = "X6 40d",
 				BodyType = BodyType.SUV,
@@ -84,7 +84,7 @@
 			});
 			cars.Add(new Car()
 			{
-				Id = 4,
+				Id = Guid.Parse("247ae983-4cf8-4881-951d-f39e66b8877e"),
 				MakeId = 6,
 				Model = "F430",
 				BodyType = BodyType.Sport,
@@ -104,7 +104,7 @@
 			});
 			cars.Add(new Car()
 			{
-				Id = 5,
+				Id = Guid.Parse("5c85b4b3-10c9-4cec-b30b-ac226da7b60b"),
 				MakeId = 2,
 				Model = "Giulia",
 				BodyType = BodyType.Sedan,
@@ -124,7 +124,7 @@
 			});
 			cars.Add(new Car()
 			{
-				Id = 6,
+				Id = Guid.Parse("b5cc05e9-2c12-4a5d-bccf-fc4a95ec04a6"),
 				MakeId = 4,
 				Model = "e60 M5",
 				BodyType = BodyType.Sedan,

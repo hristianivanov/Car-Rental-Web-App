@@ -9,20 +9,20 @@
 	{
 		Task<IEnumerable<IndexViewModel>> LastSixCarsAsync();
 		Task<IEnumerable<IndexViewModel>> LastCarsAsync(int count);
-		Task<int> CreateAndReturnIdAsync(CarFormModel formModel);
+		Task<string> CreateAndReturnIdAsync(CarFormModel formModel);
 		Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
 		Task<IEnumerable<CarAllViewModel>> AllByUserIdAsync(string userId);
-		Task<CarDetailsViewModel> GetDetailsByIdAsync(int carId);
-		Task<bool> ExistByIdAsync(int carId);
-		Task<CarFormModel> GetCarForEditByIdAsync(int carId);
-		Task EditCarByIdAndFormModelAsync(int carId, CarFormModel formModel);
-		Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(int carId);
-		Task DeleteCarByIdAsync(int carId);
-		Task<bool> IsRentedByIdAsync(int carId);
-		Task RentCarAsync(int carId, string userId);
-        Task<bool> IsCarRented(int carId);
-        Task<bool> IsRenterByUserWithIdAsync(int carId, string userId);
-		Task LeaveCarAsync(int carId);
+		Task<CarDetailsViewModel> GetDetailsByIdAsync(string carId);
+		Task<bool> ExistByIdAsync(string carId);
+		Task<CarFormModel> GetCarForEditByIdAsync(string carId);
+		Task EditCarByIdAndFormModelAsync(string carId, CarFormModel formModel);
+		Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId);
+		Task DeleteCarByIdAsync(string carId);
+		Task<bool> IsRentedByIdAsync(string carId);
+		Task RentCarAsync(string carId, string userId);
+        Task<bool> IsCarRented(string carId);
+        Task<bool> IsRenterByUserWithIdAsync(string carId, string userId);
+		Task LeaveCarAsync(string carId);
 		//Task CreateAsync(CarFormModel formModel);
 		//Task<int> CreateAndReturnIdAsync(CarFormModel model);
 	}

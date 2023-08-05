@@ -24,11 +24,9 @@ namespace CarRentalSystem.Data.Migrations
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Acceleration")
                         .HasColumnType("float");
@@ -107,14 +105,14 @@ namespace CarRentalSystem.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("a6e93473-1479-442f-a73a-96a5f4f94b2f"),
                             Acceleration = 2.8999999999999999,
                             BodyType = 3,
                             Consumption = 20.199999999999999,
                             EngineType = 2,
                             FuelAmount = (byte)0,
                             HorsePower = 637,
-                            ImageUrl = "https://www.carpixel.net/w/fb81ff032f94a62ab3734238828ca57c/audi-rs-e-tron-gt-car-wallpaper-103179.jpg",
+                            ImageUrl = "https://www.cnet.com/a/img/resize/607531bf946fb55b78d58ddf654b802133f3aeb3/hub/2021/11/10/e0e04238-ff8d-4e5a-9cd7-1dca34ec7843/2022-audi-rs-e-tron-gt-ogi-1.jpg?auto=webp&fit=crop&height=675&width=1200",
                             IsActive = false,
                             MakeId = 3,
                             Mileage = 5000L,
@@ -129,7 +127,7 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("e0076ee2-7eaa-4b5b-82cd-0e415b4df2dd"),
                             Acceleration = 6.2000000000000002,
                             BodyType = 4,
                             Consumption = 6.2000000000000002,
@@ -151,7 +149,7 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("0176c691-6be3-49bf-9399-42d8e9ebde86"),
                             Acceleration = 5.5,
                             BodyType = 1,
                             Consumption = 7.0999999999999996,
@@ -173,7 +171,7 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("247ae983-4cf8-4881-951d-f39e66b8877e"),
                             Acceleration = 3.6000000000000001,
                             BodyType = 18,
                             Consumption = 18.300000000000001,
@@ -195,7 +193,7 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 5,
+                            Id = new Guid("5c85b4b3-10c9-4cec-b30b-ac226da7b60b"),
                             Acceleration = 5.4000000000000004,
                             BodyType = 0,
                             Consumption = 28.5,
@@ -217,7 +215,7 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = new Guid("b5cc05e9-2c12-4a5d-bccf-fc4a95ec04a6"),
                             Acceleration = 4.5,
                             BodyType = 0,
                             Consumption = 22.699999999999999,
@@ -241,8 +239,8 @@ namespace CarRentalSystem.Data.Migrations
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.CarColors", b =>
                 {
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
@@ -400,8 +398,8 @@ namespace CarRentalSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Deposit")
                         .HasColumnType("decimal(18,2)");
@@ -502,7 +500,7 @@ namespace CarRentalSystem.Data.Migrations
                         {
                             Id = new Guid("8a5edc49-7490-493f-2f01-08db8a416485"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1f2c61a7-0cb9-4ec9-bbc1-c2fa55bbea22",
+                            ConcurrencyStamp = "a5f93b5d-71bc-4e0a-bf9b-a148d6486df7",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "hris",
@@ -510,10 +508,10 @@ namespace CarRentalSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECxf+427jdAdkf5jOylIckQ5qoLYemQ8wXdAIecvfdFW4+7wsUr4BL/7qoYYoUxLcA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM+upaM2vPjrI1RN7cH8r1cgZWrFZn23cgcBsiFXBBwbH+AgYsHMMvJsY6jX2fVuQw==",
                             PhoneNumber = "0895969391",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "811e87bb-041e-4077-9ba9-a597db9fdebf",
+                            SecurityStamp = "a537619b-68c8-4ee5-98b3-05b11adc6fae",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -521,7 +519,7 @@ namespace CarRentalSystem.Data.Migrations
                         {
                             Id = new Guid("f06d4765-779a-4766-eb64-08db8a42133c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0ab6e51-241a-41fb-8a35-27750355216a",
+                            ConcurrencyStamp = "d74de0f8-d579-4c4a-a547-6fe0c55c1e8d",
                             Email = "defi@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "defne",
@@ -529,10 +527,10 @@ namespace CarRentalSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DEFI@GMAIL.COM",
                             NormalizedUserName = "DEFI@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ0t8j9xqTHZ/Y9zY/F2EzgiESqeM/rOQxNfAL2PikW3NaYgyBzcO7Aa6PrLPZwI9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEFq/WXt0i/rbm8Sbo00uc3u27iQZI+i2IDfygfRiLmxE1eEGfp6HZZZwoMTgik2uA==",
                             PhoneNumber = "0888888391",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b287c82-4e33-41b4-bff3-c2015ee0b383",
+                            SecurityStamp = "8b10d8d3-95a9-486e-b37b-81fbe9f02857",
                             TwoFactorEnabled = false,
                             UserName = "defi@gmail.com"
                         },
@@ -540,7 +538,7 @@ namespace CarRentalSystem.Data.Migrations
                         {
                             Id = new Guid("f2525385-0162-4b42-8fa5-08db8a43496a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c77109f-0bc3-4794-8daa-ee92111df7b0",
+                            ConcurrencyStamp = "4c5faac1-26eb-4369-bd4d-cc08a11ff999",
                             Email = "pesho_petrov@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "pesho",
@@ -548,10 +546,10 @@ namespace CarRentalSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO_PETROV@YAHOO.COM",
                             NormalizedUserName = "PESHO_PETROV@YAHOO.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGaJ6WKEZkuXtr8JGVZ+j6vdgTUUCQXe7iCBpzdfk205tdfmKO74uQogzLYhxxgYPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHGrOkJ8kNSyS7e4l4uEYt6td4LGOC2X1y4xyW9BDR76xi8BIiiHLsKqa2Nmo/lUew==",
                             PhoneNumber = "0878559310",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eed4eea5-e744-430e-9304-f52a1f444f0d",
+                            SecurityStamp = "2aa3ce55-c902-4704-98fa-9f5d90362eec",
                             TwoFactorEnabled = false,
                             UserName = "pesho_petrov@yahoo.com"
                         });
@@ -603,7 +601,7 @@ namespace CarRentalSystem.Data.Migrations
                         new
                         {
                             Id = new Guid("eba1e76b-c6a4-4d55-96a1-af76b359c115"),
-                            ConcurrencyStamp = "3a4342f6-7de8-4bda-ab78-eb750d02a946",
+                            ConcurrencyStamp = "edc14c95-a982-4e29-9824-83dffe2946be",
                             Name = "Master Administrator",
                             NormalizedName = "MASTER ADMINISTRATOR"
                         });

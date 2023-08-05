@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentalSystem.Data.Migrations
 {
     [DbContext(typeof(CarRentingDbContext))]
-    [Migration("20230722151507_remove_carIdRelationInImageData_temporary")]
-    partial class remove_carIdRelationInImageData_temporary
+    [Migration("20230805095544_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,9 @@ namespace CarRentalSystem.Data.Migrations
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Acceleration")
                         .HasColumnType("float");
@@ -42,11 +40,24 @@ namespace CarRentalSystem.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("float");
 
+                    b.Property<int>("EngineType")
+                        .HasColumnType("int");
+
                     b.Property<byte>("FuelAmount")
                         .HasColumnType("tinyint");
 
                     b.Property<int>("HorsePower")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int>("MakeId")
                         .HasColumnType("int");
@@ -63,8 +74,14 @@ namespace CarRentalSystem.Data.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("tinyint");
 
+                    b.Property<decimal>("PricePerDay")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Range")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("RenterId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte?>("Safety")
                         .HasMaxLength(5)
@@ -83,21 +100,27 @@ namespace CarRentalSystem.Data.Migrations
 
                     b.HasIndex("MakeId");
 
+                    b.HasIndex("RenterId");
+
                     b.ToTable("Cars");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("a6e93473-1479-442f-a73a-96a5f4f94b2f"),
                             Acceleration = 2.8999999999999999,
                             BodyType = 3,
                             Consumption = 20.199999999999999,
+                            EngineType = 2,
                             FuelAmount = (byte)0,
                             HorsePower = 637,
+                            ImageUrl = "https://www.carpixel.net/w/fb81ff032f94a62ab3734238828ca57c/audi-rs-e-tron-gt-car-wallpaper-103179.jpg",
+                            IsActive = false,
                             MakeId = 3,
                             Mileage = 5000L,
                             Model = "RS e-tron GT",
                             PassengerSeats = (byte)5,
+                            PricePerDay = 420m,
                             Range = 298,
                             Safety = (byte)5,
                             TopSpeed = 155,
@@ -106,16 +129,20 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("e0076ee2-7eaa-4b5b-82cd-0e415b4df2dd"),
                             Acceleration = 6.2000000000000002,
                             BodyType = 4,
                             Consumption = 6.2000000000000002,
+                            EngineType = 1,
                             FuelAmount = (byte)0,
                             HorsePower = 261,
+                            ImageUrl = "https://imagizer.imageshack.com/a/img29/5097/gu89.jpg",
+                            IsActive = false,
                             MakeId = 3,
                             Mileage = 450000L,
                             Model = "A5 SB basic",
                             PassengerSeats = (byte)5,
+                            PricePerDay = 329m,
                             Range = 520,
                             Safety = (byte)4,
                             TopSpeed = 126,
@@ -124,28 +151,98 @@ namespace CarRentalSystem.Data.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("0176c691-6be3-49bf-9399-42d8e9ebde86"),
                             Acceleration = 5.5,
                             BodyType = 1,
                             Consumption = 7.0999999999999996,
+                            EngineType = 1,
                             FuelAmount = (byte)0,
                             HorsePower = 340,
+                            ImageUrl = "https://avatars.mds.yandex.net/get-autoru-vos/5234682/06057d0f4b94a888f5c8112546a31a43/1200x900",
+                            IsActive = false,
                             MakeId = 4,
                             Mileage = 53000L,
                             Model = "X6 40d",
                             PassengerSeats = (byte)5,
+                            PricePerDay = 412m,
                             Range = 704,
                             Safety = (byte)4,
                             TopSpeed = 147,
                             Transmission = 1,
                             Year = 2012
+                        },
+                        new
+                        {
+                            Id = new Guid("247ae983-4cf8-4881-951d-f39e66b8877e"),
+                            Acceleration = 3.6000000000000001,
+                            BodyType = 18,
+                            Consumption = 18.300000000000001,
+                            EngineType = 1,
+                            FuelAmount = (byte)0,
+                            HorsePower = 483,
+                            ImageUrl = "https://photos.carspecs.us/d389399428d2ba5d065c5b6f59aaf3771a41ca4b-2000.jpg",
+                            IsActive = false,
+                            MakeId = 6,
+                            Mileage = 230532L,
+                            Model = "F430",
+                            PassengerSeats = (byte)2,
+                            PricePerDay = 620m,
+                            Range = 323,
+                            Safety = (byte)3,
+                            TopSpeed = 196,
+                            Transmission = 1,
+                            Year = 2004
+                        },
+                        new
+                        {
+                            Id = new Guid("5c85b4b3-10c9-4cec-b30b-ac226da7b60b"),
+                            Acceleration = 5.4000000000000004,
+                            BodyType = 0,
+                            Consumption = 28.5,
+                            EngineType = 1,
+                            FuelAmount = (byte)0,
+                            HorsePower = 280,
+                            ImageUrl = "https://pbs.twimg.com/media/FxTMcyQWwAMqIYk?format=jpg&name=large",
+                            IsActive = false,
+                            MakeId = 2,
+                            Mileage = 623142L,
+                            Model = "Giulia",
+                            PassengerSeats = (byte)5,
+                            PricePerDay = 205m,
+                            Range = 464,
+                            Safety = (byte)4,
+                            TopSpeed = 191,
+                            Transmission = 0,
+                            Year = 2018
+                        },
+                        new
+                        {
+                            Id = new Guid("b5cc05e9-2c12-4a5d-bccf-fc4a95ec04a6"),
+                            Acceleration = 4.5,
+                            BodyType = 0,
+                            Consumption = 22.699999999999999,
+                            EngineType = 1,
+                            FuelAmount = (byte)0,
+                            HorsePower = 500,
+                            ImageUrl = "https://sun9-46.userapi.com/impg/jGF9KYUrkOJ81ExMSYNNE4L7fh4GD5Ryoic6zA/Iy6iwscdEg0.jpg?size=1920x1280&quality=95&sign=637909ae3d1112f8306502533c876ba3&c_uniq_tag=3K2cQHcDOmacj7mo5PNx7wX_XCN3EOQggqEfBc4h6iI&type=album",
+                            IsActive = false,
+                            MakeId = 4,
+                            Mileage = 575531L,
+                            Model = "e60 M5",
+                            PassengerSeats = (byte)5,
+                            PricePerDay = 130m,
+                            Range = 293,
+                            Safety = (byte)3,
+                            TopSpeed = 190,
+                            Transmission = 1,
+                            Year = 2005
                         });
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.CarColors", b =>
                 {
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
@@ -237,42 +334,6 @@ namespace CarRentalSystem.Data.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("CarRentalSystem.Data.Models.ImageData", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("FullscreenContent")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("OriginalContent")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("OriginalFileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OriginalType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("ThumbnailContent")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("ImageData");
-                });
-
             modelBuilder.Entity("CarRentalSystem.Data.Models.Make", b =>
                 {
                     b.Property<int>("Id")
@@ -339,8 +400,11 @@ namespace CarRentalSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Deposit")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -432,6 +496,65 @@ namespace CarRentalSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8a5edc49-7490-493f-2f01-08db8a416485"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f0045b5f-9e4f-4b09-9e2b-d12ff4b071a8",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "hris",
+                            LastName = "ivanov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGxKAPHtyXAyQK2fgKaJMkDDWHAZf6XEwg3n8ZGDBNURNMvmaV8dwZ4Z9QPp+V740w==",
+                            PhoneNumber = "0895969391",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e1518365-9f61-47e8-88e9-cf7e8133f0b6",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("f06d4765-779a-4766-eb64-08db8a42133c"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4839640a-82d4-439e-9811-d600a8b95301",
+                            Email = "defi@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "defne",
+                            LastName = "ahmedova",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DEFI@GMAIL.COM",
+                            NormalizedUserName = "DEFI@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPCYsKFm7hc2E5QlfXzPx4+NURHJqOM/lnle147WPve1DIpZQpVz8dYKwHAddYaU3w==",
+                            PhoneNumber = "0888888391",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "127591e1-f1ad-4fe9-b55c-8dd9ca2db093",
+                            TwoFactorEnabled = false,
+                            UserName = "defi@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("f2525385-0162-4b42-8fa5-08db8a43496a"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "379ccc6a-541b-469c-99ac-2cba7d726f39",
+                            Email = "pesho_petrov@yahoo.com",
+                            EmailConfirmed = false,
+                            FirstName = "pesho",
+                            LastName = "petrov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PESHO_PETROV@YAHOO.COM",
+                            NormalizedUserName = "PESHO_PETROV@YAHOO.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEExu4MKDaPscIklO9F5TPj1Kkw8WtjAYxuS67068QWfG1DmTtd3MtlI+5PkJQOexhA==",
+                            PhoneNumber = "0878559310",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "80dd62bb-73db-406d-9643-9b5bf1b78051",
+                            TwoFactorEnabled = false,
+                            UserName = "pesho_petrov@yahoo.com"
+                        });
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.UserRentals", b =>
@@ -475,6 +598,15 @@ namespace CarRentalSystem.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("eba1e76b-c6a4-4d55-96a1-af76b359c115"),
+                            ConcurrencyStamp = "d4997cb0-1b83-46b6-8da1-e90834a12a00",
+                            Name = "Master Administrator",
+                            NormalizedName = "MASTER ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -561,6 +693,13 @@ namespace CarRentalSystem.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("8a5edc49-7490-493f-2f01-08db8a416485"),
+                            RoleId = new Guid("eba1e76b-c6a4-4d55-96a1-af76b359c115")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -592,7 +731,13 @@ namespace CarRentalSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarRentalSystem.Data.Models.User", "Renter")
+                        .WithMany()
+                        .HasForeignKey("RenterId");
+
                     b.Navigation("Make");
+
+                    b.Navigation("Renter");
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.CarColors", b =>
@@ -623,13 +768,6 @@ namespace CarRentalSystem.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CarRentalSystem.Data.Models.ImageData", b =>
-                {
-                    b.HasOne("CarRentalSystem.Data.Models.Car", null)
-                        .WithMany("CarImages")
-                        .HasForeignKey("CarId");
                 });
 
             modelBuilder.Entity("CarRentalSystem.Data.Models.Rental", b =>
@@ -716,8 +854,6 @@ namespace CarRentalSystem.Data.Migrations
             modelBuilder.Entity("CarRentalSystem.Data.Models.Car", b =>
                 {
                     b.Navigation("CarColors");
-
-                    b.Navigation("CarImages");
 
                     b.Navigation("Rentals");
                 });

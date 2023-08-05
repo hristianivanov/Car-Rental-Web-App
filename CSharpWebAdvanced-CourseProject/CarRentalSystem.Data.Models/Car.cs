@@ -11,12 +11,13 @@
 	{
 		public Car()
 		{
+			this.Id = Guid.NewGuid();
 			this.CarColors = new HashSet<CarColors>();
 			this.Rentals = new HashSet<Rental>();
 		}
 
 		[Key]
-		public int Id { get; set; }
+		public Guid Id { get; set; }
 
 		[ForeignKey(nameof(Make))]
 		public int MakeId { get; set; }
@@ -37,9 +38,9 @@
 		public ushort TopSpeed { get; set; }
 		// cannot be negative number
 		public ushort Year { get; set; }
-        public EngineType EngineType { get; set; }
-        // cannot be negative number
-        public byte FuelAmount { get; set; }
+		public EngineType EngineType { get; set; }
+		// cannot be negative number
+		public byte FuelAmount { get; set; }
 
 		[MaxLength(ConsumptionMaxValue)]
 		public double Consumption { get; set; }
@@ -50,8 +51,8 @@
 		// cannot be negative number
 		[MaxLength(SafetyMaxValue)]
 		public byte? Safety { get; set; }
-        public bool IsActive { get; set; }
-        [MaxLength(PassengerSeatsMaxValue)]
+		public bool IsActive { get; set; }
+		[MaxLength(PassengerSeatsMaxValue)]
 		public byte PassengerSeats { get; set; }
 		//per day
 		public decimal PricePerDay { get; set; }
@@ -64,7 +65,7 @@
 		[MaxLength(ImageUrlMaxLength)]
 		public string ImageUrl { get; set; } = null!;
 
-        public virtual ICollection<Rental> Rentals { get; set; }
+		public virtual ICollection<Rental> Rentals { get; set; }
 		public virtual ICollection<CarColors> CarColors { get; set; }
 	}
 }
