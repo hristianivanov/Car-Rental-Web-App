@@ -128,6 +128,7 @@
         {
             IQueryable<Car> carsQuery = this.context
                 .Cars
+                .Where(c => c.IsActive)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.Make))

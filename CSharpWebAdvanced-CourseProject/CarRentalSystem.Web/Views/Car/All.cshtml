@@ -75,7 +75,7 @@
 		   asp-route-sorting="@((int)Model.CarSorting)"><<</a>
 	</div>
 	@{
-		bool shouldNextPageBeDisabled = Model.CurrentPage >= maxPage || !Model.Cars.Any();
+		bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || !Model.Cars.Any();
 	}
 	<div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
 		<a class="btn btn-primary @(shouldNextPageBeDisabled ? "disabled" : null) me-2" style="font-size: 12px; padding: 13px 13px; height:fit-content"
