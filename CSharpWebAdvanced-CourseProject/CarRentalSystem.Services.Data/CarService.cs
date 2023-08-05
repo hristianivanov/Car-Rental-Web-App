@@ -26,7 +26,7 @@
                 .Cars
                 .Where(c => c.IsActive)
                 .Include(c => c.Make)
-                .OrderByDescending(c => c.Id)
+                .OrderByDescending(c => c.CreatedOn)
                 .Take(6)
                 .Select(c => new IndexViewModel
                 {
@@ -51,7 +51,7 @@
                 .Where(c => c.IsActive &&
                             !c.RenterId.HasValue)
                 .Include(c => c.Make)
-                .OrderByDescending(c => c.Id)
+                .OrderByDescending(c => c.CreatedOn)
                 .Take(count)
                 .Select(c => new IndexViewModel
                 {
@@ -167,7 +167,7 @@
                     .OrderByDescending(c => c.PricePerDay),
                 _ => carsQuery
                  .OrderBy(c => c.RenterId != null)
-                 .ThenByDescending(c => c.Id)
+                 .ThenByDescending(c => c.CreatedOn)
             };
 
             IEnumerable<CarAllViewModel> allCars = await carsQuery
