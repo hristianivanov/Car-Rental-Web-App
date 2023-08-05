@@ -158,9 +158,9 @@
             carsQuery = queryModel.CarSorting switch
             {
                 CarSorting.Newest => carsQuery
-                    .OrderByDescending(c => c.Id),
+                    .OrderByDescending(c => c.CreatedOn),
                 CarSorting.Oldest => carsQuery
-                    .OrderBy(c => c.Id),
+                    .OrderBy(c => c.CreatedOn),
                 CarSorting.PriceAscending => carsQuery
                     .OrderBy(c => c.PricePerDay),
                 CarSorting.PriceDescending => carsQuery

@@ -12,6 +12,10 @@
 		public void Configure(EntityTypeBuilder<Car> builder)
 		{
 			builder
+				.Property(c => c.CreatedOn)
+				.HasDefaultValueSql("GETDATE()");
+
+			builder
 				.Property(c => c.IsActive)
 				.HasDefaultValue(true);
 

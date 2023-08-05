@@ -60,8 +60,10 @@
 		public Guid? RenterId { get; set; }
 		public virtual User? Renter { get; set; }
 
-		//temporary
-		[Required]
+        public DateTime CreatedOn { get; set; }
+
+        //temporary
+        [Required]
 		[MaxLength(ImageUrlMaxLength)]
 		public string ImageUrl { get; set; } = null!;
 
