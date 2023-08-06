@@ -21,6 +21,26 @@
 			return View(viewModel);
 		}
 
+		public IActionResult About()
+		{
+			return View();
+		}
+
+		public IActionResult Service()
+		{
+			return View();
+		}
+
+		public IActionResult ServiceDetail()
+		{
+			return this.View();
+		}
+
+		public IActionResult Contact()
+		{
+			return View();
+		}
+
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error(int statusCode)
 		{

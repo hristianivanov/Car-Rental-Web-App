@@ -1,0 +1,220 @@
+﻿<section class="services-boxes pt-80 pb-60">
+	<div class="container">
+		<h2 class="section-title center mb-80">Providing Amazing Services To Our Clients</h2>
+		<div class="box grid-2 grid-1-t w-80 gap-20 w-100-p m-side-auto">
+
+			<a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="" class="--item relative group">
+				<figure class="d-flex overflow-hidden">
+					<img width="100%" class="object-fit trans ls-is-cached lazyloaded" src="https://luxurysupercarsdubai.com/wp-content/uploads/2023/02/proving.webp" loading="lazy">
+				</figure>
+				<p class="white bold font-35 trans color-hover text flex-all">Self Drive Car Rental</p>
+				<i class="card-arrow trans fa-solid fa-arrow-right-long"></i>
+			</a>
+
+		</div>
+	</div>
+</section>
+
+<style>
+	.group:hover .color-hover {
+		color: #94CA21;
+	}
+
+	.fleet__slide:hover i, .slide-with-arrow:hover i, .--item:hover .card-arrow {
+		color: #94CA21;
+		transform: rotate(-90deg);
+	}
+
+	.group:hover img {
+		transform: scale(1.2) rotate(5deg);
+	}
+
+	.pb-60 {
+		padding-bottom: 60px;
+	}
+
+	.pt-80 {
+		padding-top: 80px;
+	}
+
+	body {
+		font-family: "Proxima Nova Alt Bl";
+		font-size: 16px;
+		color: #000000;
+	}
+
+	.container {
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		max-width: 1260px;
+	}
+
+	* {
+		margin: 0;
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+
+	*, ::before, ::after {
+		box-sizing: border-box;
+	}
+
+	.section-title {
+		font-size: 34px;
+		font-family: "Arial"
+	}
+
+	.mb-80 {
+		margin-bottom: 80px;
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	*, ::before, ::after {
+		box-sizing: border-box;
+	}
+
+	.gap-20 {
+		gap: 20px;
+	}
+
+	.grid-2 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.grid-2, .grid-3, .grid-4, .grid-5, .grid-6 {
+		display: grid;
+		gap: 25px;
+	}
+
+	.m-side-auto {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.w-80 {
+		width: 80%;
+	}
+
+	* {
+		margin: 0;
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+
+	*, ::before, ::after {
+		box-sizing: border-box;
+	}
+
+	.relative {
+		position: relative;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	*, ::before, ::after {
+		box-sizing: border-box;
+	}
+
+	.overflow-hidden {
+		overflow: hidden;
+	}
+
+	.overflow-hidden {
+		overflow: hidden;
+	}
+
+	.d-flex {
+		display: flex;
+		display: -webkit-flex;
+	}
+
+	ul, figure {
+		margin: 0;
+	}
+
+	figure {
+		margin: 0 0 1em;
+	}
+
+	.services-boxes .text {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		pointer-events: none;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		text-align: center;
+	}
+
+	.font-35 {
+		font-size: 35px;
+	}
+
+	.white {
+		color: #fff;
+	}
+
+	.trans {
+		transition: 0.4s;
+	}
+
+	.flex-all {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.fleet-slide__arrow, .card-arrow {
+		position: absolute;
+		bottom: 25px;
+		left: 0;
+		right: 0;
+		width: 30px;
+		margin: auto;
+		color: #fff;
+		font-size: 24px;
+		z-index: 1;
+	}
+
+	.trans {
+		transition: 0.4s;
+	}
+
+	.fa-solid, .fas {
+		font-weight: 900;
+	}
+
+	.fa-classic, .fa-regular, .fa-solid, .far, .fas {
+		font-family: "Font Awesome 6 Free";
+	}
+
+	.fa, .fa-brands, .fa-classic, .fa-regular, .fa-sharp, .fa-solid, .fab, .far, .fas {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		display: var(--fa-display,inline-block);
+		font-style: normal;
+		font-variant: normal;
+		line-height: 1;
+		text-rendering: auto;
+	}
+
+	.lazyloaded {
+		opacity: 1;
+		transition: opacity 400ms;
+		transition-delay: 0s;
+		transition-delay: 0ms;
+	}
+
+	.object-fit {
+		object-fit: cover;
+	}
+</style>

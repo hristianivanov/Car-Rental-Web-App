@@ -1,0 +1,55 @@
+﻿@model CarRentalSystem.Web.ViewModels.Blog.AllBlogViewModel
+
+@{
+	ViewBag.Title = "Read our blog";
+}
+
+<h2 class="text-center fw-normal">@ViewBag.Title</h2>
+<hr />
+
+<section class="mt-4">
+	<div class="container mb-5">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-12 text-center d-flex">
+			@*	@foreach (var blog in Model.Blogs)
+				{*@
+					<div class="justify-content-end mb-md-5">
+						<a asp-controller="Blog" asp-action="Detail" class="block-20 img">
+							<img src="~/images/blog/image_1.jpg">
+						</a>
+						<div class="px-md-5 pt-4">
+							<div class="mb-3">
+								<div>
+									<a href="#">Oct. 29, 2019</a>
+									<a href="#">Admin</a>
+									<a href="#"><i class="fa-solid fa-comment"></i> 3</a>
+								</div>
+							</div>
+							<h3 class="mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+							<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+							<p><a asp-controller="Blog" asp-action="Detail" asp-route-id="" class="btn btn-primary">Continue</a></p>
+						</div>
+					</div>
+				@*}*@
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<style>
+	p {
+		word-wrap: break-word;
+		width: 56em;
+	}
+
+	img {
+		object-fit: cover;
+		height: 38em;
+		width: 67em;
+	}
+	.btn.btn-primary {
+		margin-left: 4.3em;
+		width: 30em;
+	}
+</style>

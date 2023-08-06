@@ -46,6 +46,12 @@
 						<li class="nav-item">
 							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+						</li>
 						@if (User.IsAdmin())
 						{
 							<li class="nav-item">
@@ -53,7 +59,13 @@
 							</li>
 						}
 						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="All">All cars</a>
+							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="All">Cars</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Service">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="Mine">My cars</a>
 						</li>
 					</ul>
 					<partial name="_LoginPartial" />
@@ -84,19 +96,19 @@
 						<a class="nav-link px-5" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" href="#">Booking</a>
+						<a class="nav-link px-5" asp-controller="Blog" asp-action="Index">Blog</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" href="#">About</a>
+						<a class="nav-link px-5" asp-controller="Home" asp-action="About">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" href="#">Cars</a>
+						<a class="nav-link px-5" asp-controller="Car" asp-action="All">Cars</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" href="#">Services</a>
+						<a class="nav-link px-5" asp-controller="Home" asp-action="Service">Services</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" href="#">Contact</a>
+						<a class="nav-link px-5" asp-controller="Home" asp-action="Contact">Contact</a>
 					</li>
 				</ul>
 
