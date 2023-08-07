@@ -11,7 +11,6 @@ namespace CarRentalSystem.Web
 	using Infrastructure.ModelBinders;
 	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Mvc;
-	using static Common.GeneralApplicationConstants;
 
 	public class Program
 	{
@@ -42,6 +41,8 @@ namespace CarRentalSystem.Web
 				.AddEntityFrameworkStores<CarRentingDbContext>();
 
 			builder.Services.AddApplicationServices(typeof(ICarService));
+
+			builder.Services.AddMemoryCache();
 
 			builder.Services.ConfigureApplicationCookie(cfg =>
 			{

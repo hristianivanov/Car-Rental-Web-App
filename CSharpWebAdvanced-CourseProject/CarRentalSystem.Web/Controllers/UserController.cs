@@ -9,19 +9,22 @@ namespace CarRentalSystem.Web.Controllers
     using Data.Models;
     using ViewModels.User;
     using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
+	using Microsoft.Extensions.Caching.Memory;
 
-    public class UserController : Controller
+	public class UserController : Controller
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
-        private readonly IUserStore<User> userStore;
+        private readonly IMemoryCache memoryCache;
 
-        public UserController(SignInManager<User> signInManager, UserManager<User> userManager,
-            IUserStore<User> userStore)
+        public UserController(SignInManager<User> signInManager, UserManager<User> userManager, 
+	        IMemoryCache memoryCache)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
-            this.userStore = userStore;
+
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -67,6 +70,7 @@ namespace CarRentalSystem.Web.Controllers
             }
 
             await this.signInManager.SignInAsync(user, isPersistent: false);
+            this.memoryCache.Remove(UsersCacheKey);
 
             return this.RedirectToAction("Index", "Home");
         }
