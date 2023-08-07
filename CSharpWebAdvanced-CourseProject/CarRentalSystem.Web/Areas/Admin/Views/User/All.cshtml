@@ -33,7 +33,7 @@
 					}
 				</td>
 				<td>
-					@if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
+					@if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id) || this.User.GetId()!.ToLower() == user.Id.ToLower())
 					{
 						<label>✔</label>
 					}

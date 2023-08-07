@@ -8,7 +8,8 @@
     {
         public static string? GetId(this ClaimsPrincipal user)
         {
-            return user.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId;
         }
 
         public static bool IsAdmin(this ClaimsPrincipal user)
