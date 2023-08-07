@@ -23,8 +23,10 @@
 			integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
 			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"
-		  integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ=="
-		  crossorigin="anonymous" referrerpolicy="no-referrer" />
+	      integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ=="
+	      crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	@await RenderSectionAsync("Styles",false)
 </head>
 
 <body>
@@ -96,19 +98,19 @@
 						<a class="nav-link px-5" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" asp-controller="Blog" asp-action="All">Blog</a>
+						<a class="nav-link px-5" asp-area="" asp-controller="Blog" asp-action="All">Blog</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" asp-controller="Home" asp-action="About">About</a>
+						<a class="nav-link px-5" asp-area="" asp-controller="Home" asp-action="About">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" asp-controller="Car" asp-action="All">Cars</a>
+						<a class="nav-link px-5" asp-area="" asp-controller="Car" asp-action="All">Cars</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" asp-controller="Home" asp-action="Service">Services</a>
+						<a class="nav-link px-5" asp-area="" asp-controller="Home" asp-action="Service">Services</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link px-5" asp-controller="Home" asp-action="Contact">Contact</a>
+						<a class="nav-link px-5" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
 					</li>
 				</ul>
 

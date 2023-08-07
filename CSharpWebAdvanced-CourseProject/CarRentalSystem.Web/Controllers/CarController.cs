@@ -334,6 +334,11 @@
 		[HttpGet]
 		public async Task<IActionResult> Mine()
 		{
+			if (this.User.IsAdmin())
+			{
+				return this.RedirectToAction("Mine", "Car", new { Area = AdminAreaName });
+			}
+
 			List<CarAllViewModel> myCars = new List<CarAllViewModel>();
 
 			string userId = User.GetId()!;
