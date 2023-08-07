@@ -93,7 +93,7 @@ namespace CarRentalSystem.Web
 				config.MapDefaultControllerRoute();
 				config.MapControllerRoute(
 					name: "areas",
-					pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+					pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				);
 				config.MapRazorPages();
 			});
