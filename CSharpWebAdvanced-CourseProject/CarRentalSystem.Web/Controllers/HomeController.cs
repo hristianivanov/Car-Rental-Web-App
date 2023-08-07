@@ -4,6 +4,7 @@
 
     using CarRentalSystem.Services.Data.Interfaces;
     using static Common.GeneralApplicationConstants;
+	using CarRentalSystem.Web.Infrastructure.Extensions;
 
 	public class HomeController : Controller
 	{
@@ -16,6 +17,11 @@
 
 		public async Task<IActionResult> Index()
 		{
+			if (this.User.IsAdmin())
+			{
+				return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+			}
+
 			var viewModel = await this.carService.LastCarsAsync(LastCarsInCarocel);
 
 			return View(viewModel);

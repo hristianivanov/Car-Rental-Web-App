@@ -89,12 +89,15 @@ namespace CarRentalSystem.Web
 			//if you had custom routing
 			app.UseEndpoints(config =>
 			{
-				//protectingUrl here
-				config.MapDefaultControllerRoute();
 				config.MapControllerRoute(
 					name: "areas",
 					pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				);
+
+				//protectingUrl here
+
+				config.MapDefaultControllerRoute();
+
 				config.MapRazorPages();
 			});
 
