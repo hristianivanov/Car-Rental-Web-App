@@ -43,6 +43,7 @@ namespace CarRentalSystem.Web
 			builder.Services.AddApplicationServices(typeof(ICarService));
 
 			builder.Services.AddMemoryCache();
+			builder.Services.AddResponseCaching();
 
 			builder.Services.ConfigureApplicationCookie(cfg =>
 			{
