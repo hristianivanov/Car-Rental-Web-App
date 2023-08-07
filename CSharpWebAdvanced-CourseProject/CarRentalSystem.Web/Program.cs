@@ -43,11 +43,11 @@ namespace CarRentalSystem.Web
 
 			builder.Services.AddApplicationServices(typeof(ICarService));
 
-            builder.Services.ConfigureApplicationCookie(cfg =>
-            {
+			builder.Services.ConfigureApplicationCookie(cfg =>
+			{
 				cfg.LoginPath = "/User/Login";
 				cfg.AccessDeniedPath = "/Home/Error/401";
-            });
+			});
 
 			builder.Services
 				.AddControllersWithViews()
@@ -87,10 +87,16 @@ namespace CarRentalSystem.Web
 			}
 
 			//if you had custom routing
-			//app.MapControllerRoute(
-			//	name: "default",
-			//	pattern: "{controller=Home}/{action=Index}/{id?}");
-			app.MapDefaultControllerRoute();
+			app.UseEndpoints(config =>
+			{
+				//protectingUrl here
+				config.MapDefaultControllerRoute();
+				config.MapControllerRoute(
+					name: "areas",
+					pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+				);
+				config.MapRazorPages();
+			});
 
 			app.MapRazorPages();
 
