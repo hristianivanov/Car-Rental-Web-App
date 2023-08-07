@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>@ViewData["Title"] - Car Rental System</title>
+
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		  rel="stylesheet" />
+	<link href="~/css/styles.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link href="css/carocel-style.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="~/css/carocel-style.css">
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
+			integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
+			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"
+		  integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ=="
+		  crossorigin="anonymous" referrerpolicy="no-referrer" />
+	@await RenderSectionAsync("Styles",false)
+</head>
+
+<body>
+	<partial name="_NotificationsPartial" />
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+			<div class="container-fluid px-5 px-ms=d-2" style="margin-left: 2.6rem;">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"
+				   style="margin-left: 3em;">Car Rental System</a>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+						data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+						aria-label="Toggle navigation">
+					Menu
+					<i class="fas fa-bars"></i>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="Add">Add car</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Service">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Car" asp-action="Mine">My cars</a>
+						</li>
+						<li class="nav-item dropdown">
+							<div class="dropdown-hover">
+								<a class="btn dropdown-toggle shadow-none" href="#" role="button" id="dropdownMenuLink">All</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li>
+										<a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Car" asp-action="All">All Cars</a>
+										<a class="dropdown-item nav-link text-dark" asp-area="Admin" asp-controller="Rent" asp-action="All">All Rents</a>
+										<a class="dropdown-item nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="All">All Users</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<style>
+							.dropdown-hover:hover .dropdown-menu {
+								display: block;
+							}
+						</style>
+					</ul>
+					<partial name="_LoginPartial" />
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main role="main" style="flex-grow: 1; padding-top: 50px">
+		@RenderBody()
+	</main>
+
+
+	<footer>
+		<section class="contact-section bg-black justify-content-between">
+
+			<div class="container-fluid d-flex align-items-center">
+
+				<div class="social d-flex" style="margin-bottom: 3rem; margin-right: 15%; margin-left: 2rem;">
+
+					<a class="media-icons" href="#!"><i class="fab fa-twitter"></i></a>
+					<a class="media-icons" href="#!"><i class="fab fa-facebook-f"></i></a>
+					<a class="media-icons" href="#!"><i class="fab fa-github"></i></a>
+				</div>
+
+				<ul class="footer-nav list-unstyled d-flex mb-0">
+					<li class="nav-item">
+						<a class="nav-link px-5" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-5" asp-area="" asp-controller="Blog" asp-action="All">Blog</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-5" asp-area="" asp-controller="Home" asp-action="About">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-5" asp-area="" asp-controller="Car" asp-action="All">Cars</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-5" asp-area="" asp-controller="Home" asp-action="Service">Services</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link px-5" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+					</li>
+				</ul>
+
+
+			</div>
+			<div class="ml-auto">
+				<span style="display: block; font-weight: bold; padding-left: 2rem">
+					Car Rental System @ReleaseYear
+					@if (DateTime.UtcNow.Year != ReleaseYear)
+					{
+						@Html.Raw($" - {DateTime.UtcNow.Year}")
+					}
+				</span>
+			</div>
+
+		</section>
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			main {
+				flex: 1;
+			}
+
+			footer {
+				margin-top: auto;
+			}
+		</style>
+	</footer>
+
+	<script src="~/js/jquery-1.11.0.min.js"></script>
+	<script src="~/js/plugins.js"></script>
+	<script src="~/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/scripts.js"></script>
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

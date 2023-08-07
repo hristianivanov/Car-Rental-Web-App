@@ -1,0 +1,27 @@
+﻿@model IEnumerable<RentViewModel>
+@{
+	ViewBag.Title = "All Rents";
+}
+<h2 class="text-center fw-normal">@ViewBag.Title</h2>
+<hr />
+@if (!Model.Any())
+{
+	<h4 class="text-center fw-normal" style="font-family:Arial">No cars found by the given criteria!</h4>
+}
+else
+{
+	<div class="row m-0">
+		@foreach (var rent in Model)
+		{
+			<div class="col-md-4 mb-3" style="">
+				<div class="card">
+					<img class="card-img-top" style="height: 361px; border:groove" src="@rent.ImageUrl" alt="Car Image">
+					<div class="card-body text-center">
+						<h4>@rent.Model</h4>
+						<h6>Rented By: <b>@rent.RenterFullName (@rent.RenterEmail)</b></h6>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
