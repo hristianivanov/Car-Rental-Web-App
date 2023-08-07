@@ -10,6 +10,8 @@
 	using ViewModels.Car;
 	using ViewModels.Make;
 
+
+	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
 
 	[Authorize]
@@ -39,7 +41,7 @@
 		}
 
 		[HttpGet]
-		[Authorize(Roles = "Master Administrator")]
+		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Add()
 		{
 			try
@@ -55,7 +57,7 @@
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "Master Administrator")]
+		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Add(CarFormModel formModel)
 		{
 			bool makeExists =
@@ -135,7 +137,7 @@
 		}
 
 		[HttpGet]
-		[Authorize(Roles = "Master Administrator")]
+		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Edit(string id)
 		{
 			try
@@ -162,7 +164,7 @@
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "Master Administrator")]
+		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Edit(string id, CarFormModel carModel)
 		{
 			if (!ModelState.IsValid)
@@ -195,7 +197,7 @@
 		}
 
 		[HttpGet]
-		[Authorize(Roles = "Master Administrator")]
+		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Delete(string id)
 		{
 			try
@@ -222,7 +224,7 @@
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "Master Administrator")]
+		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Delete(string id, CarPreDeleteDetailsViewModel carModel)
 		{
 			try
