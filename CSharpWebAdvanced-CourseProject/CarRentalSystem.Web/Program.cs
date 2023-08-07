@@ -81,6 +81,8 @@ namespace CarRentalSystem.Web
 			app.UseAuthentication();
 			app.UseAuthorization();
 
+			app.EnableOnlineUsersCheck();
+
 			if (app.Environment.IsDevelopment())
 			{
 				//app.SeedAdministrator(DevelopmentAdminEmail);

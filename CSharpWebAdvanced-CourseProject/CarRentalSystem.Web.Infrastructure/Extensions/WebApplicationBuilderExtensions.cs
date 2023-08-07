@@ -9,6 +9,7 @@
 	using Data.Models;
 
 	using static Common.GeneralApplicationConstants;
+	using CarRentalSystem.Web.Infrastructure.Middlewares;
 
 	public static class WebApplicationBuilderExtensions
 	{
@@ -84,6 +85,11 @@
 				.GetResult();
 
 			return app;
+		}
+
+		public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+		{
+			return app.UseMiddleware<OnlineUsersMiddleware>();
 		}
 	}
 }

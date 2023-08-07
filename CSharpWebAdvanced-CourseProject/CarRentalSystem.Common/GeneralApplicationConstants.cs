@@ -1,5 +1,7 @@
 ﻿namespace CarRentalSystem.Common
 {
+	using System.Net.NetworkInformation;
+
 	public static class GeneralApplicationConstants
 	{
 		public const int ReleaseYear = 2021;
@@ -11,5 +13,8 @@
 		public const string AdminAreaName = "Admin";
 		public const string AdminRoleName = "Master Administrator";
 		public const string DevelopmentAdminEmail = "admin@gmail.com";
+
+		public const string OnlineUsersCookieName = "IsOnline";
+		public const int LastActivityBeforeOfflineMinutes = 10;
 	}
 }
