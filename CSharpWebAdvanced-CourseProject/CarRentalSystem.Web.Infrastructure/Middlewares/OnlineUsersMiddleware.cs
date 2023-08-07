@@ -8,6 +8,7 @@
 	using Extensions;
 
 	using static Common.GeneralApplicationConstants;
+	// ReSharper disable once ClassNeverInstantiated.Global
 	public class OnlineUsersMiddleware
 	{
 		private readonly RequestDelegate next;

@@ -25,21 +25,21 @@
 				<td>
 					@if (user.PhoneNumber != string.Empty)
 					{
-						<label>✔</label>
+						<i class="fa-solid fa-circle-check" style="color: #80ff80; height: 27px; margin-left: 2.4em;"></i>
 					}
 					else
 					{
-						<label class="text-center">❌</label>
+						<i class="fa-solid fa-circle-xmark" style="color: #ff0000; height: 27px; margin-left: 2.4em;"></i>
 					}
 				</td>
 				<td>
 					@if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id) || this.User.GetId()!.ToLower() == user.Id.ToLower())
 					{
-						<label>✔</label>
+						<i class="fa-solid fa-circle-check" style="color: #80ff80; height: 27px; margin-left: 2.4em;"></i>
 					}
 					else
 					{
-						<label class="text-center">❌</label>
+						<i class="fa-solid fa-circle-xmark" style="color: #ff0000; height: 27px; margin-left: 2.4em;"></i>
 					}
 				</td>
 			</tr>
