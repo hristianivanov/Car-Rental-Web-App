@@ -6,7 +6,7 @@
 
 <h2 class="text-center fw-normal">@ViewBag.Title</h2>
 <hr />
-<form method="get">
+<form method="get" style="width: 98%">
 	<div class="row" style="margin-left: 8em">
 		<div class="form-group col-md-3 d-flex justify-content-between">
 			<div class="form-group" style="margin-left: 12rem;">
@@ -107,7 +107,7 @@
 {
 	<h2 class="text-center">No cars found by the given criteria!</h2>
 }
-<div class="row">
+<div class="row m-0">
 	@foreach (var house in Model.Cars)
 	{
 		<partial name="_CarPartial" model="@house" />
