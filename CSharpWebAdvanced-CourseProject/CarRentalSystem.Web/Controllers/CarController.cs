@@ -362,7 +362,6 @@
 				return GeneralError();
 			}
 		}
-
 		private IActionResult GeneralError()
 		{
 			TempData[ErrorMessage] = "Unexpected error occurred!";
