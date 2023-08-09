@@ -3,13 +3,10 @@
 	using Microsoft.AspNetCore.Mvc;
 
 	using CarRentalSystem.Services.Data.Interfaces;
+	using CarRentalSystem.Web.ViewModels.Car;
 	using ViewModels.Car;
-	using Infrastructure.Extensions;
 	using static Common.NotificationMessagesConstants;
 	using static Common.GeneralApplicationConstants;
-	using CarRentalSystem.Web.ViewModels.Car;
-	using Microsoft.AspNetCore.Authorization;
-	using System.Data;
 
 	public class CarController : BaseAdminController
 	{
@@ -51,6 +48,7 @@
 			return RedirectToAction("Deleted", "Car", new { Area = AdminAreaName });
 		}
 
+		[HttpGet]
 		public async Task<IActionResult> Deleted()
 		{
 			DeletedCarViewModel viewModel = new DeletedCarViewModel()
