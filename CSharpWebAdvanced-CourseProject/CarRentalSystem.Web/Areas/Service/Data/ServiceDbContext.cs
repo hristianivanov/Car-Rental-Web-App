@@ -1,8 +1,8 @@
 ﻿namespace CarRentalSystem.Web.Areas.Service.Data
 {
 	using Microsoft.EntityFrameworkCore;
-	using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+	using Configuration;
 	using Service = Model.Service;
 
 	public class ServiceDbContext : DbContext
