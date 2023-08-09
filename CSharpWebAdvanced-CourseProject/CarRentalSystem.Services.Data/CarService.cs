@@ -11,6 +11,7 @@
 	using Web.ViewModels.Car.Enums;
 	using Web.ViewModels.Home;
 	using System.ComponentModel.DataAnnotations;
+	using CarRentalSystem.Web.ViewModels.Rent;
 
 	public class CarService : ICarService
 	{
@@ -378,14 +379,44 @@
 			return car.RenterId.HasValue;
 		}
 
-		public async Task RentCarAsync(string carId, string userId)
+		public async Task RentCarAsync(RentalFormView rentalForm, string userId)
 		{
 			Car car = await this.context
 				.Cars
 				.Where(c => c.IsActive)
-				.FirstAsync(c => c.Id.ToString() == carId);
+				.FirstAsync(c => c.Id.ToString() == rentalForm.CarId);
 
 			car.RenterId = Guid.Parse(userId);
+
+			var user = await this.context.Users.FirstAsync(u => u.Id.ToString() == userId);
+			user.PhoneNumber = rentalForm.PhoneNumber;
+
+			Rental rental = new Rental()
+			{
+				StartDate = DateTime.UtcNow,
+				EndDate = DateTime.UtcNow.AddDays(rentalForm.Days!.Value),
+				CarId = Guid.Parse(rentalForm.CarId!),
+				Deposit = rentalForm.Deposit!.Value,
+				Price = (car.PricePerDay * rentalForm.Days!.Value) - rentalForm.Deposit.Value,
+			};
+			this.context.Rentals.Add(rental);
+
+			UserRentals userRentals = new UserRentals()
+			{
+				CustomerId = user.Id,
+				RentalId = rental.Id,
+			};
+			this.context.UsersRentals.Add(userRentals);
+
+			Contact contact = new Contact()
+			{
+				Email = user.Email,
+				PhoneNumber = user.PhoneNumber,
+				CustomerId = user.Id
+			};
+			this.context.Contacts.Add(contact);
+
+
 			await this.context.SaveChangesAsync();
 		}
 

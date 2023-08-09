@@ -261,25 +261,27 @@
 		{
 			try
 			{
-				//bool carExist = await carService.ExistByIdAsync(id);
+				bool carExist = await carService.ExistByIdAsync(id);
 
-				//if (!carExist)
-				//{
-				//	TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
+				if (!carExist)
+				{
+					TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
 
-				//	return RedirectToAction("All", "Car");
-				//}
+					return RedirectToAction("Detail", "Car", new { id});
+				}
 
-				//bool isCarRented = await carService.IsRentedByIdAsync(id);
+				bool isCarRented = await carService.IsRentedByIdAsync(id);
 
-				//if (isCarRented)
-				//{
-				//	TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
+				if (isCarRented)
+				{
+					TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
 
-				//	return RedirectToAction("All", "Car");
-				//}
+					return RedirectToAction("All", "Car");
+				}
 
-				//await carService.RentCarAsync(id, User.GetId()!);
+				viewModel.CarId = id;
+
+				await carService.RentCarAsync(viewModel, User.GetId()!);
 
 				TempData[SuccessMessage] = "You rent successfully your selected car!";
 			}

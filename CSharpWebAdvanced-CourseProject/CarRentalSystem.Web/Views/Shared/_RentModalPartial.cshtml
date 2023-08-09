@@ -14,27 +14,33 @@
 				<div class="modal-body">
 					<div class="row mb-4">
 						<div class="col">
+
 							<div>
-								<input asp-for="@Model.PhoneNumber" type="text" id="numberLabel" class="form-control" />
-								<label class="form-label hide-label l1" for="numberLabel">Phone number</label>
+								<input asp-for="@Model.PhoneNumber" type="tel" id="numberLabel" class="form-control" placeholder="Phone number" />
+								<span asp-validation-for="@Model.PhoneNumber" class="text-danger small"></span>
 							</div>
+
 						</div>
 						<div class="col">
 							<div>
-								<input asp-for="@Model.Deposit" type="text" id="depositLabel" class="form-control" />
-								<label class="form-label hide-label l2" for="depositLabel">Deposit</label>
+								<input asp-for="@Model.Deposit" type="text" id="depositLabel" class="form-control" placeholder="Deposit" />
+								<span asp-validation-for="@Model.Deposit" class="text-danger small"></span>
 							</div>
 						</div>
 					</div>
 
 					<div class="mb-4">
-						<input asp-for="@Model.Days" id="daysLabel" class="form-control"/>
-						<label class="form-label hide-label l3" for="daysLabel">Days</label>
+						<div>
+							<input asp-for="@Model.Days" type="number" id="daysLabel" class="form-control" placeholder="Days" />
+							<span asp-validation-for="@Model.Days" class="text-danger small"></span>
+						</div>
 					</div>
 
 					<div class="mb-4">
-						<input asp-for="@Model.Address" id="addressLabel" class="form-control" />
-						<label class="form-label hide-label l4" for="addressLabel">Address</label>
+						<div>
+							<input asp-for="@Model.Address" type="text" id="addressLabel" class="form-control" placeholder="Address" />
+							<span asp-validation-for="@Model.Address" class="text-danger small"></span>
+						</div>
 					</div>
 
 				</div>
@@ -70,7 +76,7 @@
 	});
 
 	closeButton.addEventListener('click', () => {
-		closeModal(modal);w
+		closeModal(modal); w
 	});
 
 	modalBackdrop.addEventListener('click', () => {
@@ -90,14 +96,58 @@
 </script>
 
 <style>
+	.form-control {
+		position: relative;
+	}
+
+	.form-control input[type="text"]:not(:placeholder-shown) + .text-danger {
+		display: block;
+		margin-top: 0.25rem;
+	}
+
+	.form-control input[type="text"]:focus + .text-danger {
+		display: block;
+		margin-top: 0.25rem;
+	}
+
+	.form-control input[type="text"]:not(:placeholder-shown) {
+		padding-top: 1.6rem;
+	}
+
+	.form-control input[type="text"]:focus {
+		padding-top: 1.6rem;
+	}
+
+	.form-control input[type="text"]:not(:placeholder-shown) + .text-danger {
+		display: block;
+		margin-top: 0.25rem;
+	}
+
+
+	#depositLabel-error {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 26ch;
+		display: inline-block;
+	}
+
+	#numberLabel-error {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 26ch;
+		display: inline-block;
+	}
+
 	.modal-backdrop {
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black color */
-		z-index: 1040; /* A lower value than the modal to appear below it */
+		background-color: rgba(0, 0, 0, 0.6);
+		z-index: 1040;
 		display: none;
 	}
 
@@ -121,10 +171,10 @@
 		pointer-events: auto;
 	}
 
-		.hide-label.hide {
-			opacity: 0;
-			pointer-events: none;
-		}
+	.hide-label.hide {
+		opacity: 0;
+		pointer-events: none;
+	}
 
 
 	.modal-header .btn-close {

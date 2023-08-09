@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Services.Data.Interfaces
 {
+	using CarRentalSystem.Web.ViewModels.Rent;
 	using Models.Car;
 
 	using Web.ViewModels.Car;
@@ -20,7 +21,7 @@
 		Task DeleteByIdAsync(string carId);
 		Task DeleteCarByIdAsync(string carId);
 		Task<bool> IsRentedByIdAsync(string carId);
-		Task RentCarAsync(string carId, string userId);
+		Task RentCarAsync(RentalFormView rentalForm, string userId);
         Task<bool> IsCarRented(string carId);
         Task<bool> IsRenterByUserWithIdAsync(string carId, string userId);
 		Task LeaveCarAsync(string carId);
