@@ -23,7 +23,7 @@
 		private readonly IMakeService makeService;
 
 		private readonly IMemoryCache memoryCache;
-		public CarController(ICarService carService, IMakeService makeService, 
+		public CarController(ICarService carService, IMakeService makeService,
 			IMemoryCache memoryCache)
 		{
 			this.carService = carService;
@@ -257,7 +257,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Rent(string id,RentalFormView viewModel)
+		public async Task<IActionResult> Rent(string id, RentalFormView viewModel)
 		{
 			try
 			{
@@ -267,7 +267,7 @@
 				{
 					TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
 
-					return RedirectToAction("Detail", "Car", new { id});
+					return RedirectToAction("Detail", "Car", new { id });
 				}
 
 				bool isCarRented = await carService.IsRentedByIdAsync(id);
@@ -290,7 +290,12 @@
 				return GeneralError();
 			}
 
-			this.memoryCache.Remove(RentsCacheKey);
+			memoryCache.Remove(RentsCacheKey);
+
+			if (this.User.IsAdmin())
+			{
+				return RedirectToAction("Detail", "Car", new {id = id , Area = "" });
+			}
 
 			return RedirectToAction("Mine", "Car");
 		}
@@ -339,7 +344,12 @@
 				return GeneralError();
 			}
 
-			this.memoryCache.Remove(RentsCacheKey);
+			memoryCache.Remove(RentsCacheKey);
+
+			if (User.IsAdmin())
+			{
+				return RedirectToAction("All", "Rent", new { Area = AdminAreaName });
+			}
 
 			return RedirectToAction("Mine", "Car");
 		}
@@ -347,9 +357,9 @@
 		[HttpGet]
 		public async Task<IActionResult> Mine()
 		{
-			if (this.User.IsAdmin())
+			if (User.IsAdmin())
 			{
-				return this.RedirectToAction("Mine", "Car", new { Area = AdminAreaName });
+				return RedirectToAction("Mine", "Car", new { Area = AdminAreaName });
 			}
 
 			List<CarAllViewModel> myCars = new List<CarAllViewModel>();
@@ -370,7 +380,7 @@
 
 		public IActionResult Test()
 		{
-			return this.View();
+			return View();
 		}
 
 		private IActionResult GeneralError()

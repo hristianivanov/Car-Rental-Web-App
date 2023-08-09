@@ -25,6 +25,7 @@
         Task<bool> IsCarRented(string carId);
         Task<bool> IsRenterByUserWithIdAsync(string carId, string userId);
 		Task LeaveCarAsync(string carId);
+		Task<decimal> GetCarPricePerDayByIdAsync(string carId);
 		//Task CreateAsync(CarFormModel formModel);
 		//Task<int> CreateAndReturnIdAsync(CarFormModel model);
 		Task<IEnumerable<CarAllViewModel>> AllDeletedAsync();

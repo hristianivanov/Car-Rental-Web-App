@@ -55,5 +55,14 @@ namespace CarRentalSystem.Services.Data
 
 			return allUsers;
 		}
+
+		public async Task<bool> IsUserHavePhoneNumber(string userId)
+		{
+			User user = await this.context
+				.Users
+				.FirstAsync(u => u.Id.ToString() == userId);
+
+			return user.PhoneNumber != null;
+		}
 	}
 }

@@ -22,6 +22,7 @@
 				.Where(c => c.RenterId.HasValue)
 				.Select(c => new RentViewModel()
 				{
+					Id = c.Id.ToString(),
 					Model = c.Model,
 					RenterFullName = c.Renter!.FirstName + ' ' + c.Renter.LastName,
 					ImageUrl = c.ImageUrl,

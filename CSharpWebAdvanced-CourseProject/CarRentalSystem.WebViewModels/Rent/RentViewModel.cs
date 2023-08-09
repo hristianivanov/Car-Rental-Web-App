@@ -2,6 +2,7 @@
 {
 	public class RentViewModel
 	{
+		public string Id { get; set; } = null!;
 		public string Model { get; set; } = null!;
 		public string ImageUrl { get; set; } = null!;
 		public string RenterFullName { get; set; } = null!;

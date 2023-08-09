@@ -1,34 +1,50 @@
 ﻿@model CarRentalSystem.Web.ViewModels.Rent.RentalFormView
+@inject IUserService UserService
+@inject ICarService CarService
+@{
+	bool isUserHavePhoneNumber = await this.UserService.IsUserHavePhoneNumber(this.User.GetId()!);
+}
+
 
 <div class="modal-backdrop" id="modalBackdrop" style="display: none;"></div>
 
 
 <div class="modal" id="rentModal" style="display: none;">
 	<div class="modal-dialog modal-dialog-centered">
-		<form asp-area="" asp-controller="Car" asp-action="Rent" asp-route-id="@Model.CarId" method="post">
+		<form asp-area="" asp-controller="Car" asp-action="Rent" asp-route-id="@Model.CarId" method="post" style="@(!isUserHavePhoneNumber ? "" : "width: 25rem;" )">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalToggleLabel">Contact information</h5>
 					<button type="button" id="closeButton" class="close" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="row mb-4">
-						<div class="col">
 
-							<div>
-								<input asp-for="@Model.PhoneNumber" type="tel" id="numberLabel" class="form-control" placeholder="Phone number" />
-								<span asp-validation-for="@Model.PhoneNumber" class="text-danger small"></span>
+					@if (!isUserHavePhoneNumber)
+					{
+						<div class="row mb-4">
+							<div class="col">
+								<div>
+									<input asp-for="@Model.PhoneNumber" type="tel" id="numberLabel" class="form-control" placeholder="Phone number" />
+									<span asp-validation-for="@Model.PhoneNumber" class="text-danger small"></span>
+								</div>
 							</div>
-
+							<div class="col">
+								<div>
+									<input asp-for="@Model.Deposit" type="text" id="depositLabel" class="form-control" placeholder="Deposit" />
+									<span asp-validation-for="@Model.Deposit" class="text-danger small"></span>
+								</div>
+							</div>
 						</div>
-						<div class="col">
+					}
+					else
+					{
+						<div class="mb-4">
 							<div>
 								<input asp-for="@Model.Deposit" type="text" id="depositLabel" class="form-control" placeholder="Deposit" />
 								<span asp-validation-for="@Model.Deposit" class="text-danger small"></span>
 							</div>
 						</div>
-					</div>
-
+					}
 					<div class="mb-4">
 						<div>
 							<input asp-for="@Model.Days" type="number" id="daysLabel" class="form-control" placeholder="Days" />
@@ -44,7 +60,6 @@
 					</div>
 
 				</div>
-
 				<button class="btn btn-primary btn-sml" id="finishButton" type="submit">Finish</button>
 			</div>
 		</form>
@@ -96,32 +111,40 @@
 </script>
 
 <style>
+
+	#finishButton {
+		width: 120px;
+		margin-left: 16.9em;
+		margin-bottom: 10px;
+	}
+
+
 	.form-control {
 		position: relative;
 	}
 
-	.form-control input[type="text"]:not(:placeholder-shown) + .text-danger {
-		display: block;
-		margin-top: 0.25rem;
-	}
+		.form-control input[type="text"]:not(:placeholder-shown) + .text-danger {
+			display: block;
+			margin-top: 0.25rem;
+		}
 
-	.form-control input[type="text"]:focus + .text-danger {
-		display: block;
-		margin-top: 0.25rem;
-	}
+		.form-control input[type="text"]:focus + .text-danger {
+			display: block;
+			margin-top: 0.25rem;
+		}
 
-	.form-control input[type="text"]:not(:placeholder-shown) {
-		padding-top: 1.6rem;
-	}
+		.form-control input[type="text"]:not(:placeholder-shown) {
+			padding-top: 1.6rem;
+		}
 
-	.form-control input[type="text"]:focus {
-		padding-top: 1.6rem;
-	}
+		.form-control input[type="text"]:focus {
+			padding-top: 1.6rem;
+		}
 
-	.form-control input[type="text"]:not(:placeholder-shown) + .text-danger {
-		display: block;
-		margin-top: 0.25rem;
-	}
+		.form-control input[type="text"]:not(:placeholder-shown) + .text-danger {
+			display: block;
+			margin-top: 0.25rem;
+		}
 
 
 	#depositLabel-error {
@@ -171,10 +194,10 @@
 		pointer-events: auto;
 	}
 
-	.hide-label.hide {
-		opacity: 0;
-		pointer-events: none;
-	}
+		.hide-label.hide {
+			opacity: 0;
+			pointer-events: none;
+		}
 
 
 	.modal-header .btn-close {

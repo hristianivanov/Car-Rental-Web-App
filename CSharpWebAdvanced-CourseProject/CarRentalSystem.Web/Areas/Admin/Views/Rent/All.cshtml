@@ -19,6 +19,9 @@ else
 					<div class="card-body text-center">
 						<h4>@rent.Model</h4>
 						<h6>Rented By: <b>@rent.RenterFullName (@rent.RenterEmail)</b></h6>
+						<form class="ml-2" asp-area="" asp-controller="Car" asp-action="Leave" asp-route-id="@rent.Id" method="post">
+							<input class="btn btn-primary btn-sm-custom" type="submit" value="Leave" />
+						</form>
 					</div>
 				</div>
 			</div>

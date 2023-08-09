@@ -389,7 +389,11 @@
 			car.RenterId = Guid.Parse(userId);
 
 			var user = await this.context.Users.FirstAsync(u => u.Id.ToString() == userId);
-			user.PhoneNumber = rentalForm.PhoneNumber;
+
+			if (user.PhoneNumber == null)
+			{
+				user.PhoneNumber = rentalForm.PhoneNumber;
+			}
 
 			Rental rental = new Rental()
 			{
@@ -397,7 +401,7 @@
 				EndDate = DateTime.UtcNow.AddDays(rentalForm.Days!.Value),
 				CarId = Guid.Parse(rentalForm.CarId!),
 				Deposit = rentalForm.Deposit!.Value,
-				Price = (car.PricePerDay * rentalForm.Days!.Value) - rentalForm.Deposit.Value,
+				Price = car.PricePerDay * rentalForm.Days!.Value,
 			};
 			this.context.Rentals.Add(rental);
 
@@ -438,6 +442,15 @@
 
 			car.RenterId = null;
 			await this.context.SaveChangesAsync();
+		}
+
+		public async Task<decimal> GetCarPricePerDayByIdAsync(string carId)
+		{
+			Car car = await this.context
+				.Cars
+				.FirstAsync(c => c.Id.ToString() == carId);
+
+			return car.PricePerDay;
 		}
 
 		public async Task<IEnumerable<CarAllViewModel>> AllDeletedAsync()

@@ -7,5 +7,6 @@
 		Task<bool> UserHasRentsAsync(string userId);
 		Task<string> GetFullNameByIdAsync(string userId);
 		Task<IEnumerable<UserViewModel>> AllAsync();
+		Task<bool> IsUserHavePhoneNumber(string userId);
 	}
 }
