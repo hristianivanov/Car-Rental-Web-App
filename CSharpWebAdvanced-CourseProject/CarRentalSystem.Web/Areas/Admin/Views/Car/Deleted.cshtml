@@ -4,17 +4,23 @@
 	ViewBag.Title = "Deleted Cars";
 }
 
-<h2 class="text-center mt-4" style="font-family:Arial">@ViewBag.Title</h2>
+<h2 class="text-center mt-4 arial-fn">@ViewBag.Title</h2>
 
 <hr />
 
 @if (!Model.DeletedCars.Any())
 {
-	<h2 class="text-center fw-normal">There is no deleted cars!</h2>
+	<h2 class="text-center fw-normal arial-fn">There is no deleted cars!</h2>
 }
 <div class="row">
-	@foreach (var house in Model.DeletedCars)
+	@foreach (var car in Model.DeletedCars)
 	{
-		@await Html.PartialAsync("~/Areas/Admin/Views/Shared/_DeletedCarPartial.cshtml", house)
+		@await Html.PartialAsync("~/Areas/Admin/Views/Shared/_DeletedCarPartial.cshtml", car)
 	}
 </div>
+
+<style>
+	.arial-fn {
+		font-family: Arial;
+	}
+</style>

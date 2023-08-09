@@ -13,17 +13,30 @@
 			</h6>
 			<h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
 			<br />
-			<a asp-area="Admin" asp-controller="Car" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-success">Add</a>
-			<a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-			<a asp-area="" asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+			<a asp-area="Admin" asp-controller="Car" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-success upper-btns">Add</a>
+			<a asp-area="Admin" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning upper-btns">Edit</a>
+			<form asp-area="Admin" asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id">
+				<input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete: @Model.Model?')" />
+			</form>
 		</div>
 	</div>
 </div>
 
 <style>
+	.upper-btns {
+		padding: 7px 63px;
+		margin-right: 0.2rem;
+		margin-left: 0.2rem;
+		margin-bottom: 9px;
+	}
+
 	.card-body.text-center {
 		box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 15px -3px, rgba(0, 0, 0, 0.04) 0px 10px 20px -2px;
 		border-radius: 0.9rem;
+	}
+
+	.btn.btn-danger {
+		padding: 5px 141px;
 	}
 
 	.card-img-top {

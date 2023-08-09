@@ -270,12 +270,12 @@
 			return result;
 		}
 
-		public async Task<CarFormModel> GetCarForEditByIdAsync(string carId)
+		public async Task<CarFormModel> GetCarForEditByIdAsync(string carId, bool isActive = true)
 		{
 			Car car = await this.context
 				.Cars
 				.Include(c => c.Make)
-				.Where(c => c.IsActive)
+				.Where(c => c.IsActive == isActive)
 				.FirstAsync(c => c.Id.ToString() == carId);
 
 			return new CarFormModel
@@ -299,12 +299,12 @@
 			};
 		}
 
-		public async Task EditCarByIdAndFormModelAsync(string carId, CarFormModel formModel)
+		public async Task EditCarByIdAndFormModelAsync(string carId, CarFormModel formModel, bool isActive = true)
 		{
 			Car car = await this.context
 				.Cars
 				.Include(c => c.Make)
-				.Where(c => c.IsActive)
+				.Where(c => c.IsActive == isActive)
 				.FirstAsync(c => c.Id.ToString() == carId);
 
 			car.Make.Name = formModel.Make;
@@ -341,6 +341,16 @@
 				Model = car.Model,
 				ImageUrl = car.ImageUrl
 			};
+		}
+
+		public async Task DeleteByIdAsync(string carId)
+		{
+			Car carToDelete = await this.context
+				.Cars
+				.FirstAsync(c => c.Id.ToString() == carId);
+
+			this.context.Cars.Remove(carToDelete);
+			await this.context.SaveChangesAsync();
 		}
 
 		public async Task DeleteCarByIdAsync(string carId)

@@ -1,9 +1,10 @@
-﻿@model CarFormModel
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarRentalSystem.Web.ViewModels.Car.CarFormModel
 
 <div class="container mt-5">
 	<div class="row justify-content-center">
 		<div class="col-sm-12 col-md-8 col-lg-6">
-			<form asp-area="" method="post">
+			<form asp-area="Admin" asp-action="Edit" method="post">
 				<div class="mb-3">
 					<label asp-for="Make" class="form-label">Make</label>
 					<input asp-for="Make" class="form-control" placeholder="Make...">
