@@ -294,7 +294,7 @@
 
 			if (this.User.IsAdmin())
 			{
-				return RedirectToAction("Detail", "Car", new {id = id , Area = "" });
+				return RedirectToAction("Detail", "Car", new { id, Area = "" });
 			}
 
 			return RedirectToAction("Mine", "Car");
@@ -378,11 +378,6 @@
 			}
 		}
 
-		public IActionResult Test()
-		{
-			return View();
-		}
-
 		private IActionResult GeneralError()
 		{
 			TempData[ErrorMessage] = "Unexpected error occurred!";
@@ -394,42 +389,5 @@
 		{
 			return Enum.IsDefined(typeof(TEnum), value);
 		}
-
-		#region isimagevalid method
-
-		//public bool IsImageValid(string imageUrl)
-		//{
-		//    try
-		//    {
-		//        using (var webClient = new WebClient())
-		//        {
-		//            // Изтегляне на изображението
-		//            byte[] data = webClient.DownloadData(imageUrl);
-
-		//            using (var imageStream = new System.IO.MemoryStream(data))
-		//            {
-		//                // Опит за зареждане на изображението
-		//                using (var image = Image.FromStream(imageStream))
-		//                {
-		//                    // Проверка дали изображението е валидно според формата на файла
-		//                    return image.RawFormat.Guid == ImageFormat.Bmp.Guid ||
-		//                           image.RawFormat.Guid == ImageFormat.Jpeg.Guid ||
-		//                           image.RawFormat.Guid == ImageFormat.Png.Guid ||
-		//                           image.RawFormat.Guid == ImageFormat.Tiff.Guid ||
-		//                           image.RawFormat.Guid == ImageFormat.Wmf.Guid ||
-		//                           image.RawFormat.Guid == ImageFormat.Emf.Guid ||
-		//                           image.RawFormat.Guid == ImageFormat.Gif.Guid;
-		//                }
-		//            }
-		//        }
-		//    }
-		//    catch
-		//    {
-		//        // В случай на грешка, например невалиден URL или друг проблем с изображението
-		//        return false;
-		//    }
-		//}
-
-		#endregion
 	}
 }
