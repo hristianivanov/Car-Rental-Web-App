@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarRentalSystem.Web.Areas.Service.ViewModels.Service.ServiceViewModel
+
+<a asp-controller="Service" asp-action="Detail" asp-route-id="@Model.Id" class="--item relative group">
+	<figure class="d-flex overflow-hidden">
+		<img width="100%" class="object-fit trans ls-is-cached lazyloaded" src="@Model.ImageUrl" loading="lazy">
+	</figure>
+	<p class="white bold font-35 trans color-hover text flex-all">@Model.Title</p>
+	<i class="card-arrow trans fa-solid fa-arrow-right-long"></i>
+</a>

@@ -1,0 +1,17 @@
+﻿@model CarRentalSystem.Web.Areas.Service.ViewModels.Service.AllServiceViewModel
+
+<section class="services-boxes pt-80 pb-60">
+	<div class="container">
+		<h2 class="section-title center mb-80">Providing Amazing Services To Our Clients</h2>
+		<div class="box grid-2 grid-1-t w-80 gap-20 w-100-p m-side-auto">
+			@foreach (var service in Model.Services)
+			{
+				<partial name="_ServiceCardPartial" model="service" />
+			}
+		</div>
+	</div>
+</section>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/service.css" asp-append-version="true" />
+}

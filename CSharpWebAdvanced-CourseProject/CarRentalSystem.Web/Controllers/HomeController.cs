@@ -4,7 +4,7 @@
 
     using CarRentalSystem.Services.Data.Interfaces;
     using static Common.GeneralApplicationConstants;
-	using CarRentalSystem.Web.Infrastructure.Extensions;
+	using Infrastructure.Extensions;
 
 	public class HomeController : Controller
 	{
@@ -32,16 +32,7 @@
 			return View();
 		}
 
-		public IActionResult Service()
-		{
-			return View();
-		}
-
-		public IActionResult ServiceDetail()
-		{
-			return this.View();
-		}
-
+		
 		public IActionResult Contact()
 		{
 			return View();

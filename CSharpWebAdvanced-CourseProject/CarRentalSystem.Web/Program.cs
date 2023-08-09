@@ -11,6 +11,7 @@ namespace CarRentalSystem.Web
 	using Infrastructure.ModelBinders;
 	using Infrastructure.Extensions;
 	using Microsoft.AspNetCore.Mvc;
+	using CarRentalSystem.Web.Areas.Service.Data;
 
 	public class Program
 	{
@@ -20,9 +21,13 @@ namespace CarRentalSystem.Web
 
 			var connectionString =
 				builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+			var testAreaConnString = 
+				builder.Configuration.GetConnectionString("Test") ?? throw new InvalidOperationException("Connection string 'Test' not found.");
 
 			builder.Services.AddDbContext<CarRentingDbContext>(options =>
 				options.UseSqlServer(connectionString));
+			builder.Services.AddDbContext<ServiceDbContext>(options =>
+				options.UseSqlServer(testAreaConnString));
 
 			builder.Services.AddDefaultIdentity<User>(options =>
 				{

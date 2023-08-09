@@ -1,15 +1,18 @@
-﻿<section class="self-drive-section pt-80 pb-50">
+﻿@using CarRentalSystem.Web.Areas.Service.ViewModels.Service
+@model ServiceViewModel
+
+<section class="self-drive-section pt-80 pb-50">
 	<div class="container container-box">
 		<!-- #box -->
 		<div class="box d-flex space-between column-reverse-p align-center">
 
 			<!-- #left -->
 			<div class="left w-48 w-100-p">
-				<h2 class="section-title mb-40">Long Term Rental</h2>
+				<h2 class="section-title mb-40">@Model.Title</h2>
 				<div class="font-18 mb-20 line-28 black-1 aboutus__page__text">
 					<div class="wpb_text_column wpb_content_element ">
 						<div class="wpb_wrapper">
-							<p>For long-term travel plans and replacement car needs, an affordable monthly rental from Luxury Supercar Rentals can be the ideal solution. The longer you choose to rent with Luxury Supercar Rentals, the cheaper the price becomes, meaning you can drive that premium rental car you’ve always wanted for a price that doesn’t exceed the budget.</p>
+							<p>@Model.Text</p>
 						</div>
 					</div>
 					<div class="wpb_text_column wpb_content_element ">
@@ -20,7 +23,7 @@
 			<!-- ##left -->
 			<!-- #right -->
 			<div class="right relative d-flex w-48 align-self">
-				<img width="100%" data-src="https://luxurysupercarsdubai.com/wp-content/uploads/2023/02/long-term.webp" class="object-fit ls-is-cached lazyloaded" src="https://luxurysupercarsdubai.com/wp-content/uploads/2023/02/long-term.webp" loading="lazy">
+				<img width="100%" data-src="@Model.ImageUrl" class="object-fit ls-is-cached lazyloaded" src="@Model.ImageUrl" loading="lazy">
 			</div>
 			<!-- ##right -->
 
