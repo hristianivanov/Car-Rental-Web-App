@@ -179,21 +179,6 @@
 	const modal1 = document.getElementById('exampleModalToggle1');
 	const modal2 = document.getElementById('exampleModalToggle22');
 	const modalBackdrop = document.getElementById('modalBackdrop');
-	const formInputs = document.querySelectorAll('.form-control');
-
-	formInputs.forEach(input => {
-		input.addEventListener('focus', () => {
-			const label = input.parentElement.querySelector('.form-label');
-			label.classList.add('hide');
-		});
-
-		input.addEventListener('blur', () => {
-			const label = input.parentElement.querySelector('.form-label');
-			if (!input.value) {
-				label.classList.remove('hide');
-			}
-		});
-	});
 
 	// Function to open the modal and backdrop
 	function openModal(modal) {
