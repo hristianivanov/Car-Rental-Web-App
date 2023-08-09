@@ -1,9 +1,11 @@
-﻿@inject ICarService CarService
-@model CarDetailsViewModel
+﻿@model CarDetailsViewModel
+@inject ICarService CarService
+
 @{
+	ViewData["Title"] = "Car Details";
+
 	bool isAdmin = User.IsAdmin();
 	bool isCarRentedByUser = await CarService.IsRenterByUserWithIdAsync(Model.Id, User.GetId()!);
-	ViewData["Title"] = "Car Details";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>

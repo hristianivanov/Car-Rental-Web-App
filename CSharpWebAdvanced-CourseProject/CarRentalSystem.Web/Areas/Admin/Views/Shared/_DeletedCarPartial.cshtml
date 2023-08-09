@@ -1,4 +1,5 @@
-﻿@model CarAllViewModel
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarRentalSystem.Web.ViewModels.Car.CarAllViewModel
 
 <div class="col-md-4">
 	<div class="card mb-3" style="height: 97%">
@@ -12,17 +13,9 @@
 			</h6>
 			<h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
 			<br />
-			<a asp-area="" asp-controller="Car" asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
-
-			@if (this.User.Identity?.IsAuthenticated ?? false)
-			{
-				@if (User.IsAdmin())
-				{
-					<a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-					<a asp-area="" asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-				}
-				<p></p>
-			}
+			<a asp-area="Admin" asp-controller="Car" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-success">Add</a>
+			<a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+			<a asp-area="" asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 		</div>
 	</div>
 </div>
@@ -32,6 +25,7 @@
 		box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 15px -3px, rgba(0, 0, 0, 0.04) 0px 10px 20px -2px;
 		border-radius: 0.9rem;
 	}
+
 	.card-img-top {
 		box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 15px -3px, rgba(0, 0, 0, 0.04) 0px 10px 20px -2px
 	}
