@@ -5,6 +5,11 @@
 
 	using Data;
 	using CarRentalSystem.Web.Areas.Service.ViewModels.Service;
+	using Microsoft.AspNetCore.Authorization;
+
+	using static Common.GeneralApplicationConstants;
+	using static Common.NotificationMessagesConstants;
+	using Service = Data.Model.Service;
 
 	public class ServiceController : BaseServiceController
 	{
@@ -31,7 +36,7 @@
 					.ToArrayAsync()
 			};
 
-			return View(model);
+			return this.View(model);
 		}
 
 		[Route("Service/Detail")]
@@ -49,7 +54,51 @@
 				ImageUrl = serviceViewModel.ImageUrl
 			};
 
-			return View(model);
+			return this.View(model);
+		}
+
+		[Route("Service/Add")]
+		[Authorize(Roles = AdminRoleName)]
+		public async Task<IActionResult> Add()
+		{
+			ServiceFormModel formModel = new ServiceFormModel();
+
+			return this.View(formModel);
+		}
+
+		[HttpPost]
+		[Route("Service/Add")]
+		[Authorize(Roles = AdminRoleName)]
+		public async Task<IActionResult> Add(ServiceFormModel formModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return this.View(formModel);
+			}
+			try
+			{
+				Service service = new Service()
+				{
+					Title = formModel.Title,
+					Text = formModel.Text,
+					ImageUrl = formModel.ImageUrl,
+				};
+
+				await this.dbContext.Services.AddAsync(service);
+				await this.dbContext.SaveChangesAsync();
+
+				int serviceId = service.Id;
+
+				TempData[SuccessMessage] = "Service was added successfully!";
+				return RedirectToAction("Detail", "Service", new { id = serviceId });
+			}
+			catch (Exception)
+			{
+				ModelState.AddModelError(string.Empty,
+					"Unexpected error occurred while trying to add your new car!");
+
+				return View(formModel);
+			}
 		}
 	}
 }

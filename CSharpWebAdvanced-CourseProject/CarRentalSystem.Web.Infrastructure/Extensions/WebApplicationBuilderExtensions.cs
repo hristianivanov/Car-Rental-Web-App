@@ -7,9 +7,9 @@
 	using Microsoft.Extensions.DependencyInjection;
 
 	using Data.Models;
+	using Middlewares;
 
 	using static Common.GeneralApplicationConstants;
-	using CarRentalSystem.Web.Infrastructure.Middlewares;
 
 	public static class WebApplicationBuilderExtensions
 	{

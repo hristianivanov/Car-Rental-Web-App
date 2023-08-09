@@ -2,17 +2,19 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
+	using static Common.EntityValidationConstants.Service;
+
 	public class Service
 	{
 		[Key]
         public int Id { get; set; }
 
 		[Required]
-		[MaxLength(100)]
+		[MaxLength(TitleMaxLength)]
         public string Title { get; set; } = null!;
 
 		[Required]
-		[MaxLength(2048)]
+		[MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
         [Required] 

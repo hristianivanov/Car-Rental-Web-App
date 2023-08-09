@@ -2,12 +2,14 @@
 {
 	public static class EntityValidationConstants
 	{
-		public static class Color
+		public static class Service
 		{
-			public const int NameMinLength = 3;
-			public const int NameMaxLength = 30;
+			public const int TitleMinLength = 3;
+			public const int TitleMaxLength = 100;
 
 			public const int ImageUrlMaxLength = 2048;
+
+			public const int TextMinLength = 5;
 		}
 
 		public static class Car
