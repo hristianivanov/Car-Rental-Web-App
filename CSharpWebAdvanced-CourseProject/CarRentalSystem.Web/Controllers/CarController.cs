@@ -362,6 +362,12 @@
 				return GeneralError();
 			}
 		}
+
+		public IActionResult Test()
+		{
+			return this.View();
+		}
+
 		private IActionResult GeneralError()
 		{
 			TempData[ErrorMessage] = "Unexpected error occurred!";

@@ -20,17 +20,29 @@
     margin-top: 2.9rem;
 }
 
+.d-flex.flex-row-user {
+    margin-top: 2.9rem;
+    margin-left: 1rem;
+}
 .d-flex.flex-row {
     margin-top: 4rem;
+    margin-left:1rem;
 }
 
 u {
     text-decoration: none;
     font-size: 42px;
     color: black;
+    margin-left: 1rem;
 }
 
 p {
     font-size: 24px;
     margin-bottom: 5px;
+    margin-left: 1rem;
+}
+
+.card.border-0 {
+    box-shadow: 0 2px 15px -3px rgba(0,0,0,0.07),0 10px 20px -2px rgba(0,0,0,0.04);
+    border-radius: 0.9rem;
 }
