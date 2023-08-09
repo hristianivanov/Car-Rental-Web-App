@@ -9,12 +9,11 @@
 	using Infrastructure.Extensions;
 	using ViewModels.Car;
 	using ViewModels.Make;
-
+	using ViewModels.Rent;
 
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
 	using Microsoft.Extensions.Caching.Memory;
-	using CarRentalSystem.Web.ViewModels.Rent;
 
 	[Authorize]
 	public class CarController : Controller

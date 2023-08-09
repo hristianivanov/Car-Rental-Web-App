@@ -7,8 +7,9 @@
 		public string? CarId { get; set; }
 
 		[Required]
-		[StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength,
-			ErrorMessage = "Invalid Phone Number")]
+		[StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength, ErrorMessage = "Invalid Phone Number")]
+		[RegularExpression(@"^\d+$", 
+			ErrorMessage = "Phone Number must contain only digits")]
 		public string PhoneNumber { get; set; } = null!;
 
 		[Required]

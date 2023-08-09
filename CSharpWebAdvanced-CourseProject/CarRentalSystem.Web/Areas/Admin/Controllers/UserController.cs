@@ -1,36 +1,23 @@
 ﻿namespace CarRentalSystem.Web.Areas.Admin.Controllers
 {
+	using Microsoft.AspNetCore.Mvc;
+
 	using CarRentalSystem.Services.Data.Interfaces;
 	using CarRentalSystem.Web.ViewModels.User;
-	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.Extensions.Caching.Memory;
-	using static Common.GeneralApplicationConstants;
+
 	public class UserController : BaseAdminController
 	{
 		private readonly IUserService userService;
-		private readonly IMemoryCache memoryCache;
-		public UserController(IUserService userService, IMemoryCache memoryCache)
+		public UserController(IUserService userService)
 		{
 			this.userService = userService;
-			this.memoryCache = memoryCache;
 		}
 
 		[Route("User/All")]
 		[ResponseCache(Duration = 30)]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All(string searchString)
 		{
-			IEnumerable<UserViewModel> users =
-				this.memoryCache.Get<IEnumerable<UserViewModel>>(UsersCacheKey);
-
-			if (users == null)
-			{
-				users = await this.userService.AllAsync();
-
-				var cacheOpt = new MemoryCacheEntryOptions()
-					.SetAbsoluteExpiration(TimeSpan.FromMinutes(UsersCacheDurationMinutes));
-
-				this.memoryCache.Set(UsersCacheKey,users,cacheOpt);
-			}
+			AllUsersModel users = await this.userService.AllAsync(searchString);
 
 			return View(users);
 		}

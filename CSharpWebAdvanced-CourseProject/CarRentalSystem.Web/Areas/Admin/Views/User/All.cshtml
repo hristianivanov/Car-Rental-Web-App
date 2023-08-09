@@ -1,37 +1,42 @@
 ﻿@using CarRentalSystem.Web.Infrastructure.Middlewares;
-@model IEnumerable<UserViewModel>
+@model AllUsersModel
 @{
 	ViewBag.Title = "All Users";
 }
 <h2 class="text-center fw-normal mt-4">@ViewBag.Title</h2>
 <hr />
+<form method="get" style="width: 98%">
+	<div class="row mb-2" style="margin-left: 1em">
+		<div class="form-group col-md-3">
+			<label asp-for="SearchString"></label>
+			<input asp-for="SearchString" class="form-control" placeholder="...">
+		</div>
+
+		<div class="col-md-3">
+			<div class="form-group p-2">
+				<input type="submit" value="Search" class="btn btn-primary btn-sm" style="font-size: 12px !important; padding: 9px 14px !important;margin-top: 1.3em;" />
+			</div>
+		</div>
+	</div>
+</form>
+
+
 <table class="table table-hover table-striped">
 	<thead class="table-dark">
 		<tr>
 			<th><label>Email</label></th>
 			<th><label>Full Name</label></th>
 			<th><label>Phone Number</label></th>
-			<th><label>User Is Agent</label></th>
 			<th><label>User Is Online</label></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var user in Model)
+		@foreach (var user in Model.Users)
 		{
 			<tr>
 				<td><label>@user.Email</label></td>
 				<td><label>@user.FullName</label></td>
 				<td><label>@user.PhoneNumber</label></td>
-				<td>
-					@if (user.PhoneNumber != string.Empty)
-					{
-						<i class="fa-solid fa-circle-check" style="color: #80ff80; height: 27px; margin-left: 2.4em;"></i>
-					}
-					else
-					{
-						<i class="fa-solid fa-circle-xmark" style="color: #ff0000; height: 27px; margin-left: 2.4em;"></i>
-					}
-				</td>
 				<td>
 					@if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id) || this.User.GetId()!.ToLower() == user.Id.ToLower())
 					{

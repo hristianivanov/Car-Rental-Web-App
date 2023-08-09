@@ -6,7 +6,7 @@
 	{
 		Task<bool> UserHasRentsAsync(string userId);
 		Task<string> GetFullNameByIdAsync(string userId);
-		Task<IEnumerable<UserViewModel>> AllAsync();
+		public Task<AllUsersModel> AllAsync(string searchString);
 		Task<bool> IsUserHavePhoneNumber(string userId);
 	}
 }
