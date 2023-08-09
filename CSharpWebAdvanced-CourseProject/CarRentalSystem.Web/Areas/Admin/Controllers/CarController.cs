@@ -24,7 +24,6 @@
 			TempData[SuccessMessage] = "The car successfully was added again for the users!";
 
 			return RedirectToAction("Deleted", "Car", new { Area = AdminAreaName });
-
 		}
 
 		public async Task<IActionResult> Mine()
