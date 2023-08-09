@@ -14,6 +14,7 @@
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
 	using Microsoft.Extensions.Caching.Memory;
+	using CarRentalSystem.Web.ViewModels.Rent;
 
 	[Authorize]
 	public class CarController : Controller
@@ -256,29 +257,29 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Rent(string id)
+		public async Task<IActionResult> Rent(string id,RentalFormView viewModel)
 		{
 			try
 			{
-				bool carExist = await carService.ExistByIdAsync(id);
+				//bool carExist = await carService.ExistByIdAsync(id);
 
-				if (!carExist)
-				{
-					TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
+				//if (!carExist)
+				//{
+				//	TempData[ErrorMessage] = "Car with provided id does not exist! Please try again!";
 
-					return RedirectToAction("All", "Car");
-				}
+				//	return RedirectToAction("All", "Car");
+				//}
 
-				bool isCarRented = await carService.IsRentedByIdAsync(id);
+				//bool isCarRented = await carService.IsRentedByIdAsync(id);
 
-				if (isCarRented)
-				{
-					TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
+				//if (isCarRented)
+				//{
+				//	TempData[ErrorMessage] = "Selected car is already rented by another user! Please select another car.";
 
-					return RedirectToAction("All", "Car");
-				}
+				//	return RedirectToAction("All", "Car");
+				//}
 
-				await carService.RentCarAsync(id, User.GetId()!);
+				//await carService.RentCarAsync(id, User.GetId()!);
 
 				TempData[SuccessMessage] = "You rent successfully your selected car!";
 			}
@@ -291,6 +292,8 @@
 
 			return RedirectToAction("Mine", "Car");
 		}
+
+
 
 		[HttpPost]
 		public async Task<IActionResult> Leave(string id)

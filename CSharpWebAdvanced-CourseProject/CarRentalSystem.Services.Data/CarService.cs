@@ -257,6 +257,10 @@
 				PricePerDay = car.PricePerDay,
 				PassengerSeats = car.PassengerSeats,
 				IsRented = car.RenterId.HasValue,
+				RentalForm = new Web.ViewModels.Rent.RentalFormView()
+				{
+					CarId = car.Id.ToString()
+				}
 			};
 		}
 
@@ -378,6 +382,7 @@
 		{
 			Car car = await this.context
 				.Cars
+				.Where(c => c.IsActive)
 				.FirstAsync(c => c.Id.ToString() == carId);
 
 			car.RenterId = Guid.Parse(userId);

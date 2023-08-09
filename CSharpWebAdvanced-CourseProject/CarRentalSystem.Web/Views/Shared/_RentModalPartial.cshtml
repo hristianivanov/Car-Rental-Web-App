@@ -1,78 +1,93 @@
-﻿<!-- Backdrop element -->
+﻿@model CarRentalSystem.Web.ViewModels.Rent.RentalFormView
+
 <div class="modal-backdrop" id="modalBackdrop" style="display: none;"></div>
 
-<!-- First modal dialog -->
-<div class="modal" id="exampleModalToggle1" style="display: none;">
+
+<div class="modal" id="rentModal" style="display: none;">
 	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalToggleLabel1">Contact information</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form>
+		<form asp-area="" asp-controller="Car" asp-action="Rent" asp-route-id="@Model.CarId" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalToggleLabel">Contact information</h5>
+					<button type="button" id="closeButton" class="close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
 					<div class="row mb-4">
 						<div class="col">
 							<div>
-								<input type="text" id="form6Example1" class="form-control" />
-								<label class="form-label hide-label l1" for="form6Example1">Phone number</label>
+								<input asp-for="@Model.PhoneNumber" type="text" id="numberLabel" class="form-control" />
+								<label class="form-label hide-label l1" for="numberLabel">Phone number</label>
 							</div>
 						</div>
 						<div class="col">
 							<div>
-								<input type="text" id="form6Example2" class="form-control" />
-								<label class="form-label hide-label l2" for="form6Example2">Deposit</label>
+								<input asp-for="@Model.Deposit" type="text" id="depositLabel" class="form-control" />
+								<label class="form-label hide-label l2" for="depositLabel">Deposit</label>
 							</div>
 						</div>
 					</div>
 
 					<div class="mb-4">
-						<input type="number" id="typeNumber" class="form-control" />
-						<label class="form-label hide-label l3" for="typeNumber">Days</label>
+						<input asp-for="@Model.Days" id="daysLabel" class="form-control"/>
+						<label class="form-label hide-label l3" for="daysLabel">Days</label>
 					</div>
 
 					<div class="mb-4">
-						<input type="text" id="form6Example4" class="form-control" />
-						<label class="form-label hide-label l4" for="form6Example4">Address</label>
+						<input asp-for="@Model.Address" id="addressLabel" class="form-control" />
+						<label class="form-label hide-label l4" for="addressLabel">Address</label>
 					</div>
-				</form>
 
+				</div>
+
+				<button class="btn btn-primary btn-sml" id="finishButton" type="submit">Finish</button>
 			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary btn-sml" id="nextButton1">Next</button>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
-<!-- Second modal dialog -->
-<div class="modal" id="exampleModalToggle22" style="display: none;">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalToggleLabel22">Payment method</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body" style="height: 119px">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-					<label class="form-check-label" for="inlineRadio1">BNPL</label>
-				</div>
+<script>
+	const openModalButton = document.getElementById('openRentModal');
+	const modal = document.getElementById('rentModal');
+	const closeButton = document.getElementById('closeButton');
+	const modalBackdrop = document.getElementById('modalBackdrop');
+	const formInputs = document.querySelectorAll('.form-control');
 
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-					<label class="form-check-label" for="inlineRadio2">Credit/Debit card</label>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary btn-sml" id="backButton">Back</button>
-				<form class="ml-2" asp-controller="Car" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-					<button class="btn btn-primary btn-sml" id="finishButton">Finish</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+	formInputs.forEach(input => {
+		input.addEventListener('focus', () => {
+			const label = input.parentElement.querySelector('.form-label');
+			label.classList.add('hide');
+		});
+
+		input.addEventListener('blur', () => {
+			const label = input.parentElement.querySelector('.form-label');
+			if (!input.value) {
+				label.classList.remove('hide');
+			}
+		});
+	});
+	openModalButton.addEventListener('click', () => {
+		openModal(modal);
+	});
+
+	closeButton.addEventListener('click', () => {
+		closeModal(modal);w
+	});
+
+	modalBackdrop.addEventListener('click', () => {
+		closeModal(modal);
+	});
+
+
+	function openModal(modal) {
+		modal.style.display = 'block';
+		modalBackdrop.style.display = 'block';
+	}
+
+	function closeModal(modal) {
+		modal.style.display = 'none';
+		modalBackdrop.style.display = 'none';
+	}
+</script>
 
 <style>
 	.modal-backdrop {
@@ -106,10 +121,10 @@
 		pointer-events: auto;
 	}
 
-	.hide-label.hide {
-		opacity: 0;
-		pointer-events: none;
-	}
+		.hide-label.hide {
+			opacity: 0;
+			pointer-events: none;
+		}
 
 
 	.modal-header .btn-close {
@@ -170,52 +185,3 @@
 	}
 </style>
 
-<script>
-	const openFirstModalButton = document.getElementById('openFirstModalButton');
-	const nextButton1 = document.getElementById('nextButton1');
-	const backButton = document.getElementById('backButton');
-	const closeButton1 = document.querySelector('#exampleModalToggle1 .close');
-	const closeButton2 = document.querySelector('#exampleModalToggle22 .close');
-	const modal1 = document.getElementById('exampleModalToggle1');
-	const modal2 = document.getElementById('exampleModalToggle22');
-	const modalBackdrop = document.getElementById('modalBackdrop');
-
-	// Function to open the modal and backdrop
-	function openModal(modal) {
-		modal.style.display = 'block';
-		modalBackdrop.style.display = 'block';
-	}
-
-	// Function to close the modal and backdrop
-	function closeModal(modal) {
-		modal.style.display = 'none';
-		modalBackdrop.style.display = 'none';
-	}
-
-	// Event listener for button click to open first modal
-	openFirstModalButton.addEventListener('click', () => {
-		openModal(modal1);
-	});
-
-	// Event listener for button click to open second modal from the first modal
-	nextButton1.addEventListener('click', () => {
-		closeModal(modal1);
-		openModal(modal2);
-	});
-
-	// Event listener for button click to go back from the second modal to the first modal
-	backButton.addEventListener('click', () => {
-		closeModal(modal2);
-		openModal(modal1);
-	});
-
-	// Event listener for button click to close the first modal
-	closeButton1.addEventListener('click', () => {
-		closeModal(modal1);
-	});
-
-	// Event listener for button click to close the second modal
-	closeButton2.addEventListener('click', () => {
-		closeModal(modal2);
-	});
-</script>

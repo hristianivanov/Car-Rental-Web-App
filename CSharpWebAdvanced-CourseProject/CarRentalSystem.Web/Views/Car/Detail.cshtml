@@ -29,7 +29,7 @@
 					{
 						@if (!Model.IsRented)
 						{
-							<a class="btn btn-primary btn-sm-custom@(isAdmin ? string.Empty : "-user")" id="openFirstModalButton" role="button">Rent</a>
+							<a class="btn btn-primary btn-sm-custom@(isAdmin ? string.Empty : "-user")" id="openRentModal" role="button">Rent</a>
 						}
 						else if (isCarRentedByUser || isAdmin)
 						{
@@ -54,7 +54,7 @@
 	</div>
 </div>
 
-<partial name="_RentModalPartial" />
+<partial name="_RentModalPartial" model="@Model.RentalForm" />
 
 @section Styles{
 	<link rel="stylesheet" href="~/css/car-detail.css" asp-append-version="true" />
