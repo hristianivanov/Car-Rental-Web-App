@@ -3,8 +3,8 @@
 	using System.ComponentModel.DataAnnotations;
 
 	public class CarAllViewModel
-    {
-        public string Id { get; set; }
+	{
+		public string Id { get; set; } = null!;
         public string Make { get; set; } = null!;
         public string Model { get; set; } = null!;
         public string Transmission { get; set; } = null!;

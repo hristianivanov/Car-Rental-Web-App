@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace CarRentalSystem.Web
 {
+	using Microsoft.AspNetCore.Identity;
 	using Microsoft.EntityFrameworkCore;
 
 	using Data;
@@ -21,7 +20,7 @@ namespace CarRentalSystem.Web
 
 			var connectionString =
 				builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-			var testAreaConnString = 
+			var testAreaConnString =
 				builder.Configuration.GetConnectionString("Test") ?? throw new InvalidOperationException("Connection string 'Test' not found.");
 
 			builder.Services.AddDbContext<CarRentingDbContext>(options =>
@@ -63,7 +62,6 @@ namespace CarRentalSystem.Web
 					options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 					options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 				});
-			//builder.Services.AddRazorPages();
 
 			var app = builder.Build();
 
@@ -90,12 +88,6 @@ namespace CarRentalSystem.Web
 
 			app.EnableOnlineUsersCheck();
 
-			if (app.Environment.IsDevelopment())
-			{
-				//app.SeedAdministrator(DevelopmentAdminEmail);
-			}
-
-			//if you had custom routing
 			app.UseEndpoints(config =>
 			{
 				config.MapControllerRoute(

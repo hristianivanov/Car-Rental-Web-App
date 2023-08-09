@@ -12,7 +12,6 @@
 
 		public static class Car
 		{
-			//temporary
 			public const int ImageUrlMaxLength = 2048;
 
 			public const int ModelMinLength = 2;
@@ -64,7 +63,7 @@
 			public const int StreetMinLength = 3;
 			public const int StreetMaxLength = 255;
 
-			//public const int ZipMinLength = 1;
+			public const int ZipMinLength = 4;
 			public const int ZipMaxLength = 15;
 		}
 

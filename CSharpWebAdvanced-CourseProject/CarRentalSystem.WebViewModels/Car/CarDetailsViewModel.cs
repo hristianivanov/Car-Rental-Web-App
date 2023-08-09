@@ -1,7 +1,8 @@
 ﻿namespace CarRentalSystem.Web.ViewModels.Car
 {
-	using CarRentalSystem.Web.ViewModels.Rent;
 	using System.ComponentModel.DataAnnotations;
+
+	using Rent;
 	
 	public class CarDetailsViewModel
 	{

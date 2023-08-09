@@ -1,7 +1,9 @@
 ﻿namespace CarRentalSystem.Web.ViewModels.Rent
 {
 	using System.ComponentModel.DataAnnotations;
+
 	using static Common.EntityValidationConstants.Contact;
+
 	public class RentalFormView
 	{
 		public string? CarId { get; set; }

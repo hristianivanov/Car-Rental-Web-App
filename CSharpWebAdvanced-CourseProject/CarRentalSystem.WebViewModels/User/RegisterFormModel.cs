@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Web.ViewModels.User
 {
     using System.ComponentModel.DataAnnotations;
+
     using static Common.EntityValidationConstants.Customer;
 
     public class RegisterFormModel
