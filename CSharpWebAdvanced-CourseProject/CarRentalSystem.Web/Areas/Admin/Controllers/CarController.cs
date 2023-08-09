@@ -51,17 +51,6 @@
 			return RedirectToAction("Deleted", "Car", new { Area = AdminAreaName });
 		}
 
-		public async Task<IActionResult> Mine()
-		{
-			MyCarsViewModel viewModel = new MyCarsViewModel()
-			{
-				AddedCars = await this.carService.AllByUserIdAsync(this.User.GetId()!),
-				RentedCars = await this.carService.AllByUserIdAsync(this.User.GetId()!)
-			};
-
-			return View(viewModel);
-		}
-
 		public async Task<IActionResult> Deleted()
 		{
 			DeletedCarViewModel viewModel = new DeletedCarViewModel()
