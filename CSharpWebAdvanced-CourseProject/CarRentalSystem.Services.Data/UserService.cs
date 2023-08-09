@@ -1,16 +1,11 @@
-﻿using CarRentalSystem.Web.ViewModels.User;
-
-namespace CarRentalSystem.Services.Data
+﻿namespace CarRentalSystem.Services.Data
 {
 	using Microsoft.EntityFrameworkCore;
 
 	using Interfaces;
 	using CarRentalSystem.Data;
 	using CarRentalSystem.Data.Models;
-	using CarRentalSystem.Data.Models.Enums;
-	using CarRentalSystem.Services.Data.Models.Car;
-	using CarRentalSystem.Web.ViewModels.Car.Enums;
-	using CarRentalSystem.Web.ViewModels.Car;
+	using Web.ViewModels.User;
 
 	public class UserService : IUserService
 	{
@@ -19,15 +14,6 @@ namespace CarRentalSystem.Services.Data
 		public UserService(CarRentingDbContext context)
 		{
 			this.context = context;
-		}
-		//TODO:
-		public async Task<bool> UserHasRentsAsync(string userId)
-		{
-			User user = await this.context
-				.Users
-				.FirstAsync(u => u.Id.ToString() == userId);
-
-			return user.UserRentals.Any();
 		}
 
 		public async Task<AllUsersModel> AllAsync(string searchString)
@@ -58,21 +44,6 @@ namespace CarRentalSystem.Services.Data
 			};
 
 			return model;
-		}
-
-
-		public async Task<string> GetFullNameByIdAsync(string userId)
-		{
-			User? user = await this.context
-				.Users
-				.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-
-			if (user == null)
-			{
-				return string.Empty;
-			}
-
-			return $"{user.FirstName} {user.LastName}";
 		}
 
 		public async Task<bool> IsUserHavePhoneNumber(string userId)

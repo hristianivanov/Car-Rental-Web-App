@@ -16,27 +16,6 @@
 			this.context = context;
 		}
 
-		public async Task CreateMakeAsync(string name)
-		{
-			Make model = new Make()
-			{
-				Name = name,
-			};
-
-			await this.context.Makes.AddAsync(model);
-			await this.context.SaveChangesAsync();
-		}
-		public async Task CreateMakeAsync(MakeFormModel formModel)
-		{
-			Make model = new Make()
-			{
-				Name = formModel.Name,
-				NewInnovation = formModel.NewInnovation,
-			};
-
-			await this.context.Makes.AddAsync(model);
-			await this.context.SaveChangesAsync();
-		}
 		public async Task<bool> MakeExistsByNameAsync(string make)
 		{
 			bool exists = await this.context
@@ -87,26 +66,5 @@
 
 			return allNames;
 		}
-
-		public async Task<int> GetMakeIdOrCreateMakeAsync(string make)
-		{
-			Make? model = await this.context
-				.Makes
-				.FirstOrDefaultAsync(m => m.Name.ToLower() == make.ToLower());
-
-			if (model == null)
-			{
-				model = new Make()
-				{
-					Name = make
-				};
-
-				await this.context.Makes.AddAsync(model);
-				await this.context.SaveChangesAsync();
-			}
-
-			return model.Id;
-		}
-
 	}
 }

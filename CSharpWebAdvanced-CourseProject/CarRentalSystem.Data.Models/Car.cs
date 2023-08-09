@@ -12,7 +12,6 @@
 		public Car()
 		{
 			this.Id = Guid.NewGuid();
-			this.CarColors = new HashSet<CarColors>();
 			this.Rentals = new HashSet<Rental>();
 		}
 
@@ -68,6 +67,5 @@
 		public string ImageUrl { get; set; } = null!;
 
 		public virtual ICollection<Rental> Rentals { get; set; }
-		public virtual ICollection<CarColors> CarColors { get; set; }
 	}
 }

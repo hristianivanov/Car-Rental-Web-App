@@ -2,16 +2,15 @@
 {
 	using Microsoft.EntityFrameworkCore;
 
+	using Interfaces;
+	using Models.Car;
 	using CarRentalSystem.Data.Models;
 	using CarRentalSystem.Data.Models.Enums;
 	using CarRentalSystem.Data;
-	using Interfaces;
-	using Models.Car;
 	using Web.ViewModels.Car;
 	using Web.ViewModels.Car.Enums;
 	using Web.ViewModels.Home;
-	using System.ComponentModel.DataAnnotations;
-	using CarRentalSystem.Web.ViewModels.Rent;
+	using Web.ViewModels.Rent;
 
 	public class CarService : ICarService
 	{
@@ -22,30 +21,6 @@
 			this.context = context;
 		}
 
-		public async Task<IEnumerable<IndexViewModel>> LastSixCarsAsync()
-		{
-			IEnumerable<IndexViewModel> lastSixCars = await this.context
-				.Cars
-				.Where(c => c.IsActive)
-				.Include(c => c.Make)
-				.OrderByDescending(c => c.CreatedOn)
-				.Take(6)
-				.Select(c => new IndexViewModel
-				{
-					Id = c.Id.ToString(),
-					Make = c.Make.Name,
-					Model = c.Model,
-					Transmission = c.Transmission.ToString(),
-					BodyType = c.BodyType.ToString(),
-					EngineType = c.EngineType.ToString(),
-					PricePerDay = c.PricePerDay,
-					PassengerSeats = c.PassengerSeats,
-					ImageUrl = c.ImageUrl,
-				})
-				.ToArrayAsync();
-
-			return lastSixCars;
-		}
 		public async Task<IEnumerable<IndexViewModel>> LastCarsAsync(int count)
 		{
 			IEnumerable<IndexViewModel> lastCars = await this.context
@@ -70,32 +45,6 @@
 				.ToArrayAsync();
 
 			return lastCars;
-		}
-
-		public async Task CreateAsync(CarFormModel formModel)
-		{
-			Car car = new Car
-			{
-				MakeId = formModel.MakeId,
-				Model = formModel.Model,
-				BodyType = formModel.SelectedBodyType,
-				Transmission = formModel.SelectedTransmission,
-				Mileage = formModel.Mileage,
-				Acceleration = formModel.Acceleration,
-				HorsePower = formModel.HorsePower,
-				TopSpeed = formModel.TopSpeed,
-				Year = formModel.Year,
-				EngineType = formModel.SelectedEngineType,
-				Consumption = formModel.Consumption,
-				Range = formModel.Range,
-				Safety = formModel.Safety,
-				PassengerSeats = formModel.PassengerSeats,
-				PricePerDay = formModel.PricePerDay,
-				ImageUrl = formModel.ImageUrl,
-			};
-
-			await this.context.Cars.AddAsync(car);
-			await this.context.SaveChangesAsync();
 		}
 
 		public async Task<string> CreateAndReturnIdAsync(CarFormModel model)
@@ -225,16 +174,6 @@
 				.ToArrayAsync();
 
 			return allUserCars;
-		}
-
-		public async Task<bool> IsCarRented(string carId)
-		{
-			bool isRented = await this.context
-				.Rentals
-				.AnyAsync(r => r.CarId.ToString() == carId &&
-							   r.EndDate > DateTime.UtcNow);
-
-			return isRented;
 		}
 
 		public async Task<CarDetailsViewModel> GetDetailsByIdAsync(string carId)
@@ -442,15 +381,6 @@
 
 			car.RenterId = null;
 			await this.context.SaveChangesAsync();
-		}
-
-		public async Task<decimal> GetCarPricePerDayByIdAsync(string carId)
-		{
-			Car car = await this.context
-				.Cars
-				.FirstAsync(c => c.Id.ToString() == carId);
-
-			return car.PricePerDay;
 		}
 
 		public async Task<IEnumerable<CarAllViewModel>> AllDeletedAsync()

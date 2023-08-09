@@ -19,7 +19,8 @@
 			IEnumerable<RentViewModel> allRents = await this.context
 				.Cars
 				.Include(c => c.Renter)
-				.Where(c => c.RenterId.HasValue)
+				.Where(c => c.RenterId.HasValue &&
+				            c.IsActive)
 				.Select(c => new RentViewModel()
 				{
 					Id = c.Id.ToString(),

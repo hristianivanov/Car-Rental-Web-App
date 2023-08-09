@@ -1,14 +1,12 @@
 ﻿namespace CarRentalSystem.Services.Data.Interfaces
 {
-	using CarRentalSystem.Web.ViewModels.Rent;
 	using Models.Car;
-
+	using Web.ViewModels.Rent;
 	using Web.ViewModels.Car;
 	using Web.ViewModels.Home;
 
 	public interface ICarService
 	{
-		Task<IEnumerable<IndexViewModel>> LastSixCarsAsync();
 		Task<IEnumerable<IndexViewModel>> LastCarsAsync(int count);
 		Task<string> CreateAndReturnIdAsync(CarFormModel formModel);
 		Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
@@ -22,12 +20,8 @@
 		Task DeleteCarByIdAsync(string carId);
 		Task<bool> IsRentedByIdAsync(string carId);
 		Task RentCarAsync(RentalFormView rentalForm, string userId);
-        Task<bool> IsCarRented(string carId);
-        Task<bool> IsRenterByUserWithIdAsync(string carId, string userId);
+		Task<bool> IsRenterByUserWithIdAsync(string carId, string userId);
 		Task LeaveCarAsync(string carId);
-		Task<decimal> GetCarPricePerDayByIdAsync(string carId);
-		//Task CreateAsync(CarFormModel formModel);
-		//Task<int> CreateAndReturnIdAsync(CarFormModel model);
 		Task<IEnumerable<CarAllViewModel>> AllDeletedAsync();
 		Task AddDeletedCarByIdAsync(string carId);
 	}
