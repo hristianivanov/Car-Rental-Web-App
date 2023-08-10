@@ -150,6 +150,33 @@
 			return RedirectToAction("Detail", "Blog", new { id });
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> Delete(string id)
+		{
+			try
+			{
+				bool blogExists = await blogService
+					.ExistByIdAsync(id);
+
+				if (!blogExists)
+				{
+					TempData[ErrorMessage] = "Blog with the provided id does not exist!";
+
+					return RedirectToAction("All", "Blog");
+				}
+
+				await this.blogService.DeleteByIdAsync(id);
+
+				TempData[WarningMessage] = "The selected car was successfully deleted from the DB!";
+
+				return RedirectToAction("All", "Blog");
+			}
+			catch (Exception )
+			{
+				return this.GeneralError();
+			}
+		}
+
 
 		private IActionResult GeneralError()
 		{

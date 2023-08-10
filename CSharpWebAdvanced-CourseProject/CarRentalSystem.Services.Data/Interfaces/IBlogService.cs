@@ -9,5 +9,6 @@
 		Task<string> CreateAndReturnIdAsync(BlogFormModel formModel, string userId);
 		Task<BlogFormModel> GetBlogForEditByIdAsync(string blogId);
 		Task EditBlogByIdAndFormModelAsync(string id, BlogFormModel blogModel);
+		Task DeleteByIdAsync(string id);
 	}
 }

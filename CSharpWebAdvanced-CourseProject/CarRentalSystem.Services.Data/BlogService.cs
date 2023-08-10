@@ -110,5 +110,17 @@ namespace CarRentalSystem.Services.Data
 
 			await this.dbContext.SaveChangesAsync();
 		}
+
+		public async Task DeleteByIdAsync(string id)
+		{
+			Blog blog = await this.dbContext
+				.Blogs
+				.Where(b => b.IsActive)
+				.FirstAsync(c => c.Id.ToString() == id);
+
+			blog.IsActive = false;
+
+			await this.dbContext.SaveChangesAsync();
+		}
 	}
 }
