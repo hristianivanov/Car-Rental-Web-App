@@ -1,51 +1,215 @@
 ﻿@model CarRentalSystem.Web.ViewModels.Blog.AllBlogViewModel
-
 @{
-	ViewBag.Title = "Read our blog";
+	ViewData["Title"] = "Latest News & Article";
 }
 
-<h2 class="text-center fw-normal">@ViewBag.Title</h2>
-<hr />
-
-<section class="mt-4">
-	<div class="container mb-5">
-		<div class="row d-flex justify-content-center">
-			<div class="col-md-12 text-center d-flex">
-			@*	@foreach (var blog in Model.Blogs)
-				{*@
-					<div class="justify-content-end mb-md-5">
-						<a asp-controller="Blog" asp-action="Detail" class="block-20 img">
-							<img src="~/images/blog/image_1.jpg">
-						</a>
-						<div class="px-md-5 pt-4">
-							<div class="mb-3">
-								<div>
-									<a href="#">Oct. 29, 2019</a>
-									<a href="#">Admin</a>
-									<a href="#"><i class="fa-solid fa-comment"></i> 3</a>
-								</div>
-							</div>
-							<h3 class="mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-							<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-							<p><a asp-controller="Blog" asp-action="Detail" asp-route-id="" class="btn btn-primary" style="margin-left: 4.3em;width: 30em;">Continue</a></p>
-						</div>
-					</div>
-				@*}*@
-			</div>
+<section class="news-section pt-70 pb-80 pt-50-p overflow-hidden">
+	<div class="container">
+		<h3 class="section-title center mb-60">@ViewData["Title"]</h3>
+		<div class="box grid-4 grid-1-t">
+			@foreach (var blog in Model.Blogs)
+			{
+				<partial name="_BlogCardPartial" model="@blog"/>
+			}
 		</div>
 	</div>
 </section>
 
-
 <style>
-	p {
-		word-wrap: break-word;
-		width: 56em;
+	.overflow-hidden {
+		overflow: hidden;
 	}
 
-	img {
+	.pb-80 {
+		padding-bottom: 80px;
+	}
+
+	.pt-70 {
+		padding-top: 70px;
+	}
+
+	.overflow-hidden {
+		overflow: hidden;
+	}
+
+	.container {
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		max-width: 1260px;
+	}
+
+	* {
+		margin: 0;
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+
+	*, ::before, ::after {
+		box-sizing: border-box;
+	}
+
+	.section-title {
+		font-size: 34px;
+		/* ReSharper disable once CssNotResolved */
+		font-family: var(--main-font-medium);
+	}
+
+	.mb-60 {
+		margin-bottom: 60px;
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	.grid-4 {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.grid-2, .grid-3, .grid-4, .grid-5, .grid-6 {
+		display: grid;
+		gap: 25px;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.d-flex {
+		display: flex;
+		display: -webkit-flex;
+	}
+
+	ul, figure {
+		margin: 0;
+	}
+
+	figure {
+		margin: 0 0 1em;
+	}
+
+	.lazyloaded {
+		opacity: 1;
+		transition: opacity 400ms;
+		transition-delay: 0s;
+		transition-delay: 0ms;
+	}
+
+	.object-fit {
 		object-fit: cover;
-		height: 38em;
-		width: 67em;
+	}
+	.news-section .--body {
+		background: rgb(230, 230, 230);
+		padding: 15px 20px 20px 15px;
+		margin-top: -52px;
+		position: relative;
+	}
+
+	.black-1 {
+		color: rgba(0, 0, 0, 0.74);
+	}
+
+	.w-90 {
+		width: 90%;
+	}
+
+	.h-100 {
+		height: 100%;
+	}
+
+	.two-line {
+		-webkit-line-clamp: 2;
+	}
+
+	.one-line, .three-line, .four-line, .five-line, .two-line {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+	}
+
+	.mb-15 {
+		margin-bottom: 15px;
+	}
+
+	.trans {
+		transition: 0.4s;
+	}
+
+	.news-section .news-link .desc {
+		height: 84px;
+	}
+
+	.gray-2 {
+		color: #646464;
+	}
+
+	.three-line {
+		-webkit-line-clamp: 3;
+	}
+
+	.one-line, .three-line, .four-line, .five-line, .two-line {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+	}
+
+	.line-28 {
+		line-height: 28px;
+	}
+
+	.mb-25 {
+		margin-bottom: 25px;
+	}
+
+	.font-14 {
+		font-size: 14px;
+	}
+
+	.gap-40 {
+		gap: 40px;
+	}
+
+	.align-center {
+		align-items: center;
+	}
+
+	.d-flex {
+		display: flex;
+		display: -webkit-flex;
+	}
+
+	.text-dark {
+		color: #777;
+	}
+
+	.gap-10 {
+		gap: 10px;
+	}
+
+	.align-center {
+		align-items: center;
+	}
+
+	.d-flex {
+		display: flex;
+		display: -webkit-flex;
+	}
+
+	.fa, .fa-brands, .fa-classic, .fa-regular, .fa-sharp, .fa-solid, .fab, .far, .fas {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		display: var(--fa-display,inline-block);
+		font-style: normal;
+		font-variant: normal;
+		line-height: 1;
+		text-rendering: auto;
+	}
+
+	.fa {
+		font-family: var(--fa-style-family,"Font Awesome 6 Free");
+		font-weight: var(--fa-style,900);
 	}
 </style>
