@@ -21,6 +21,7 @@ namespace CarRentalSystem.Services.Data
 		{
 			IEnumerable<BlogViewModel> allBlogs = await this.dbContext
 				.Blogs
+				.Where(b => b.IsActive)
 				.Select(b => new BlogViewModel()
 				{
 					Id = b.Id.ToString(),
@@ -29,6 +30,7 @@ namespace CarRentalSystem.Services.Data
 					CreatedOn = b.CreatedOn,
 					ImageUrl = b.ImageUrl,
 				})
+				.OrderByDescending(b => b.CreatedOn)
 				.ToArrayAsync();
 
 			return allBlogs;
@@ -48,6 +50,7 @@ namespace CarRentalSystem.Services.Data
 		{
 			Blog blog = await this.dbContext
 				.Blogs
+				.Where(b => b.IsActive)
 				.Include(b => b.Creater)
 				.Where(b => b.IsActive)
 				.FirstAsync(b => b.Id.ToString() == blogId);
@@ -77,6 +80,35 @@ namespace CarRentalSystem.Services.Data
 			await this.dbContext.SaveChangesAsync();
 
 			return blog.Id.ToString();
+		}
+
+		public async Task<BlogFormModel> GetBlogForEditByIdAsync(string blogId)
+		{
+			Blog blog = await this.dbContext
+				.Blogs
+				.Where(b => b.IsActive)
+				.FirstAsync(b => b.Id.ToString() == blogId);
+
+			return new BlogFormModel()
+			{
+				Title = blog.Title,
+				Description = blog.Description,
+				ImageUrl = blog.ImageUrl,
+			};
+		}
+
+		public async Task EditBlogByIdAndFormModelAsync(string id, BlogFormModel blogModel)
+		{
+			Blog blog = await this.dbContext
+				.Blogs
+				.Where(c => c.IsActive)
+				.FirstAsync(c => c.Id.ToString() == id);
+
+			blog.Title = blogModel.Title;
+			blog.ImageUrl = blogModel.ImageUrl;
+			blog.Description = blogModel.Description;
+
+			await this.dbContext.SaveChangesAsync();
 		}
 	}
 }

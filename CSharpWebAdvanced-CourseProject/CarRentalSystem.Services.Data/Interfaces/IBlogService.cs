@@ -1,6 +1,4 @@
-﻿using CarRentalSystem.Web.ViewModels.Car;
-
-namespace CarRentalSystem.Services.Data.Interfaces
+﻿namespace CarRentalSystem.Services.Data.Interfaces
 {
 	using Web.ViewModels.Blog;
 	public interface IBlogService
@@ -9,5 +7,7 @@ namespace CarRentalSystem.Services.Data.Interfaces
 		Task<bool> ExistByIdAsync(string blogId);
 		Task<BlogDetailsViewModel> GetForDetailsByIdAsync(string blogId);
 		Task<string> CreateAndReturnIdAsync(BlogFormModel formModel, string userId);
+		Task<BlogFormModel> GetBlogForEditByIdAsync(string blogId);
+		Task EditBlogByIdAndFormModelAsync(string id, BlogFormModel blogModel);
 	}
 }

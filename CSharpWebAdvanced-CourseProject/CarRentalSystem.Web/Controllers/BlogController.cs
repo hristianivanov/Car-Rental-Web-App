@@ -90,6 +90,66 @@
 				return View(formModel);
 			}
 		}
+		[HttpGet]
+		public async Task<IActionResult> Edit(string id)
+		{
+			try
+			{
+				bool blogExists = await blogService
+					.ExistByIdAsync(id);
+
+				if (!blogExists)
+				{
+					TempData[ErrorMessage] = "Blog with the provided id does not exist!";
+
+					return RedirectToAction("All", "Blog");
+				}
+
+				BlogFormModel formModel = await blogService
+					.GetBlogForEditByIdAsync(id);
+
+				return View(formModel);
+			}
+			catch (Exception)
+			{
+				return GeneralError();
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(string id, BlogFormModel blogModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(blogModel);
+			}
+
+			try
+			{
+				bool blogExists = await blogService
+					.ExistByIdAsync(id);
+
+				if (!blogExists)
+				{
+					TempData[ErrorMessage] = "Blog with the provided id does not exist!";
+
+					return RedirectToAction("All", "Blog");
+				}
+
+				await blogService.EditBlogByIdAndFormModelAsync(id, blogModel);
+
+				this.TempData[InformationMessage] = "Blog post was edited successfully";
+			}
+			catch (Exception)
+			{
+				ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to edit the blog!");
+
+				return View(blogModel);
+			}
+
+			return RedirectToAction("Detail", "Blog", new { id });
+		}
+
 
 		private IActionResult GeneralError()
 		{

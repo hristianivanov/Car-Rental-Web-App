@@ -5,7 +5,7 @@
 
 <section class="news-section pt-70 pb-80 pt-50-p overflow-hidden">
 	<div class="container">
-		@if (this.User.IsInRole(AdminRoleName))
+		@if (this.User.Identity!.IsAuthenticated)
 		{
 			<div class="add-button-container">
 				<a asp-area="" asp-controller="Blog" asp-action="Add" class="btn btn-primary add-button">

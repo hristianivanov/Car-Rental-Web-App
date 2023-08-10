@@ -2,12 +2,36 @@
 
 <section class="self-drive-section pt-80 pb-50">
 	<div class="container container-box">
+		<div class="return-button-container">
+			<a asp-area="" asp-controller="Blog" asp-action="All" class="btn btn-primary return-button">
+				<i class="fa-solid fa-arrow-rotate-left"></i>
+				<span class="tooltip-text">Go Back</span>
+			</a>
+		</div>
+		@if (this.User.IsInRole(AdminRoleName))
+		{
+			<div class="edit-button-container">
+				<a asp-area="" asp-controller="Blog" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info edit-button">
+					<i class="fa-solid fa-pen-to-square"></i>
+					<span class="tooltip-text">Edit the blog post</span>
+				</a>
+			</div>
+			<div class="delete-button-container">
+				<form asp-area="" asp-controller="Blog" asp-action="Delete" method="post" class="delete-form">
+					<input type="hidden" name="id" value="@Model.Id" />
+					<button type="submit" class="btn btn-danger delete-button" onclick="return confirm('Are you sure you want to delete: @Model.Title?')">
+						<i class="fa-solid fa-trash-can"></i>
+						<span class="tooltip-text">Delete the blog post</span>
+					</button>
+				</form>
+			</div>
+		}
 		<div class="box d-flex space-between column-reverse-p align-center">
 			<div class="left w-80 w-100-p">
-				<img width="100%" data-src="@Model.ImageUrl" class="object-fit mb-20 ls-is-cached lazyloaded" 
-				     src="@Model.ImageUrl" loading="lazy">
+				<img width="100%" data-src="@Model.ImageUrl" class="object-fit mb-20 ls-is-cached lazyloaded"
+					 src="@Model.ImageUrl" loading="lazy">
 				<p class="text-dark d-flex wrap gap-10 mb-25">
-					<i class="fa fa-calendar main-color"></i>  <span>@Model.CreatedOn.ToString("MMMM dd, yyyy")</span>
+					<i class="fa fa-calendar main-color"></i> <span>@Model.CreatedOn.ToString("MMMM dd, yyyy")</span>
 					<i class="fa-solid fa-pencil"></i> <span>@Model.CreaterFullName</span>
 				</p>
 				<div class="font-18 mb-20 line-28 black-1 blog__page__text">
@@ -20,9 +44,104 @@
 </section>
 
 <style>
+	.svg-inline--fa.fa-trash-can {
+		padding: 11px 10px;
+	}
+
+	.return-button-container {
+		position: absolute;
+		top: 5em;
+		left: 1em;
+		padding: 10px;
+	}
+
+	.return-button {
+		position: relative;
+	}
+
+	.return-button:hover .tooltip {
+		transform: scale(1.2);
+	}
+
+	.return-button:hover .tooltip-text {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.edit-button-container {
+		position: absolute;
+		top: 5em;
+		left: 5em;
+		padding: 10px;
+	}
+
+	.btn.btn-info.edit-button {
+		padding: 15px 20px;
+	}
+
+	.edit-button {
+		position: relative;
+	}
+
+		.edit-button:hover .tooltip {
+			transform: scale(1.2);
+		}
+
+		.edit-button:hover .tooltip-text {
+			visibility: visible;
+			opacity: 1;
+		}
+
+	.delete-button-container {
+		position: absolute;
+		top: 5em;
+		left: 9em;
+		padding: 10px;
+	}
+
+	.delete-button {
+		position: relative;
+	}
+
+		.delete-button:hover .tooltip {
+			transform: scale(1.2);
+		}
+
+		.delete-button:hover .tooltip-text {
+			visibility: visible;
+			opacity: 1;
+		}
+
+
+	.tooltip {
+		display: inline-block;
+		position: relative;
+		cursor: pointer;
+		transition: transform 0.3s;
+	}
+
+	.tooltip-text {
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		top: -26px;
+		left: 144%;
+		transform: translateX(-50%);
+		background-color: #333;
+		color: #fff;
+		padding: 5px 10px;
+		border-radius: 4px;
+		white-space: nowrap;
+		font-size: 11px;
+		pointer-events: none;
+		transition: opacity 0.3s;
+	}
+
+
 	body {
 		font-size: 16px;
 	}
+
 	h2 {
 		color: rgba(0, 0, 0, 0.74);
 		font-family: "Arial";
@@ -30,12 +149,15 @@
 		line-height: 28px;
 		margin-bottom: 7px;
 	}
+
 	.pb-50 {
 		padding-bottom: 50px;
 	}
+
 	.pt-80 {
 		padding-top: 15px;
 	}
+
 	.container {
 		margin-left: auto;
 		margin-right: auto;
