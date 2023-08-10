@@ -8,7 +8,6 @@ namespace CarRentalSystem.Web.Areas.Admin.Controllers
 	using CarRentalSystem.Web.ViewModels.Rent;
 	using Microsoft.Extensions.Caching.Memory;
 	using static Common.GeneralApplicationConstants;
-	using CarRentalSystem.Data.Models;
 
 	public class RentController : BaseAdminController
 	{

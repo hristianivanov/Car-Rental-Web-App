@@ -1,18 +1,14 @@
 ﻿namespace CarRentalSystem.Web.Controllers
 {
-	using CarRentalSystem.Data.Models.Enums;
-	using CarRentalSystem.Services.Data;
-	using CarRentalSystem.Services.Data.Interfaces;
-	using CarRentalSystem.Web.Areas.Service.ViewModels.Service;
-	using CarRentalSystem.Web.Infrastructure.Extensions;
-	using CarRentalSystem.Web.ViewModels.Car;
-	using CarRentalSystem.Web.ViewModels.Make;
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Cors.Infrastructure;
 	using Microsoft.AspNetCore.Mvc;
 
+	using CarRentalSystem.Services.Data.Interfaces;
+	using Infrastructure.Extensions;
 	using ViewModels.Blog;
+
 	using static Common.NotificationMessagesConstants;
+	using CarRentalSystem.Services.Data;
+
 	public class BlogController : Controller
 	{
 		private readonly IBlogService blogService;
@@ -28,7 +24,6 @@
 			{
 				Blogs = await this.blogService.AllAsync()
 			};
-
 
 			return View(model);
 		}
@@ -90,6 +85,7 @@
 				return View(formModel);
 			}
 		}
+
 		[HttpGet]
 		public async Task<IActionResult> Edit(string id)
 		{
@@ -103,6 +99,17 @@
 					TempData[ErrorMessage] = "Blog with the provided id does not exist!";
 
 					return RedirectToAction("All", "Blog");
+				}
+
+				bool isAdmin = User.IsAdmin();
+				bool isCurrUserCreatorOfTheBlogPost = await blogService.IsCreaterWithIdAsync(id, User.GetId()!);
+
+				if (!isCurrUserCreatorOfTheBlogPost && !isAdmin)
+				{
+					TempData[ErrorMessage] =
+						"You must be the creator of the post in order to edit it!";
+
+					return RedirectToAction("Detail", "Blog", new { id });
 				}
 
 				BlogFormModel formModel = await blogService
@@ -171,7 +178,7 @@
 
 				return RedirectToAction("All", "Blog");
 			}
-			catch (Exception )
+			catch (Exception)
 			{
 				return this.GeneralError();
 			}

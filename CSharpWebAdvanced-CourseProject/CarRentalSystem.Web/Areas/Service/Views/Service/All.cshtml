@@ -7,7 +7,7 @@
 		@if (this.User.IsInRole(AdminRoleName))
 		{
 			<div class="add-button-container">
-				<a href="@Url.Action("Add", "Service", new { area = "Service" })" class="btn btn-primary add-button">
+				<a asp-area="Service" asp-controller="Service" asp-action="Add" class="btn btn-primary add-button">
 					<i class="fas fa-plus"></i>
 					<span class="tooltip-text">Add new service article</span>
 				</a>

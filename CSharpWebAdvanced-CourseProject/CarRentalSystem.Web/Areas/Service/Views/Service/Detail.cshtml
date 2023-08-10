@@ -6,7 +6,7 @@
 <section class="self-drive-section pt-80 pb-50">
 	<div class="container container-box">
 		<div class="return-button-container">
-			<a href="@Url.Action("All", "Service", new { area = "Service"})" class="btn btn-primary return-button">
+			<a asp-area="Service" asp-controller="Service" asp-action="All" class="btn btn-primary return-button">
 				<i class="fa-solid fa-arrow-rotate-left"></i>
 				<span class="tooltip-text">Go Back</span>
 			</a>
@@ -14,7 +14,7 @@
 		@if (isAdmin)
 		{
 			<div class="edit-button-container">
-				<a href="@Url.Action("Edit", "Service", new { area = "Service", id = Model.Id })" class="btn btn-info edit-button">
+				<a asp-area="Service" asp-controller="Service" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info edit-button">
 					<i class="fa-solid fa-pen-to-square"></i>
 					<span class="tooltip-text">Edit the service article</span>
 				</a>

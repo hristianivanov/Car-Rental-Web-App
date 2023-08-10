@@ -10,5 +10,6 @@
 		Task<BlogFormModel> GetBlogForEditByIdAsync(string blogId);
 		Task EditBlogByIdAndFormModelAsync(string id, BlogFormModel blogModel);
 		Task DeleteByIdAsync(string id);
+		Task<bool> IsCreaterWithIdAsync(string id, string userId);
 	}
 }

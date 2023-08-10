@@ -7,11 +7,9 @@
 	using CarRentalSystem.Web.Areas.Service.ViewModels.Service;
 	using Microsoft.AspNetCore.Authorization;
 
+	using Service = Data.Model.Service;
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
-	using Service = Data.Model.Service;
-	using CarRentalSystem.Services.Data;
-	using CarRentalSystem.Web.ViewModels.Car;
 
 	public class ServiceController : BaseServiceController
 	{
@@ -44,7 +42,7 @@
 		[Route("Service/Detail")]
 		public async Task<IActionResult> Detail(int id)
 		{
-			Data.Model.Service serviceViewModel = await this.dbContext
+			Service serviceViewModel = await this.dbContext
 				.Services
 				.FirstAsync(s => s.Id == id);
 
@@ -97,7 +95,7 @@
 			catch (Exception)
 			{
 				ModelState.AddModelError(string.Empty,
-					"Unexpected error occurred while trying to add your new car!");
+					"Unexpected error occurred while trying to add your new service!");
 
 				return View(formModel);
 			}
@@ -108,16 +106,6 @@
 		[Authorize(Roles = AdminRoleName)]
 		public async Task<IActionResult> Edit(int id)
 		{
-			//bool carExists = await carService
-			//	.ExistByIdAsync(id);
-
-			//if (!carExists)
-			//{
-			//	TempData[ErrorMessage] = "Car with the provided id does not exist!";
-
-			//	return RedirectToAction("All", "Car");
-			//}
-
 			Service service = await this.dbContext
 				.Services
 				.FirstAsync(x => x.Id == id);
@@ -142,16 +130,6 @@
 				return View(formModel);
 			}
 
-			//bool carExists = await carService
-			//	.ExistByIdAsync(id);
-
-			//if (!carExists)
-			//{
-			//	TempData[ErrorMessage] = "Car with the provided id does not exist!";
-
-			//	return RedirectToAction("All", "Car");
-			//}
-
 			Service service = await this.dbContext
 				.Services
 				.FirstAsync (x => x.Id == id);
@@ -161,6 +139,8 @@
 			service.ImageUrl = formModel.ImageUrl;
 
 			await this.dbContext.SaveChangesAsync();
+
+			this.TempData[InformationMessage] = "The selected service was successfully edited!";
 
 			return RedirectToAction("Detail", "Service", new { Area = "Service" , id });
 		}
@@ -176,7 +156,7 @@
 			this.dbContext.Services.Remove(serviceToDelete);
 			await this.dbContext.SaveChangesAsync();
 
-			TempData[WarningMessage] = "The selected car was successfully deleted from the DB!";
+			TempData[WarningMessage] = "The selected service was successfully deleted from the DB!";
 
 			return RedirectToAction("All", "Service", new { Area = "Service" });
 		}

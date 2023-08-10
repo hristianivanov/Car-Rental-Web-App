@@ -95,8 +95,6 @@ namespace CarRentalSystem.Web
 					pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				);
 
-				//protectingUrl here
-
 				config.MapDefaultControllerRoute();
 
 				config.MapRazorPages();

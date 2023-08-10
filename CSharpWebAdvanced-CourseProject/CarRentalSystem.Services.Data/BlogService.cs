@@ -122,5 +122,15 @@ namespace CarRentalSystem.Services.Data
 
 			await this.dbContext.SaveChangesAsync();
 		}
+
+		public async Task<bool> IsCreaterWithIdAsync(string id, string userId)
+		{
+			Blog blog = await this.dbContext
+				.Blogs
+				.FirstAsync(c => c.Id.ToString() == id);
+
+			return blog.IsActive
+			       && blog.CreaterId.ToString() == userId;
+		}
 	}
 }
