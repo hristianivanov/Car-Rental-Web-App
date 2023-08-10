@@ -1,0 +1,23 @@
+﻿@model CarRentalSystem.Web.ViewModels.Blog.BlogFormModel
+@{
+	ViewData["Title"] = "Add Blog";
+}
+
+<h2 class="text-center fw-normal" style="font-family:Arial">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_BlogFormPartial" />
+
+<style>
+	.btn.btn-primary.mt-3 {
+		padding: 13px 38px;
+		width: 150px;
+		margin-bottom: 3em;
+		letter-spacing: 0.6em;
+	}
+</style>
+
+@section Scripts
+{
+	<partial name="_ValidationScriptsPartial" />
+}

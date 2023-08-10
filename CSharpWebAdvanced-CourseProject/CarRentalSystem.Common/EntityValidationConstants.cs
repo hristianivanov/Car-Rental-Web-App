@@ -7,6 +7,8 @@
 			public const int TitleMinLength = 3;
 			public const int TitleMaxLength = 100;
 
+			public const int DescriptionMinLength = 5;
+
 			public const int ImageUrlMaxLength = 2048;
 		}
 

@@ -8,5 +8,6 @@ namespace CarRentalSystem.Services.Data.Interfaces
 		Task<IEnumerable<BlogViewModel>> AllAsync();
 		Task<bool> ExistByIdAsync(string blogId);
 		Task<BlogDetailsViewModel> GetForDetailsByIdAsync(string blogId);
+		Task<string> CreateAndReturnIdAsync(BlogFormModel formModel, string userId);
 	}
 }

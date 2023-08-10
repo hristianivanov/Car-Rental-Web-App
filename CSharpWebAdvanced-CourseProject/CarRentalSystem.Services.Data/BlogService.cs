@@ -62,5 +62,21 @@ namespace CarRentalSystem.Services.Data
 				CreaterFullName = blog.Creater!.FirstName + ' ' + blog.Creater.LastName,
 			};
 		}
+
+		public async Task<string> CreateAndReturnIdAsync(BlogFormModel formModel, string userId)
+		{
+			Blog blog = new Blog()
+			{
+				Title = formModel.Title,
+				Description = formModel.Description,
+				ImageUrl = formModel.ImageUrl,
+				CreaterId = Guid.Parse(userId)
+			};
+
+			await this.dbContext.Blogs.AddAsync(blog);
+			await this.dbContext.SaveChangesAsync();
+
+			return blog.Id.ToString();
+		}
 	}
 }

@@ -5,17 +5,71 @@
 
 <section class="news-section pt-70 pb-80 pt-50-p overflow-hidden">
 	<div class="container">
+		@if (this.User.IsInRole(AdminRoleName))
+		{
+			<div class="add-button-container">
+				<a asp-area="" asp-controller="Blog" asp-action="Add" class="btn btn-primary add-button">
+					<i class="fas fa-plus"></i>
+					<span class="tooltip-text">Add new blog post</span>
+				</a>
+			</div>
+		}
 		<h3 class="section-title center mb-60">@ViewData["Title"]</h3>
 		<div class="box grid-4 grid-1-t">
 			@foreach (var blog in Model.Blogs)
 			{
-				<partial name="_BlogCardPartial" model="@blog"/>
+				<partial name="_BlogCardPartial" model="@blog" />
 			}
 		</div>
 	</div>
 </section>
 
 <style>
+	.add-button-container {
+		position: absolute;
+		top: 9em;
+		left: 1em;
+		padding: 10px;
+	}
+
+	.add-button {
+		top: 30px;
+		position: relative;
+	}
+
+	.tooltip {
+		display: inline-block;
+		position: relative;
+		cursor: pointer;
+		transition: transform 0.3s;
+	}
+
+	.add-button:hover .tooltip {
+		transform: scale(1.2);
+	}
+
+	.tooltip-text {
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		top: -26px;
+		left: 144%;
+		transform: translateX(-50%);
+		background-color: #333;
+		color: #fff;
+		padding: 5px 10px;
+		border-radius: 4px;
+		white-space: nowrap;
+		font-size: 11px;
+		pointer-events: none;
+		transition: opacity 0.3s;
+	}
+
+	.add-button:hover .tooltip-text {
+		visibility: visible;
+		opacity: 1;
+	}
+
 	.overflow-hidden {
 		overflow: hidden;
 	}
@@ -56,7 +110,7 @@
 	}
 
 	.mb-60 {
-		margin-bottom: 60px;
+		margin-bottom: 100px;
 	}
 
 	.center {
@@ -99,6 +153,7 @@
 	.object-fit {
 		object-fit: cover;
 	}
+
 	.news-section .--body {
 		background: rgb(230, 230, 230);
 		padding: 15px 20px 20px 15px;
