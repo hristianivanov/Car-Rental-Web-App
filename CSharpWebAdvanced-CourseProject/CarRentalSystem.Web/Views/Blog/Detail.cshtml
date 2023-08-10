@@ -8,6 +8,7 @@
 				     src="@Model.ImageUrl" loading="lazy">
 				<p class="text-dark d-flex wrap gap-10 mb-25">
 					<i class="fa fa-calendar main-color"></i>  <span>@Model.CreatedOn.ToString("MMMM dd, yyyy")</span>
+					<i class="fa-solid fa-pencil"></i> <span>@Model.CreaterFullName</span>
 				</p>
 				<div class="font-18 mb-20 line-28 black-1 blog__page__text">
 					<h2>@Model.Title</h2>
@@ -115,5 +116,10 @@
 
 	.font-18 {
 		font-size: 18px;
+	}
+
+	.svg-inline--fa.fa-pencil {
+		font-size: 18px;
+		margin-left: 11px;
 	}
 </style>
