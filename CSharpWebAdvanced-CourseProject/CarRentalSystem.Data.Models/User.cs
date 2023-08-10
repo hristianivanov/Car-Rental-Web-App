@@ -13,6 +13,7 @@
 			this.Id = Guid.NewGuid();
 			this.Contacts = new HashSet<Contact>();
 			this.UserRentals = new HashSet<UserRentals>();
+			this.Blogs = new HashSet<Blog>();
 			this.SecurityStamp = Guid.NewGuid().ToString();
 		}
 
@@ -22,7 +23,8 @@
 		[Required, MaxLength(LastNameMaxLength)]
 		public string LastName { get; set; } = null!;
 
-		public virtual ICollection<Contact> Contacts { get; set; }
+        public virtual ICollection<Blog> Blogs { get; set; }
+        public virtual ICollection<Contact> Contacts { get; set; }
 		public virtual ICollection<UserRentals> UserRentals { get; set; }
 	}
 }

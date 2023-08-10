@@ -2,6 +2,14 @@
 {
 	public static class EntityValidationConstants
 	{
+		public class Blog
+		{
+			public const int TitleMinLength = 3;
+			public const int TitleMaxLength = 100;
+
+			public const int ImageUrlMaxLength = 2048;
+		}
+
 		public static class Service
 		{
 			public const int TitleMinLength = 3;

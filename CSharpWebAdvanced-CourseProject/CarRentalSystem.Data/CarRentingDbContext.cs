@@ -15,8 +15,9 @@
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<UserRentals> UsersRentals { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
 
-		public CarRentingDbContext(DbContextOptions<CarRentingDbContext> options)
+        public CarRentingDbContext(DbContextOptions<CarRentingDbContext> options)
             : base(options)
         {
         }
