@@ -1,0 +1,119 @@
+﻿@model CarRentalSystem.Web.ViewModels.Blog.BlogDetailsViewModel
+
+<section class="self-drive-section pt-80 pb-50">
+	<div class="container container-box">
+		<div class="box d-flex space-between column-reverse-p align-center">
+			<div class="left w-80 w-100-p">
+				<img width="100%" data-src="@Model.ImageUrl" class="object-fit mb-20 ls-is-cached lazyloaded" 
+				     src="@Model.ImageUrl" loading="lazy">
+				<p class="text-dark d-flex wrap gap-10 mb-25">
+					<i class="fa fa-calendar main-color"></i>  <span>@Model.CreatedOn.ToString("MMMM dd, yyyy")</span>
+				</p>
+				<div class="font-18 mb-20 line-28 black-1 blog__page__text">
+					<h2>@Model.Title</h2>
+					<p>@Model.Description</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	body {
+		font-size: 16px;
+	}
+	h2 {
+		color: rgba(0, 0, 0, 0.74);
+		font-family: "Arial";
+		font-size: 27px;
+		line-height: 28px;
+		margin-bottom: 7px;
+	}
+	.pb-50 {
+		padding-bottom: 50px;
+	}
+	.pt-80 {
+		padding-top: 15px;
+	}
+	.container {
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		max-width: 1260px;
+	}
+
+	* {
+		margin: 0;
+		margin-right: 0px;
+		margin-left: 0px;
+		margin-bottom: 0px;
+	}
+
+	*, ::before, ::after {
+		box-sizing: border-box;
+	}
+
+	.container-box .box {
+		margin-bottom: 50px;
+	}
+
+	.space-between {
+		justify-content: space-between;
+	}
+
+	.align-center {
+		align-items: center;
+	}
+
+	.text-dark {
+		color: #777;
+	}
+
+	.gap-10 {
+		gap: 10px;
+	}
+
+	.mb-25 {
+		margin-bottom: 25px;
+	}
+
+	.wrap {
+		flex-wrap: wrap;
+	}
+
+	.d-flex {
+		display: flex;
+		display: -webkit-flex;
+	}
+
+	.w-80 {
+		width: 80%;
+	}
+
+	.lazyloaded {
+		opacity: 1;
+		transition: opacity 400ms;
+		transition-delay: 0s;
+		transition-delay: 0ms;
+	}
+
+	.mb-20 {
+		margin-bottom: 20px;
+	}
+
+	.object-fit {
+		object-fit: cover;
+	}
+
+	.line-28 {
+		line-height: 28px;
+	}
+
+	.black-1 {
+		color: rgba(0, 0, 0, 0.74);
+	}
+
+	.font-18 {
+		font-size: 18px;
+	}
+</style>
