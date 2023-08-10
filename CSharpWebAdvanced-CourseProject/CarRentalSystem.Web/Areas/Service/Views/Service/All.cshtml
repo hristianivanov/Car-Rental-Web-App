@@ -4,12 +4,15 @@
 <hr />
 <section class="services-boxes pt-80 pb-60">
 	<div class="container">
-		<div class="add-button-container">
-			<a href="@Url.Action("Add", "Service", new { area = "Service" })" class="btn btn-primary add-button">
-				<i class="fas fa-plus"></i>
-				<span class="tooltip-text">Add new service article</span>
-			</a>
-		</div>
+		@if (this.User.IsInRole(AdminRoleName))
+		{
+			<div class="add-button-container">
+				<a href="@Url.Action("Add", "Service", new { area = "Service" })" class="btn btn-primary add-button">
+					<i class="fas fa-plus"></i>
+					<span class="tooltip-text">Add new service article</span>
+				</a>
+			</div>
+		}
 		<div class="box grid-2 grid-1-t w-80 gap-20 w-100-p m-side-auto">
 			@foreach (var service in Model.Services)
 			{

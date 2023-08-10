@@ -25,7 +25,8 @@
 				usersQuery = usersQuery.Where(u =>
 					u.FirstName.Contains(searchString) ||
 					u.LastName.Contains(searchString) ||
-					u.Email.Contains(searchString));
+					u.Email.Contains(searchString) ||
+					u.PhoneNumber.Contains(searchString));
 			}
 
 			ICollection<UserViewModel> allUsers = await usersQuery
