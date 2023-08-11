@@ -23,9 +23,9 @@ namespace CarRentalSystem.Data.Configurations
 		}
 		private ICollection<Blog> GenerateBlogs()
 		{
-			var cars = new HashSet<Blog>();
+			var blogs = new HashSet<Blog>();
 
-			cars.Add(new Blog()
+			blogs.Add(new Blog()
 			{
 				Id = Guid.NewGuid(),
 				Title = "What to Expect When You Rent a Bugatti in Dubai: A Guide for First-Timers",
@@ -51,7 +51,7 @@ namespace CarRentalSystem.Data.Configurations
 				ImageUrl = "https://localhost:7263/images/blog/image_1.jpg",
 				CreatedOn = new DateTime(2019,10,29),
 			});
-			cars.Add(new Blog()
+			blogs.Add(new Blog()
 			{
 				Id = Guid.NewGuid(),
 				Title = "Why Renting a Lamborghini Aventador is Worth Every Penny",
@@ -89,7 +89,7 @@ namespace CarRentalSystem.Data.Configurations
 				CreaterId = Guid.Parse("8A5EDC49-7490-493F-2F01-08DB8A416485"),
 				CreatedOn = new DateTime(2023, 6, 22),
 			});
-			cars.Add(new Blog()
+			blogs.Add(new Blog()
 			{
 				Id = Guid.NewGuid(),
 				Title = "Road Trip Ready: Preparing for Your Car Rental Adventure",
@@ -115,7 +115,7 @@ namespace CarRentalSystem.Data.Configurations
 				CreaterId = Guid.Parse("F06D4765-779A-4766-EB64-08DB8A42133C"),
 				CreatedOn = new DateTime(2022, 5, 5),
 			});
-			cars.Add(new Blog()
+			blogs.Add(new Blog()
 			{
 				Id = Guid.NewGuid(),
 				Title = "Unleash Your Inner Adventurer: Rent a G Wagon for Off-Road Excursions",
@@ -139,7 +139,7 @@ namespace CarRentalSystem.Data.Configurations
 				CreatedOn = new DateTime(2023, 7, 1),
 			});
 
-			return cars;
+			return blogs;
 		}
 
 	}
