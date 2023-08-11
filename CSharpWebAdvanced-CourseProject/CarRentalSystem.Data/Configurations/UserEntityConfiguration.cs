@@ -6,20 +6,20 @@ namespace CarRentalSystem.Data.Configurations
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.EntityFrameworkCore;
 
-	public class UserEntityConfiguration : IEntityTypeConfiguration<User>
+	public class UserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
 	{
-		public void Configure(EntityTypeBuilder<User> builder)
+		public void Configure(EntityTypeBuilder<ApplicationUser> builder)
 		{
 			builder.HasData(this.GenerateUsers());
 		}
 
-		private IEnumerable<User> GenerateUsers()
+		private IEnumerable<ApplicationUser> GenerateUsers()
 		{
-			var users = new HashSet<User>();
-			var hasher = new PasswordHasher<User>();
+			var users = new HashSet<ApplicationUser>();
+			var hasher = new PasswordHasher<ApplicationUser>();
 
-			User user;
-			user = new User()
+			ApplicationUser applicationUser;
+			applicationUser = new ApplicationUser()
 			{
 				Id = Guid.Parse("8A5EDC49-7490-493F-2F01-08DB8A416485"),
 				UserName = "admin@gmail.com",
@@ -31,10 +31,10 @@ namespace CarRentalSystem.Data.Configurations
 				SecurityStamp = Guid.NewGuid().ToString(),
 				PhoneNumber = "0895969391",
 			};
-			user.PasswordHash = hasher.HashPassword(user, "admin");
-			users.Add(user);
+			applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "admin");
+			users.Add(applicationUser);
 
-			user = new User()
+			applicationUser = new ApplicationUser()
 			{
 				Id = Guid.Parse("F06D4765-779A-4766-EB64-08DB8A42133C"),
 				UserName = "defi@gmail.com",
@@ -46,10 +46,10 @@ namespace CarRentalSystem.Data.Configurations
 				SecurityStamp = Guid.NewGuid().ToString(),
 				PhoneNumber = "0888888391",
 			};
-			user.PasswordHash = hasher.HashPassword(user, "123456");
-			users.Add(user);
+			applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
+			users.Add(applicationUser);
 
-			user = new User()
+			applicationUser = new ApplicationUser()
 			{
 				Id = Guid.Parse("F2525385-0162-4B42-8FA5-08DB8A43496A"),
 				UserName = "pesho_petrov@yahoo.com",
@@ -61,8 +61,8 @@ namespace CarRentalSystem.Data.Configurations
 				SecurityStamp = Guid.NewGuid().ToString(),
 				PhoneNumber = "0878559310",
 			};
-			user.PasswordHash = hasher.HashPassword(user, "123456");
-			users.Add(user);
+			applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
+			users.Add(applicationUser);
 
 			return users;
 		}

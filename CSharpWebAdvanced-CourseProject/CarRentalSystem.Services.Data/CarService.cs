@@ -183,7 +183,7 @@
 				.Include(c => c.Make)
 				.Include(c => c.Rentals)
 				.ThenInclude(r => r.UserRentals)
-				.ThenInclude(ur => ur.User)
+				.ThenInclude(ur => ur.ApplicationUser)
 				.Where(c => c.IsActive)
 				.FirstAsync(c => c.Id.ToString() == carId);
 

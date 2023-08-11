@@ -4,9 +4,9 @@
 
     public class UserRentals
     {
-        [ForeignKey(nameof(User))]
+        [ForeignKey(nameof(ApplicationUser))]
         public Guid CustomerId { get; set; }
-        public virtual User User { get; set; } = null!;
+        public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 
         [ForeignKey(nameof(Rental))]
         public Guid RentalId { get; set; }

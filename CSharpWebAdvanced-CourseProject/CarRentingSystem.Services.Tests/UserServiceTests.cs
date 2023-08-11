@@ -52,9 +52,9 @@
 		[Test]
 		public async Task AllAsync_ShouldReturnFilteredUsers_WhenSearchStringProvided()
 		{
-			var user1 = new User() { FirstName = "John", LastName = "Doe", Email = "john@example.com", PhoneNumber = "123456789" };
-			var user2 = new User() { FirstName = "Jane", LastName = "Doe", Email = "jane@example.com", PhoneNumber = "987654321" };
-			var user3 = new User() { FirstName = "Alice", LastName = "Smith", Email = "alice@example.com", PhoneNumber = "555555555" };
+			var user1 = new ApplicationUser() { FirstName = "John", LastName = "Doe", Email = "john@example.com", PhoneNumber = "123456789" };
+			var user2 = new ApplicationUser() { FirstName = "Jane", LastName = "Doe", Email = "jane@example.com", PhoneNumber = "987654321" };
+			var user3 = new ApplicationUser() { FirstName = "Alice", LastName = "Smith", Email = "alice@example.com", PhoneNumber = "555555555" };
 
 			dbContext.Users.AddRange(user1, user2, user3);
 			dbContext.SaveChanges();

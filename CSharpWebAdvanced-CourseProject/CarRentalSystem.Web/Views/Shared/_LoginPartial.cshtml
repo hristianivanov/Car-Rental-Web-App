@@ -1,5 +1,5 @@
-﻿@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <ul class="login-nav mb-2 mb-lg-0" style="list-style: none; display: flex; margin-left: 18%; justify-content: end; padding: 0;">
 	@if (SignInManager.IsSignedIn(User))

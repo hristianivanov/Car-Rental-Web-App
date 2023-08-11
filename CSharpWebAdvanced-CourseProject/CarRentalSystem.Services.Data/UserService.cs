@@ -18,7 +18,7 @@
 
 		public async Task<AllUsersModel> AllAsync(string searchString)
 		{
-			IQueryable<User> usersQuery = this.context.Users;
+			IQueryable<ApplicationUser> usersQuery = this.context.Users;
 
 			if (!string.IsNullOrEmpty(searchString))
 			{
@@ -47,11 +47,17 @@
 			return model;
 		}
 
+		//TODO:add test
 		public async Task<bool> IsUserHavePhoneNumber(string userId)
 		{
-			User user = await this.context
+			ApplicationUser? user = await this.context
 				.Users
-				.FirstAsync(u => u.Id.ToString() == userId);
+				.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+
+			if (user == null)
+			{
+				return false;
+			}
 
 			return user.PhoneNumber != null;
 		}

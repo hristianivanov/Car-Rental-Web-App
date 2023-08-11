@@ -8,7 +8,7 @@
 
 	using Models;
 
-    public class CarRentingDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public class CarRentingDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
 	    public DbSet<Car> Cars { get; set; }
 	    public DbSet<Make> Makes { get; set; }

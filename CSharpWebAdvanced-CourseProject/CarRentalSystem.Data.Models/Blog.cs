@@ -31,6 +31,6 @@
         public bool IsActive { get; set; }
 
 		public Guid? CreaterId { get; set; }
-		public virtual User? Creater { get; set; }
+		public virtual ApplicationUser? Creater { get; set; }
 }
 }

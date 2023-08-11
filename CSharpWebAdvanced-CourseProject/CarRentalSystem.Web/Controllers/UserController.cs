@@ -12,11 +12,11 @@
 
 	public class UserController : Controller
 	{
-		private readonly SignInManager<User> signInManager;
-		private readonly UserManager<User> userManager;
+		private readonly SignInManager<ApplicationUser> signInManager;
+		private readonly UserManager<ApplicationUser> userManager;
 		private readonly IMemoryCache memoryCache;
 
-		public UserController(SignInManager<User> signInManager, UserManager<User> userManager,
+		public UserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
 			IMemoryCache memoryCache)
 		{
 			this.signInManager = signInManager;
@@ -44,18 +44,18 @@
 				return this.View();
 			}
 
-			User user = new User()
+			ApplicationUser applicationUser = new ApplicationUser()
 			{
 				Email = model.Email,
 				FirstName = model.FirstName,
 				LastName = model.LastName,
 			};
 
-			await this.userManager.SetEmailAsync(user, model.Email);
-			await this.userManager.SetUserNameAsync(user, model.Email);
+			await this.userManager.SetEmailAsync(applicationUser, model.Email);
+			await this.userManager.SetUserNameAsync(applicationUser, model.Email);
 
 			var result =
-				await this.userManager.CreateAsync(user);
+				await this.userManager.CreateAsync(applicationUser);
 
 			if (!result.Succeeded)
 			{
@@ -67,7 +67,7 @@
 				return this.View(model);
 			}
 
-			await this.signInManager.SignInAsync(user, isPersistent: false);
+			await this.signInManager.SignInAsync(applicationUser, isPersistent: false);
 			this.memoryCache.Remove(UsersCacheKey);
 
 			return this.RedirectToAction("Index", "Home");

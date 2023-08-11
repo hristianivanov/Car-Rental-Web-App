@@ -78,7 +78,7 @@
 
 		private static void SeedUsers(CarRentingDbContext dbContext)
 		{
-			var renter = new User
+			var renter = new ApplicationUser
 			{
 				Id = Guid.Parse("4e191a73-e8d4-462d-9803-0400812d86cf"),
 				UserName = "testrenter",
@@ -93,7 +93,7 @@
 				FirstName = "Test",
 				LastName = "Renter"
 			};
-			var user = new User
+			var user = new ApplicationUser
 			{
 				Id = Guid.Parse("b792974e-1529-4167-8610-5c0fc4d94659"),
 				UserName = "testuser",

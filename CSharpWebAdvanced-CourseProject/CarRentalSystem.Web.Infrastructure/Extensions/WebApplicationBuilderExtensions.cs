@@ -59,8 +59,8 @@
 
 			IServiceProvider serviceProvider = scopedServices.ServiceProvider;
 
-			UserManager<User> userManager =
-				serviceProvider.GetRequiredService<UserManager<User>>();
+			UserManager<ApplicationUser> userManager =
+				serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 			RoleManager<IdentityRole<Guid>> roleManager =
 				serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
@@ -76,10 +76,10 @@
 
 					await roleManager.CreateAsync(role);
 
-					User adminUser =
+					ApplicationUser adminApplicationUser =
 						await userManager.FindByEmailAsync(email);
 
-					await userManager.AddToRoleAsync(adminUser, AdminRoleName);
+					await userManager.AddToRoleAsync(adminApplicationUser, AdminRoleName);
 				})
 				.GetAwaiter()
 				.GetResult();

@@ -57,7 +57,7 @@
 		public decimal PricePerDay { get; set; }
 
 		public Guid? RenterId { get; set; }
-		public virtual User? Renter { get; set; }
+		public virtual ApplicationUser? Renter { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

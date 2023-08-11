@@ -6,9 +6,9 @@
 
     using static Common.EntityValidationConstants.Customer;
 
-	public class User : IdentityUser<Guid>
+	public class ApplicationUser : IdentityUser<Guid>
     {
-		public User()
+		public ApplicationUser()
 		{
 			this.Id = Guid.NewGuid();
 			this.Contacts = new HashSet<Contact>();
