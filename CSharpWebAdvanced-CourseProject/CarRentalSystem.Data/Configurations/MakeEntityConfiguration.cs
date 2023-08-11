@@ -52,6 +52,18 @@
 	            Name = "Ferrari",
 	            NewInnovation = "Side Slip Control"
 			});
+            makes.Add(new Make()
+            {
+	            Id = 7,
+	            Name = "Chevrolet",
+	            NewInnovation = "myChevrolet Mobile App"
+			});
+            makes.Add(new Make()
+            {
+	            Id = 8,
+	            Name = "Ford",
+	            NewInnovation = "Ford Co-Pilot360"
+			});
 
 			return makes;
 	    }

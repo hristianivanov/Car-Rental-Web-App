@@ -8,6 +8,7 @@
 	using Services.Mocks;
 	using CarRentalSystem.Web.Controllers;
 	using CarRentalSystem.Web.ViewModels.Home;
+	using static CarRentalSystem.Common.GeneralApplicationConstants;
 
 	[TestFixture]
 	public class HomeControllerTests
@@ -48,7 +49,7 @@
 			var adminUser = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
 			{
 				new Claim(ClaimTypes.NameIdentifier, "1"),
-				new Claim(ClaimTypes.Role, "Master Administrator")
+				new Claim(ClaimTypes.Role, $"{AdminRoleName}")
 			}));
 
 			homeController.ControllerContext = new ControllerContext

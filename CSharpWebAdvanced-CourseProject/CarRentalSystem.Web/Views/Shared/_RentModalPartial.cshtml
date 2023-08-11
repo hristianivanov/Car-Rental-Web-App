@@ -1,6 +1,5 @@
 ﻿@model RentalFormView
 @inject IUserService UserService
-@inject ICarService CarService
 @{
 	bool isUserHavePhoneNumber = await this.UserService.IsUserHavePhoneNumber(this.User.GetId()!);
 }

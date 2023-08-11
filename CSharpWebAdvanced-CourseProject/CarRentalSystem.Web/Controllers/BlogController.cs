@@ -141,6 +141,7 @@
 
 					return RedirectToAction("All", "Blog");
 				}
+				//TODO: check if the currUser is the creator in order to edit it or is not admin
 
 				await blogService.EditBlogByIdAndFormModelAsync(id, blogModel);
 

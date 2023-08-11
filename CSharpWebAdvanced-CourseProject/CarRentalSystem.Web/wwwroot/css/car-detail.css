@@ -1,4 +1,9 @@
-﻿.btn-sm-custom {
+﻿body {
+    min-height: 100vh !important;
+}
+
+
+.btn-sm-custom {
     font-size: 13px;
     padding: 11px 33px;
 }
@@ -24,9 +29,10 @@
     margin-top: 2.9rem;
     margin-left: 1rem;
 }
+
 .d-flex.flex-row {
     margin-top: 4rem;
-    margin-left:1rem;
+    margin-left: 1rem;
 }
 
 u {

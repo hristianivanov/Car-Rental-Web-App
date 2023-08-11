@@ -4,6 +4,7 @@
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+	using static Common.GeneralApplicationConstants;
 	public class RoleEntityConfiguration : IEntityTypeConfiguration<IdentityRole<Guid>>
 	{
 		public void Configure(EntityTypeBuilder<IdentityRole<Guid>> builder)
@@ -18,8 +19,8 @@
 				new IdentityRole<Guid>()
 				{
 					Id = Guid.Parse("eba1e76b-c6a4-4d55-96a1-af76b359c115"),
-					Name = "Master Administrator",
-					NormalizedName = "MASTER ADMINISTRATOR"
+					Name = $"{AdminAreaName}",
+					NormalizedName = $"{AdminRoleName.ToUpper()}"
 				}
 			};
 		}

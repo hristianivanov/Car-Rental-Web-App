@@ -615,7 +615,9 @@ namespace CarRentalSystem.Data.Migrations
                         {
                             Id = new Guid("eba1e76b-c6a4-4d55-96a1-af76b359c115"),
                             ConcurrencyStamp = "4276eecb-fc70-4889-aa82-30cc9502e360",
-                            Name = "Master Administrator",
+                            Name = "" +
+                                   "Master Administrator" +
+                                   "",
                             NormalizedName = "MASTER ADMINISTRATOR"
                         });
                 });

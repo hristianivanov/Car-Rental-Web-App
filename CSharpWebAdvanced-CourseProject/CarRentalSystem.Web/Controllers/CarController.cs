@@ -2,6 +2,7 @@
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.Extensions.Caching.Memory;
 
 	using Data.Models.Enums;
 	using CarRentalSystem.Services.Data.Interfaces;
@@ -13,7 +14,6 @@
 
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
-	using Microsoft.Extensions.Caching.Memory;
 
 	[Authorize]
 	public class CarController : Controller
@@ -22,6 +22,7 @@
 		private readonly IMakeService makeService;
 
 		private readonly IMemoryCache memoryCache;
+
 		public CarController(ICarService carService, IMakeService makeService,
 			IMemoryCache memoryCache)
 		{

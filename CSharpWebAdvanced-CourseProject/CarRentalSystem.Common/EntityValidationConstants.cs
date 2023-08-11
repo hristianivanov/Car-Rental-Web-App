@@ -69,15 +69,6 @@
 
 		}
 
-		public static class Address
-		{
-			public const int StreetMinLength = 3;
-			public const int StreetMaxLength = 255;
-
-			public const int ZipMinLength = 4;
-			public const int ZipMaxLength = 15;
-		}
-
 		public static class Contact
 		{
 			public const int EmailMinLength = 3;

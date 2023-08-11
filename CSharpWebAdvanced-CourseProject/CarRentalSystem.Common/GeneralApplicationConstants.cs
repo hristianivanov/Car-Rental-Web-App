@@ -9,7 +9,7 @@
 		public const int LastCarsInCarocel = 6;
 
 		public const string AdminAreaName = "Admin";
-		public const string AdminRoleName = "Master Administrator";
+		public const string AdminRoleName = "Admin";
 		public const string DevelopmentAdminEmail = "admin@gmail.com";
 
 		public const string UsersCacheKey = "UsersCache";

@@ -1,10 +1,9 @@
-﻿using CarRentalSystem.Data.Models;
-
-namespace CarRentalSystem.Services.Data
+﻿namespace CarRentalSystem.Services.Data
 {
 	using Microsoft.EntityFrameworkCore;
 
 	using CarRentalSystem.Data;
+	using CarRentalSystem.Data.Models;
 	using Interfaces;
 	using Web.ViewModels.Blog;
 
@@ -130,7 +129,7 @@ namespace CarRentalSystem.Services.Data
 				.FirstAsync(c => c.Id.ToString() == id);
 
 			return blog.IsActive
-			       && blog.CreaterId.ToString() == userId;
+				   && blog.CreaterId.ToString() == userId;
 		}
 	}
 }

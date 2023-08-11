@@ -318,7 +318,10 @@ namespace CarRentalSystem.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("eba1e76b-c6a4-4d55-96a1-af76b359c115"), "d4997cb0-1b83-46b6-8da1-e90834a12a00", "Master Administrator", "MASTER ADMINISTRATOR" });
+                values: new object[] { new Guid("eba1e76b-c6a4-4d55-96a1-af76b359c115"), "d4997cb0-1b83-46b6-8da1-e90834a12a00", "" +
+	                "Master Administrator" +
+	                "" +
+	                "", "MASTER ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",

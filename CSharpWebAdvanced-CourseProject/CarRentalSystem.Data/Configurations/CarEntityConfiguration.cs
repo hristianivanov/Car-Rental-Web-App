@@ -5,7 +5,6 @@
 
 	using Models;
 	using Models.Enums;
-	using static System.Net.WebRequestMethods;
 
 	public class CarEntityConfiguration : IEntityTypeConfiguration<Car>
 	{
@@ -145,6 +144,46 @@
 				Range = 293,
 				Safety = 3,
 				PassengerSeats = 5
+			});
+			cars.Add(new Car()
+			{
+				Id = Guid.Parse("65ee10ee-99dc-4265-b93a-ce5c5e954d63"),
+				MakeId = 7,
+				Model = "Camaro",
+				BodyType = BodyType.Coupe,
+				Transmission = Transmission.Manual,
+				Acceleration = 4,
+				Mileage = 10_531,
+				HorsePower = 638,
+				TopSpeed = 210,
+				Year = 2011,
+				Consumption = 26.32,
+				ImageUrl = "https://img.remediosdigitales.com/c661b4/2018-chevrolet-camaro-zl1-1le-001p/1366_2000.jpg",
+				EngineType = EngineType.Diesel,
+				PricePerDay = 530.99m,
+				Range = 503,
+				Safety = 5,
+				PassengerSeats = 2
+			});
+			cars.Add(new Car()
+			{
+				Id = Guid.Parse("3c5788d6-865f-456c-b23c-39c28cdfe131"),
+				MakeId = 8,
+				Model = "GT",
+				BodyType = BodyType.Coupe,
+				Transmission = Transmission.Auto,
+				Acceleration = 3.2,
+				Mileage = 22_931,
+				HorsePower = 428,
+				TopSpeed = 201,
+				Year = 2014,
+				Consumption = 29.32,
+				ImageUrl = "https://cdn.motor1.com/images/mgl/vxoL0b/s1/2022-ford-gt-64-heritage-edition-04.jpg",
+				EngineType = EngineType.Diesel,
+				PricePerDay = 201.59m,
+				Range = 302,
+				Safety = 4,
+				PassengerSeats = 2
 			});
 
 			return cars;
