@@ -47,12 +47,16 @@
 			return model;
 		}
 
-		//TODO:add test
 		public async Task<bool> IsUserHavePhoneNumber(string userId)
 		{
+			if (string.IsNullOrWhiteSpace(userId))
+			{
+				return false;
+			}
+
 			ApplicationUser? user = await this.context
 				.Users
-				.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+				.FirstOrDefaultAsync(u => u.Id.ToString().ToLower() == userId.ToLower());
 
 			if (user == null)
 			{

@@ -76,5 +76,33 @@
 			Assert.AreEqual("987654321", userViewModel2.PhoneNumber);
 		}
 
+		[TestCase("8a5edc49-7490-493f-2f01-08db8a416485")]
+		[TestCase("8A5EDC49-7490-493F-2F01-08DB8A416485")]
+		public async Task IsUserHavePhoneNumber_WhenUserExistsWithPhoneNumber_ShouldReturnTrue(string userId)
+		{
+			var result = await userService.IsUserHavePhoneNumber(userId);
+
+			Assert.IsTrue(result);
+		}
+
+		[Test]
+		public async Task IsUserHavePhoneNumber_WhenUserDoesNotHavePhoneNumber_ShouldReturnFalse()
+		{
+			var userId = "4e191a73-e8d4-462d-9803-0400812d86cf";
+
+			var result = await userService.IsUserHavePhoneNumber(userId);
+
+			Assert.IsFalse(result);
+		}
+
+		[TestCase("")]
+		[TestCase(" ")]
+		[TestCase("  ")]
+		public async Task IsUserHavePhoneNumber_WhenUserDoesNotExist_ShouldReturnFalse(string invalidUserId)
+		{
+			var result = await userService.IsUserHavePhoneNumber(invalidUserId);
+
+			Assert.IsFalse(result);
+		}
 	}
 }
