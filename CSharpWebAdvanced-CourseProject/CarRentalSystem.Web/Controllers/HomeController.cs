@@ -2,13 +2,15 @@
 {
 	using System.Net;
 	using System.Net.Mail;
+	using System.Web;
+
 	using Microsoft.AspNetCore.Mvc;
 
+	using ViewModels.Home;
 	using CarRentalSystem.Services.Data.Interfaces;
 	using Infrastructure.Extensions;
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
-	using ViewModels.Home;
 
 	public class HomeController : Controller
 	{
@@ -47,6 +49,11 @@
 		{
 			try
 			{
+				Name = HttpUtility.HtmlEncode(Name);
+				Email = HttpUtility.HtmlEncode(Email);
+				Subject = HttpUtility.HtmlEncode(Subject);
+				Message = HttpUtility.HtmlEncode(Message);
+
 				this.SendMail(Name, Email, Message, Subject);
 
 				this.TempData[SuccessMessage] = "The email was successfully sent!";
@@ -64,15 +71,14 @@
 
 		public void SendMail(string name, string email, string message, string subject)
 		{
-			var body = $"Name: {name}" + $"{Environment.NewLine}" +
-					   $"Message: {message}";
+			var encodedBody = HttpUtility.HtmlEncode($"Name: {name}{Environment.NewLine}Message: {message}");
 
 			var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
 			{
 				Credentials = new NetworkCredential("4afc6c39e638dd", "1eab87e41d5e8c"),
 				EnableSsl = true
 			};
-			client.Send(email, SiteEmail, subject, body);
+			client.Send(email, SiteEmail, subject, encodedBody);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
