@@ -88,9 +88,9 @@
 					.Where(c => c.Make.Name == queryModel.Make);
 			}
 
-			if (!string.IsNullOrWhiteSpace(queryModel.SearString))
+			if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
 			{
-				string wildCard = $"%{queryModel.SearString.ToLower()}%";
+				string wildCard = $"%{queryModel.SearchString.ToLower()}%";
 
 				carsQuery = carsQuery
 					.Where(c => EF.Functions.Like(c.Model, wildCard) ||
@@ -251,6 +251,7 @@
 				.Where(c => c.IsActive == isActive)
 				.FirstAsync(c => c.Id.ToString() == carId);
 
+			
 			car.Make.Name = formModel.Make;
 			car.Model = formModel.Model;
 			car.PricePerDay = formModel.PricePerDay;
@@ -297,7 +298,7 @@
 			await this.context.SaveChangesAsync();
 		}
 
-		public async Task DeleteCarByIdAsync(string carId)
+		public async Task SoftDeleteCarByIdAsync(string carId)
 		{
 			Car carToDelete = await this.context
 				.Cars

@@ -243,7 +243,7 @@
 					return RedirectToAction("All", "Car");
 				}
 
-				await carService.DeleteCarByIdAsync(id);
+				await carService.SoftDeleteCarByIdAsync(id);
 
 				TempData[WarningMessage] = "The car successfully deleted!";
 

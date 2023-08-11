@@ -32,8 +32,8 @@
 			</div>
 		</div>
 		<div class="form-group col-md-3">
-			<label asp-for="SearString"></label>
-			<input asp-for="SearString" class="form-control" placeholder="...">
+			<label asp-for="SearchString"></label>
+			<input asp-for="SearchString" class="form-control" placeholder="...">
 		</div>
 		<div class="form-group col-md-3">
 			<div class="form-group">
@@ -71,7 +71,7 @@
 		   asp-action="All"
 		   asp-route-currentPage="@previousPage"
 		   asp-route-make="@Model.Make"
-		   asp-route-searchTerm="@Model.SearString"
+		   asp-route-searchTerm="@Model.SearchString"
 		   asp-route-sorting="@((int)Model.CarSorting)"><<</a>
 	</div>
 	@{
@@ -83,7 +83,7 @@
 		   asp-action="All"
 		   asp-route-currentPage="@(Model.CurrentPage + 1)"
 		   asp-route-make="@Model.Make"
-		   asp-route-searchTerm="@Model.SearString"
+		   asp-route-searchTerm="@Model.SearchString"
 		   asp-route-sorting="@((int)Model.CarSorting)">>></a>
 	</div>
 </div>

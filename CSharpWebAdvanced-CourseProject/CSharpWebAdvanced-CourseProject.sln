@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Services.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Web.Infrastructure", "CarRentalSystem.Web.Infrastructure\CarRentalSystem.Web.Infrastructure.csproj", "{111BEF28-8DF8-4D5C-89C6-71F64FE5F2CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Services.Data.Models", "CarRentalSystem.Services.Data.Models\CarRentalSystem.Services.Data.Models.csproj", "{A932EA45-BF24-4244-9D1D-D6D163DC5C9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Services.Data.Models", "CarRentalSystem.Services.Data.Models\CarRentalSystem.Services.Data.Models.csproj", "{A932EA45-BF24-4244-9D1D-D6D163DC5C9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BC890F0E-070A-49B1-A9D6-D867C9711287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentingSystem.Services.Tests", "CarRentingSystem.Services.Tests\CarRentingSystem.Services.Tests.csproj", "{00BD6B7D-7D2E-484E-AC16-F986CFBB2B10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,10 @@ Global
 		{A932EA45-BF24-4244-9D1D-D6D163DC5C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A932EA45-BF24-4244-9D1D-D6D163DC5C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A932EA45-BF24-4244-9D1D-D6D163DC5C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00BD6B7D-7D2E-484E-AC16-F986CFBB2B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00BD6B7D-7D2E-484E-AC16-F986CFBB2B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00BD6B7D-7D2E-484E-AC16-F986CFBB2B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00BD6B7D-7D2E-484E-AC16-F986CFBB2B10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +83,7 @@ Global
 		{EC0B9123-976A-4C6B-BDCC-18AB921A49C0} = {4A36BA87-DC1E-4771-893D-9F221BF29907}
 		{111BEF28-8DF8-4D5C-89C6-71F64FE5F2CA} = {766CF6F0-F3C5-4BC9-B023-7E4432AE0942}
 		{A932EA45-BF24-4244-9D1D-D6D163DC5C9F} = {4A36BA87-DC1E-4771-893D-9F221BF29907}
+		{00BD6B7D-7D2E-484E-AC16-F986CFBB2B10} = {BC890F0E-070A-49B1-A9D6-D867C9711287}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F97215B4-DBEB-4DAF-B2F7-8ACF21562D82}

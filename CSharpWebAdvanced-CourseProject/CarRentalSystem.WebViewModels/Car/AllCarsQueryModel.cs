@@ -22,7 +22,7 @@
 
 		public string? Make { get; set; }
 		[Display(Name = "Search by word")]
-		public string? SearString { get; set; }
+		public string? SearchString { get; set; }
 		public string? Transmission { get; set; }
 		[Display(Name = "Sort Cars By")]
 		public CarSorting CarSorting { get; set; }

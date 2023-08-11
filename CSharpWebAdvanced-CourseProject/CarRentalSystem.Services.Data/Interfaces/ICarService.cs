@@ -17,7 +17,7 @@
 		Task EditCarByIdAndFormModelAsync(string carId, CarFormModel formModel, bool isActive = true);
 		Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId);
 		Task DeleteByIdAsync(string carId);
-		Task DeleteCarByIdAsync(string carId);
+		Task SoftDeleteCarByIdAsync(string carId);
 		Task<bool> IsRentedByIdAsync(string carId);
 		Task RentCarAsync(RentalFormView rentalForm, string userId);
 		Task<bool> IsRenterByUserWithIdAsync(string carId, string userId);
