@@ -1,17 +1,13 @@
-﻿using System.Net;
-
-namespace CarRentalSystem.Web.Controllers
+﻿namespace CarRentalSystem.Web.Controllers
 {
+	using System.Net;
+	using System.Net.Mail;
 	using Microsoft.AspNetCore.Mvc;
 
 	using CarRentalSystem.Services.Data.Interfaces;
+	using Infrastructure.Extensions;
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
-	using Infrastructure.Extensions;
-	using System.Net.Mail;
-	using Humanizer;
-	using NuGet.Protocol.Plugins;
-
 
 	public class HomeController : Controller
 	{
