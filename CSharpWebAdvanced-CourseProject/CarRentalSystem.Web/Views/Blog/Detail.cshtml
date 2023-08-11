@@ -1,5 +1,8 @@
 ﻿@model BlogDetailsViewModel
-
+@inject IBlogService BlogService
+@{
+	bool isCreatorOnPost = await BlogService.IsCreaterWithIdAsync(Model.Id, User.GetId()!);
+}
 <section class="self-drive-section pt-80 pb-50">
 	<div class="container container-box">
 		<div class="return-button-container">
@@ -8,7 +11,7 @@
 				<span class="tooltip-text">Go Back</span>
 			</a>
 		</div>
-		@if (this.User.IsInRole(AdminRoleName))
+		@if (this.User.IsInRole(AdminRoleName) || isCreatorOnPost)
 		{
 			<div class="edit-button-container">
 				<a asp-area="" asp-controller="Blog" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info edit-button">

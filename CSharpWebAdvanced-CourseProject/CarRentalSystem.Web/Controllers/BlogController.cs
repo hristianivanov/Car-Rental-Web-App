@@ -7,6 +7,7 @@
 	using ViewModels.Blog;
 
 	using static Common.NotificationMessagesConstants;
+	using CarRentalSystem.Services.Data;
 
 	public class BlogController : Controller
 	{
@@ -141,7 +142,18 @@
 
 					return RedirectToAction("All", "Blog");
 				}
-				//TODO: check if the currUser is the creator in order to edit it or is not admin
+
+				bool isAdmin = User.IsAdmin();
+				bool isCurrUserCreatorOfThePost = await blogService.IsCreaterWithIdAsync(id, User.GetId()!);
+
+				if (!isCurrUserCreatorOfThePost && !isAdmin)
+				{
+					TempData[ErrorMessage] =
+						"You must be the creator of the post in order to edit it!";
+
+					return RedirectToAction("All", "Blog");
+				}
+
 
 				await blogService.EditBlogByIdAndFormModelAsync(id, blogModel);
 
