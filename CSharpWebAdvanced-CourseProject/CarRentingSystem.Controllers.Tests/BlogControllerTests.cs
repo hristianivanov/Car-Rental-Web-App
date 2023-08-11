@@ -7,8 +7,6 @@ namespace CarRentingSystem.Controllers.Tests
 	using Services.Mocks;
 	using CarRentalSystem.Web.Controllers;
 	using CarRentalSystem.Web.ViewModels.Blog;
-	using CarRentalSystem.Services.Data.Interfaces;
-	using Moq;
 
 	public class BlogControllerTests
 	{
