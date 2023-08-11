@@ -7,7 +7,6 @@
 	using ViewModels.Blog;
 
 	using static Common.NotificationMessagesConstants;
-	using CarRentalSystem.Services.Data;
 
 	public class BlogController : Controller
 	{

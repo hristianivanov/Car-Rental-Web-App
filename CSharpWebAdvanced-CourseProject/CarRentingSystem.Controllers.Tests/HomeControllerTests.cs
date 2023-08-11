@@ -5,6 +5,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.AspNetCore.Http;
 
+	using Services.Mocks;
 	using CarRentalSystem.Web.Controllers;
 	using CarRentalSystem.Web.ViewModels.Home;
 
@@ -15,7 +16,7 @@
 
 		[OneTimeSetUp]
 		public void SetUp()
-			=>this.homeController = new HomeController(CarServiceMock.Instance);
+			=> this.homeController = new HomeController(CarServiceMock.Instance);
 
 		[TestCase(404)]
 		[TestCase(401)]
@@ -83,7 +84,7 @@
 			var result = await homeController.Index();
 
 			var viewResult = result as ViewResult;
-			
+
 			Assert.NotNull(viewResult);
 			Assert.AreEqual(expectedViewModel, viewResult.Model);
 		}

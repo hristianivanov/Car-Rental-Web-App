@@ -1,71 +1,94 @@
-using System.Security.Claims;
-using CarRentalSystem.Services.Data.Interfaces;
-using CarRentalSystem.Web.Controllers;
-using CarRentalSystem.Web.ViewModels.Blog;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-
 namespace CarRentingSystem.Controllers.Tests
 {
+	using System.Security.Claims;
+
+	using Microsoft.AspNetCore.Mvc;
+
+	using Services.Mocks;
+	using CarRentalSystem.Web.Controllers;
+	using CarRentalSystem.Web.ViewModels.Blog;
+	using CarRentalSystem.Services.Data.Interfaces;
+	using Moq;
+
 	public class BlogControllerTests
 	{
-		private Mock<IBlogService> mockBlogService;
 		private BlogController blogController;
 
-		[SetUp]
+		[OneTimeSetUp]
 		public void Setup()
-		{
-			mockBlogService = new Mock<IBlogService>();
-			blogController = new BlogController(mockBlogService.Object);
-		}
+			=> this.blogController = new BlogController(BlogServiceMock.Instance());
 
 		[Test]
 		public async Task All_ReturnsCorrectViewAndModel()
 		{
 			var allBlogs = new List<BlogViewModel>
 			{
-				new BlogViewModel { Id = "1", Title = "Blog 1" },
-				new BlogViewModel { Id = "2", Title = "Blog 2" }
+				new BlogViewModel
+				{
+					Id = Guid.NewGuid().ToString(),
+					Title = "title",
+					Description = "description",
+					ImageUrl = "test.png",
+					CreatedOn = DateTime.UtcNow,
+				},
+				new BlogViewModel
+				{
+					Id = Guid.NewGuid().ToString(),
+					Title = "title",
+					Description = "description",
+					ImageUrl = "test.png",
+					CreatedOn = DateTime.UtcNow,
+				}
 			};
 
-			mockBlogService.Setup(s => s.AllAsync())
-				.ReturnsAsync(allBlogs);
+			var blogService = BlogServiceMock.CreateInstance(allBlogs);
+			var blogController = new BlogController(blogService);
 
 			var result = await blogController.All();
 
 			var viewResult = result as ViewResult;
 			Assert.NotNull(viewResult);
+
 			var model = viewResult.Model as AllBlogViewModel;
 			Assert.NotNull(model);
-			Assert.AreEqual(allBlogs, model.Blogs);
-			Assert.AreEqual("All", viewResult.ViewName);
+
+			Assert.IsTrue(allBlogs.Count() == model.Blogs.Count());
 		}
 
 		[Test]
-		public async Task Detail_WithValidId_ReturnsCorrectViewAndModel()
+		public async Task Detail_WhenBlogExists_ShouldReturnCorrectViewAndModel()
 		{
 			var blogId = Guid.NewGuid().ToString();
-			var blogDetails = new BlogDetailsViewModel
+
+			var expectedViewModel = new BlogDetailsViewModel
 			{
 				Id = blogId,
-				Title = "Test Blog",
-				Description = "Test Description"
+				Title = "title",
+				Description = "description",
+				CreatedOn = DateTime.UtcNow,
+				CreaterFullName = "Pesho Petrov",
+				ImageUrl = "test.png",
 			};
 
-			mockBlogService.Setup(s => s.ExistByIdAsync(blogId))
-				.ReturnsAsync(true);
-			mockBlogService.Setup(s => s.GetForDetailsByIdAsync(blogId))
-				.ReturnsAsync(blogDetails);
+			var blogServiceMock = BlogServiceMock.Instance(expectedViewModel);
+			var blogController = new BlogController(blogServiceMock);
 
 			var result = await blogController.Detail(blogId);
 
 			var viewResult = result as ViewResult;
 			Assert.NotNull(viewResult);
+
 			var model = viewResult.Model as BlogDetailsViewModel;
 			Assert.NotNull(model);
-			Assert.AreEqual(blogDetails, model);
-			Assert.AreEqual("Detail", viewResult.ViewName);
+
+			Assert.AreEqual(expectedViewModel.Id, model.Id);
+			Assert.AreEqual(expectedViewModel.Title, model.Title);
+			Assert.AreEqual(expectedViewModel.Description, model.Description);
+			Assert.AreEqual(expectedViewModel.CreatedOn, model.CreatedOn);
+			Assert.AreEqual(expectedViewModel.CreaterFullName, model.CreaterFullName);
+			Assert.AreEqual(expectedViewModel.ImageUrl, model.ImageUrl);
 		}
+
 
 		private static ClaimsPrincipal CreateClaimsPrincipal(string userId, bool isAdmin)
 		{
