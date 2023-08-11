@@ -8,6 +8,7 @@
 	using Infrastructure.Extensions;
 	using static Common.GeneralApplicationConstants;
 	using static Common.NotificationMessagesConstants;
+	using ViewModels.Home;
 
 	public class HomeController : Controller
 	{
@@ -26,14 +27,14 @@
 				return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
 			}
 
-			var viewModel = await this.carService.LastCarsAsync(LastCarsInCarocel);
+			IEnumerable<IndexViewModel> viewModel = await this.carService.LastCarsAsync(LastCarsInCarocel);
 
 			return View(viewModel);
 		}
 
 		public IActionResult About()
 		{
-			return View();
+			return this.View();
 		}
 
 		public IActionResult Contact()
