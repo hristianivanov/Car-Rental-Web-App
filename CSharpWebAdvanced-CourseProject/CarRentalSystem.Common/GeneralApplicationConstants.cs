@@ -19,5 +19,9 @@
 
 		public const string OnlineUsersCookieName = "IsOnline";
 		public const int LastActivityBeforeOfflineMinutes = 10;
+
+		public const string SiteAddress = "Samara 25 , 6180 Maglizh";
+		public const string SiteEmail = "site_test@gmail.com";
+		public const string SitePhoneNumber = "0898785391";
 	}
 }

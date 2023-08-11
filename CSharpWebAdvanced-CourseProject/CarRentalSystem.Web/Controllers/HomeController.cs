@@ -1,10 +1,17 @@
-﻿namespace CarRentalSystem.Web.Controllers
+﻿using System.Net;
+
+namespace CarRentalSystem.Web.Controllers
 {
 	using Microsoft.AspNetCore.Mvc;
 
-    using CarRentalSystem.Services.Data.Interfaces;
-    using static Common.GeneralApplicationConstants;
+	using CarRentalSystem.Services.Data.Interfaces;
+	using static Common.GeneralApplicationConstants;
+	using static Common.NotificationMessagesConstants;
 	using Infrastructure.Extensions;
+	using System.Net.Mail;
+	using Humanizer;
+	using NuGet.Protocol.Plugins;
+
 
 	public class HomeController : Controller
 	{
@@ -13,6 +20,7 @@
 		public HomeController(ICarService carService)
 		{
 			this.carService = carService;
+
 		}
 
 		public async Task<IActionResult> Index()
@@ -32,10 +40,42 @@
 			return View();
 		}
 
-		
 		public IActionResult Contact()
 		{
-			return View();
+			return this.View();
+		}
+
+		[HttpPost]
+		public IActionResult Contact(string Name, string Email, string Subject, string Message)
+		{
+			try
+			{
+				this.SendMail(Name, Email, Message, Subject);
+
+				this.TempData[SuccessMessage] = "The email was successfully sent!";
+			}
+			catch (Exception)
+			{
+				TempData[ErrorMessage] = "Unexpected error occurred!";
+
+				return RedirectToAction("Contact", "Home", new { Name, Email, Subject, Message });
+			}
+			this.TempData[SuccessMessage] = "Message sent!";
+
+			return RedirectToAction("Contact", "Home");
+		}
+
+		public void SendMail(string name, string email, string message, string subject)
+		{
+			var body = $"Name: {name}" + $"{Environment.NewLine}" +
+					   $"Message: {message}";
+
+			var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+			{
+				Credentials = new NetworkCredential("4afc6c39e638dd", "1eab87e41d5e8c"),
+				EnableSsl = true
+			};
+			client.Send(email, SiteEmail, subject, body);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
