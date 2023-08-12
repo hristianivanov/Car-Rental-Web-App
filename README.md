@@ -37,6 +37,16 @@ To start using the "Car Rental System" project, follow these steps:
 4. **Configure Email Sending:**
    - In the `Contact` page of the project, the email sending functionality uses Mailtrap for testing purposes. To use your own Mailtrap credentials, modify the `SendMail` method in the code to replace the placeholder values with your actual Mailtrap credentials.
 
+5. **Start the Project:** Once the databases are updated, you can start the project. 
+
+**Admin Profile:**
+- Email: admin@gmail.com
+- Password: admin
+
+**Common User Profile:**
+- Email: defi@gmail.com
+- Password: 123456
+  
 <details>
   <summary><h2>Optional</h2></summary>
 
@@ -54,16 +64,6 @@ To start using the "Car Rental System" project, follow these steps:
   3. Change the value from "Development" to "Production."
 </details>
 
-5. **Start the Project:** Once the databases are updated, you can start the project. 
-
-**Admin Profile:**
-- Email: admin@gmail.com
-- Password: admin
-
-**Common User Profile:**
-- Email: defi@gmail.com
-- Password: 123456
-  
 
 ## Contributing
 
