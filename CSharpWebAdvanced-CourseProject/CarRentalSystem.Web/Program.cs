@@ -21,7 +21,7 @@ namespace CarRentalSystem.Web
 			var connectionString =
 				builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 			var testAreaConnString =
-				builder.Configuration.GetConnectionString("Test") ?? throw new InvalidOperationException("Connection string 'Test' not found.");
+				builder.Configuration.GetConnectionString("ServiceAreaConnection") ?? throw new InvalidOperationException("Connection string 'ServiceAreaConnection' not found.");
 
 			builder.Services.AddDbContext<CarRentingDbContext>(options =>
 				options.UseSqlServer(connectionString));
