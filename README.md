@@ -58,4 +58,4 @@ Contributions to this project are welcome. If you identify any bugs, security vu
 
 ## Credits
 
-This project is developed and maintained by [Your Name]. It was created as a part of the ASP.NET Advanced course at SoftUni.
+This project is developed and maintained by Hristian Ivanov. It was created as a part of the ASP.NET Advanced course at SoftUni.
