@@ -14,13 +14,9 @@ The "Car Rental System" is a comprehensive and interactive web application desig
 
 - **Booking and Reservations:** Users can seamlessly book vehicles for specific dates, review their reservations, and manage their bookings through a streamlined process.
 
-- **Authentication and Security:** The application employs robust authentication mechanisms to ensure secure user access and protect sensitive data.
-
 - **Admin Dashboard:** Admin users have access to a dedicated dashboard that enables them to manage the vehicle catalog, user accounts, reservations, and overall system settings.
 
 - **Responsive Design:** The application is designed to be responsive, ensuring optimal user experience across various devices, including desktops, tablets, and smartphones.
-
-- **Interactive Maps:** Location services provide users with a visual representation of vehicle pickup points, enhancing the overall user experience.
 
 ## Purpose
 
