@@ -1,4 +1,4 @@
-# SoftUni-WebProject: Car Rental System
+# SoftUni-WebProject : Car Rental System
 
 Welcome to the "Car Rental System" – a dynamic web application developed as part of the ASP.NET Advanced course at SoftUni.
 
