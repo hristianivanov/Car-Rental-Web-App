@@ -67,8 +67,4 @@ Feel free to explore the codebase by cloning or downloading this repository. Thi
 
 ## Contributing
 
-Contributions to this project are welcome. If you identify any bugs, security vulnerabilities, or have suggestions for enhancements, please feel free to open an issue or submit a pull request.
-
-## Credits
-
-This project is developed and maintained by Hristian Ivanov. It was created as a part of the ASP.NET Advanced course at SoftUni.
+Contributions to this project are welcome. If you identify any bugs, security vulnerabilities, or have suggestions for enhancements, please feel free to open an issue or submit a pull 
