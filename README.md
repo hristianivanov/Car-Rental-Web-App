@@ -1,71 +1,174 @@
-# SoftUni-WebProject :  Car Rental System
+<div align="center">
 
+[![Build and test][ci-img]][ci-url]
+[![Stars][stars-img]][stars-url]
+[![Forks][forks-img]][forks-url]
 
-"Car Rental System" – a dynamic web application developed as part of the ASP.NET Advanced course at SoftUni.
+</div>
 
-## Overview
+</br>
 
-The "Car Rental System" is a comprehensive and interactive web application designed to showcase the principles and capabilities of ASP.NET. With a primary focus on educational and demonstrative purposes, this project demonstrates the utilization of modern web development technologies and best practices.
+![Car rental system
+](docs/brandbird-chrome.png)
 
-## Key Features
+<div align="center">
 
-- **User-Friendly Interface:** The system provides an intuitive and user-friendly interface that enables users to easily browse, search, and rent vehicles.
+# Car Rental System — **Vehicle Rental Platform**
 
-- **Vehicle Catalog:** A rich catalog showcases a diverse range of vehicles available for rent. Users can view detailed information about each vehicle, including specifications, images, and rental pricing.
+Layered **ASP.NET MVC** application for browsing, booking, and managing rental vehicles
 
-- **Booking and Reservations:** Users can seamlessly book vehicles for specific dates, review their reservations, and manage their bookings through a streamlined process.
+built with **Clean separation of concerns** across data, services, and presentation
 
-- **Admin Dashboard:** Admin users have access to a dedicated dashboard that enables them to manage the vehicle catalog, user accounts, reservations, and overall system settings.
+and a dedicated **Admin area** for catalog, user, and reservation management.
 
-- **Responsive Design:** The application is designed to be responsive, ensuring optimal user experience across various devices, including desktops, tablets, and smartphones.
+</div>
 
-## Purpose
+</br>
 
-The primary purpose of this project is to serve as a learning resource for those interested in ASP.NET web development. By dissecting the code, exploring the project structure, and studying the implemented features, developers can gain valuable insights into creating dynamic web applications.
+## Quick Highlights
 
-## How to Start the Project
+| Area           | Details                                                                            |
+| -------------- | ----------------------------------------------------------------------------------- |
+| Catalog        | Searchable, paginated, filterable vehicle listing by make, model, and category      |
+| Bookings       | End-to-end rent flow — availability check, reservation, and rental history          |
+| Admin Area     | Dedicated `/Admin` area for car, make, user, and rental management                  |
+| Service Area   | Isolated `/Service` area with its own `ServiceDbContext` for garage/service records |
+| Architecture   | Layered — Common / Data / Data.Models / Services.Data / WebViewModels / Web         |
+| Auth           | ASP.NET Identity with role-based access (Admin vs. regular user)                    |
 
-To start using the "Car Rental System" project, follow these steps:
+</br>
 
-1. **Clone the Repository:** Begin by cloning this repository to your local machine.
+## Tech Stack
 
-2. **Set Startup Project:** Open the solution in Visual Studio. Set the startup project to "CarRentalSystem.Web" located in the Web folder.
+| Area      | Technologies                                                                                        |
+| --------- | ---------------------------------------------------------------------------------------------------- |
+| Backend   | ![.NET 6][badge-dotnet] ![ASP.NET Core MVC][badge-aspnet] ![C#][badge-csharp]                        |
+| Data      | ![EF Core][badge-efcore] ![SQL Server][badge-sqlserver]                                              |
+| Auth      | ![ASP.NET Identity][badge-identity]                                                                  |
+| Frontend  | ![Bootstrap][badge-bootstrap] ![jQuery][badge-jquery]                                                |
+| Testing   | ![NUnit][badge-nunit] ![Moq][badge-moq]                                                              |
 
-3. **Update Databases:**
-   - For the Data Database, open the Package Manager Console and set the default project to "Data\CarRentalSystem.Data". Execute the following command: `update-database -context CarRentingDbContext`.
-   - For the Service Database, set the default project to "Web\CarRentalSystem.Web" and run the command: `update-database -context ServiceDbContext`.
+</br>
 
-5. **Start the Project:** Once the databases are updated, you can start the project. 
+## Project Architecture
 
-**Admin Profile:**
-- Email: admin@gmail.com
-- Password: admin
+</br>
 
-**Common User Profile:**
-- Email: defi@gmail.com
-- Password: 123456
-  
+> [!NOTE]
+> The solution follows a **layered architecture** — domain models, data access, and business services are split into
+> independent class libraries, kept clear of any web/UI concerns.
+> **`CarRentalSystem.Web`** references only the service and view-model layers, never `Data` directly.
+> **Admin** and **Service** are self-contained MVC **Areas**, each with their own controllers and views.
+
+| Project                              | Responsibility                                             |
+| ------------------------------------- | ----------------------------------------------------------- |
+| `CarRentalSystem.Common`              | Shared constants (roles, messages, app-wide values)         |
+| `CarRentalSystem.Data.Models`         | EF Core entities and enums (`BodyType`, `EngineType`, ...)  |
+| `CarRentalSystem.Data`                | `CarRentingDbContext`, entity configurations, migrations    |
+| `CarRentalSystem.Services.Data.Models`| Service-layer DTOs (e.g. paged/filtered car results)        |
+| `CarRentalSystem.Services.Data`       | Business logic — car, make, user, and rent services         |
+| `CarRentalSystem.WebViewModels`       | MVC view models grouped by feature (Car, User, Rent, Blog)  |
+| `CarRentalSystem.Web.Infrastructure`  | Extension methods, middlewares, custom model binders        |
+| `CarRentalSystem.Web`                 | MVC entry point, controllers, Razor views, `Admin`/`Service` areas |
+
+</br>
+
+## Main Areas & Routes
+
+| Controller                    | Route              | Description                                     |
+| ------------------------------ | ------------------ | ------------------------------------------------ |
+| `HomeController`               | `/`                 | Landing page                                     |
+| `CarController`                | `/Car/All`          | Browse, filter, and paginate the vehicle catalog |
+| `CarController`                | `/Car/Add`          | Add a new vehicle *(Admin only)*                 |
+| `UserController`               | `/User`             | Registration, login, profile, rental history     |
+| `BlogController`                | `/Blog`             | Blog listing and article pages                   |
+| `Admin/CarController`          | `/Admin/Car`        | Manage vehicle catalog                           |
+| `Admin/RentController`         | `/Admin/Rent`       | Manage active and past rentals                   |
+| `Admin/UserController`         | `/Admin/User`       | Manage user accounts and roles                   |
+| `Service/ServiceController`    | `/Service`          | Garage/service-area record management            |
+
+</br>
+
+## Local Setup
+
+> [!IMPORTANT]
+> - [x] **.NET 6 SDK**
+> - [x] **SQL Server** *(LocalDB or a full instance)*
+> - [x] **Visual Studio 2022** *or another IDE with .NET 6 + EF Core tooling*
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/hristianivanov/Car-Rental-Web-App.git
+```
+
+**2. Open the solution**
+
+Open `CSharpWebAdvanced-CourseProject.sln` and set **`CarRentalSystem.Web`** as the startup project.
+
+**3. Apply the migrations**
+
+The app uses two separate databases — apply migrations for each context from the Package Manager Console:
+
+```powershell
+# Default project: CarRentalSystem.Data
+Update-Database -Context CarRentingDbContext
+
+# Default project: CarRentalSystem.Web
+Update-Database -Context ServiceDbContext
+```
+
+**4. Run the project**
+
+Start debugging from Visual Studio, or:
+
+```powershell
+dotnet run --project CSharpWebAdvanced-CourseProject/CarRentalSystem.Web
+```
+
 <details>
-  <summary><h2>Optional</h2></summary>
+<summary><strong>Seeded accounts</strong></summary>
 
-  ### Contact
+| Role  | Email               | Password |
+| ----- | ------------------- | -------- |
+| Admin | admin@gmail.com      | admin    |
+| User  | defi@gmail.com       | 123456   |
 
-  If you encounter any issues related to email sending functionality, please note that the project is set up to use the Mailtrap service for testing purposes. You can configure the email sending by modifying the `SendMail` method in the `Contact` page's code. Replace the placeholder values with your own Mailtrap credentials.
-
-  ### Switch to Production Environment for Custom Error Pages
-
-  To view custom error pages, switch the project to the production environment. Custom error pages provide a more user-friendly experience by displaying informative messages when errors occur.
-
-  To switch to the production environment:
-  1. Right-click on the "CarRentalSystem.Web" project and select "Properties."
-  2. Under the "Debug" section, find the "Environment variables" setting.
-  3. Change the value from "Development" to "Production."
 </details>
 
-## Usage
+<details>
+<summary><strong>Optional — email sending</strong></summary>
 
-Feel free to explore the codebase by cloning or downloading this repository. This project provides an excellent hands-on learning experience for understanding ASP.NET concepts, database integration, user authentication, and building interactive web applications.
+Contact-form emails are sent through **Mailtrap** for testing. Update the `SendMail` method on the `Contact` page with your own Mailtrap credentials to enable it.
 
-## Contributing
+</details>
 
-Contributions to this project are welcome. If you identify any bugs, security vulnerabilities, or have suggestions for enhancements, please feel free to open an issue or submit a pull 
+
+## Give a Star ⭐
+
+If you find this project useful, please consider giving it a star — it helps others discover it!
+
+<!---------------------------------- LINKS ------------------------------------->
+
+[badge-dotnet]:    https://img.shields.io/badge/.NET_6-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
+[badge-aspnet]:    https://img.shields.io/badge/ASP.NET_Core_MVC-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
+[badge-csharp]:    https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white
+[badge-efcore]:    https://img.shields.io/badge/EF_Core-68217A?style=for-the-badge&logo=dotnet&logoColor=white
+[badge-sqlserver]: https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white
+[badge-identity]:  https://img.shields.io/badge/ASP.NET_Identity-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
+[badge-bootstrap]: https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white
+[badge-jquery]:    https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[badge-nunit]:     https://img.shields.io/badge/NUnit-7B3F00?style=for-the-badge&logo=nunit&logoColor=white
+[badge-moq]:       https://img.shields.io/badge/Moq-3178C6?style=for-the-badge
+
+[license-img]: https://img.shields.io/github/license/hristianivanov/Car-Rental-Web-App
+[license-url]: https://github.com/hristianivanov/Car-Rental-Web-App/blob/main/LICENSE
+
+[ci-img]: https://github.com/hristianivanov/Car-Rental-Web-App/actions/workflows/dotnet.yml/badge.svg
+[ci-url]: https://github.com/hristianivanov/Car-Rental-Web-App/actions/workflows/dotnet.yml
+
+[stars-img]: https://img.shields.io/github/stars/hristianivanov/Car-Rental-Web-App
+[stars-url]: https://github.com/hristianivanov/Car-Rental-Web-App/stargazers
+
+[forks-img]: https://img.shields.io/github/forks/hristianivanov/Car-Rental-Web-App
+[forks-url]: https://github.com/hristianivanov/Car-Rental-Web-App/network/members

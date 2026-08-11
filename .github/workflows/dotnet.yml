@@ -1,0 +1,31 @@
+name: Build and test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore
+      run: dotnet restore CSharpWebAdvanced-CourseProject/CSharpWebAdvanced-CourseProject.sln
+
+    - name: Build
+      run: dotnet build CSharpWebAdvanced-CourseProject/CSharpWebAdvanced-CourseProject.sln --no-restore --configuration Release
+
+    - name: Test - Services
+      run: dotnet test CSharpWebAdvanced-CourseProject/CarRentingSystem.Services.Tests/CarRentingSystem.Services.Tests.csproj --no-build --no-restore --configuration Release
+
+    - name: Test - Controllers
+      run: dotnet test CSharpWebAdvanced-CourseProject/CarRentingSystem.Controllers.Tests/CarRentingSystem.Controllers.Tests.csproj --no-build --no-restore --configuration Release
